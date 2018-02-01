@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data>
+
+	<report
+	    id="report_purchase_order"
+	    string="Purchase Order"
+	    model="prakruti.purchase_order"
+	    report_type="qweb-pdf"
+	    name="prakruti.report_prakruti_gst_purchase_order_template"
+	/>
+        
+
+	<report
+	    id="report_purchase_invoice"
+	    string="Purchase Invoice"
+	    model="prakruti.purchase_invoice"
+	    report_type="qweb-pdf"
+	    name="prakruti.report_prakruti_gst_purchase_invoice_template"
+	/>
+        <report
+	    id="report_purchase_order_quotation"
+	    string="Purchase Quotation"
+	    model="prakruti.purchase_order_quotation"
+	    report_type="qweb-pdf"
+	    name="prakruti.report_prakruti_gst_purchase_quotation_template"
+	/>  
+        
+        
+        <report
+	    id="report_purchase_requistion"
+	    string="Purchase Requistion"
+	    model="prakruti.purchase_requisition"
+	    report_type="qweb-pdf"
+	    name="prakruti.report_purchaserequistion"
+	/>
+        
+        
+         <report
+	    id="report_meterial_requistion_issue_slip"
+	    string="Material Requistion"
+	    model="prakruti.store_issue"
+	    report_type="qweb-pdf"
+	    name="prakruti.report_meterial_requistion_issue"
+	/>
+         
+         <report
+	    id="report_goods_recieved_note"
+	    string="Goods Recieved Note"
+	    model="prakruti.grn_inspection_details"
+	    report_type="qweb-pdf"
+	    name="prakruti.report_grn"
+	/>
+         
+         <report
+	    id="report_purchase_return_items"
+	    string="Material Rejection Note"
+	    model="prakruti.return_items"
+	    report_type="qweb-pdf"
+	    name="prakruti.report_material_rejection_note"
+	/>
+         
+         <report auto="False" 
+	    id="report_store_issue"
+	    string="Delivery Challan"
+	    model="prakruti.store_issue"
+	    report_type="qweb-pdf"
+	    name="prakruti.report_delivery_challan" 
+            menu="False"
+	/>
+        
+         <report
+	    id="report_materialoutward_note"
+	    string="Material Outward Note"
+	    model="prakruti.material_outward_note"
+	    report_type="qweb-pdf"
+	    name="prakruti.report_material_outward_n_document"
+	/>
+	  <report
+            id="report_sales_inquiry"
+	    string="Sales Inquiry"
+	    model="prakruti.sales_inquiry"
+	    report_type="qweb-pdf"
+	    name="prakruti.report_salesinquiry"
+        /> 
+            <report
+            id="report_salesquotation"
+	    string="Sales Quotation"
+	    model="prakruti.sales_quotation"
+	    report_type="qweb-pdf"
+	    name="prakruti.report_prakruti_gst_sales_quotation_template"
+        /> 
+            <report
+            id="report_salesorder"
+	    string="Sales Order"
+	    model="prakruti.sales_order"
+	    report_type="qweb-pdf"
+            name="prakruti.report_prakruti_gst_sales_order_template"
+                
+        /> 
+            <report
+            id="report_sales_production_slip"
+	    string="Production Slip"
+	    model="prakruti.production_slip"
+	    report_type="qweb-pdf"
+            name="prakruti.report_prakruti_production_slip"
+                
+        /> 
+            <report
+            id="report_sales_proformainvoice"
+	    string="Sales Proforma Invoice"
+	    model="prakruti.sales_proforma_invoice"
+	    report_type="qweb-pdf"
+            name="prakruti.report_prakruti_gst_sales_proforma_invoice_template"
+        />
+            
+            
+            <report  
+            id="report_salesinvoice_local" 
+            model="prakruti.sales_invoice" 
+            name="prakruti.report_prakruti_gst_sales_local_invoice_template" 
+            xml="prakruti/gst/report_prakruti_gst_sales_local_invoice_template.xml"
+            report_type="qweb-pdf"
+            string="Local Invoice"
+            menu = "False" 
+            />
+            
+             <report   
+            id="report_salesinvoice_export" 
+            model="prakruti.sales_invoice" 
+            name="prakruti.report_prakruti_gst_sales_export_invoice_template"
+            report_type="qweb-pdf"      
+            string="Export Invoice"
+            menu = "False"
+            />
+            
+         <report
+            id="report_gatepass_1"
+	    string="Gate Pass"
+	    model="prakruti.gate_pass"
+	    report_type="qweb-pdf"
+            name="prakruti.report_gate_pass_1"
+        />
+         
+         
+          <report
+	    id="report_prakruti_storerequest"
+	    string="Store Requistion"
+	    model="prakruti.store_request"
+	    report_type="qweb-pdf"
+	    name="prakruti.report_store_request"
+	/>
+          
+          <report
+            id="report_manual_gatepass"
+	    string="Manual Gate Pass"
+	    model="prakruti.gate_pass_manual"
+	    report_type="qweb-pdf"
+            name="prakruti.report_gate_pass_manual_1"
+        />
+           <report
+            id="report_finished_product_specification"
+	    string="Finished Product Specification"
+	    model="product.specification.main"
+	    report_type="qweb-pdf"
+            name="prakruti.report_specifications6"
+        /> 
+           <report
+            id="report_all_product_details"
+	    string="All Product Details"
+	    model="prakruti.stock_adjustments"
+	    report_type="qweb-pdf"
+            name="prakruti.report_all_products"
+        /> 
+    </data>
+</openerp>
+

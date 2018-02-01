@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <!--     Search View for Purchase Requisition Approval-->
+        <record model="ir.ui.view" id="view_prakruti_purchase_requisition_approve_search">
+            <field name="name">prakruti.purchase_requisition_approve.search</field>
+            <field name="model">prakruti.purchase_requisition_approve</field>
+            <field name="arch" type="xml">
+                <search string="Product Wise Search">
+                    <field name="product_id"/>
+                    <field name ="requisition_no"/>
+                    <field name ="purchase_type"/>
+                    <field name ="to_name" />
+                    <field name ="prepared_by" />
+                    <field name ="approved_by" />      
+                    <field name ="state"/>
+                </search>
+            </field>
+        </record>
+        
+        <!--     Tree View for Purchase Requisition Approval-->
+        <record id="view_purchase_requisition_approve_tree" model="ir.ui.view">
+            <field name="name">prakruti.purchase_requisition_approve</field>
+            <field name="model">prakruti.purchase_requisition_approve</field>
+            <field name="arch" type="xml">
+                <tree string = "Purchase Requisition" create="false" colors="green:state =='confirm';red:state =='rejected';">
+                    <field name ="requisition_no"/>
+                    <field name ="requisition_date"/>
+                    <field name ="purchase_type"/>
+                    <field name ="to_name" />
+                    <field name ="prepared_by" />
+                    <field name ="approved_by" />
+                    <field name ="approved_date"/>      
+                    <field name ="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!--     Tree View for Purchase Requisition Approval Product Line-->
+        <record model="ir.ui.view" id="view_purchase_requisition_approve_line_tree">
+            <field name="name">prakruti.purchase_requisition_approve_line.tree</field>
+            <field name="model">prakruti.purchase_requisition_approve_line</field>	
+            <field name="arch" type="xml" >
+                <tree string="Product details"  editable="bottom" create="false" delete="false" >
+                    <field name='product_id' on_change="onchange_product_id(product_id)" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True,'limit': 10}" domain="[ ('group_ref','=',parent.purchase_type)]" attrs="{'readonly':[('revise_req_approve_line', 'in', (0,2))]}"/>
+                    <field name="uom_id" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True,'limit': 10}" attrs="{'readonly':[('revise_req_approve_line', 'in', (0,2))]}"/>
+                    <field name="description" attrs="{'readonly':[('revise_req_approve_line', 'in', (0,2))]}"/>
+                    <field name="quantity_req" attrs="{'readonly':[('revise_req_approve_line', '=', (2))]}"/>
+                    <field name="quantity" attrs="{'readonly':[('revise_req_approve_line', '=', (2))]}"/>
+                    <field name="stock_on_pr_date_ref"/>
+                    <field name="suggested_packing_size" attrs="{'readonly':[('revise_req_approve_line', '=', (2))]}"/>
+                    <field name="required_date" attrs="{'readonly':[('revise_req_approve_line', 'in', (0,2))]}"/>
+                    <field name="specification_id" options="{'no_create': True,'no_create_edit' : True}" domain="['&amp;',('product_id','=',product_id),'|',('specification_purchase_status','=',True),('common_specification','=',True)]" attrs="{'readonly':[('revise_req_approve_line', '=', (2))]}"/>
+                    <field name="last_purchase_date"/>
+                    <field name="last_purchase_vendor_id" domain="[ ('supplier','=',True)]" invisible= "True"/>
+                    <field name="last_price" invisible= "True"/> 
+                    <field name="status" attrs="{'readonly':[('revise_req_approve_line', 'in', (0,2))]}"/>
+                    <field name="remarks" attrs="{'readonly':[('revise_req_approve_line', '=', (2))]}"/>
+                    <field name='hsn_code' invisible="True"/>
+                    <field name='revise_req_approve_line' invisible="True"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!--     Form View for Purchase Requisition Approval-->
+        <record id="view_purchase_requisition_approve_form" model="ir.ui.view">
+            <field name="name">prakruti.purchase_requisition_approve.form</field>
+            <field name="model">prakruti.purchase_requisition_approve</field>
+            <field name="arch" type="xml">
+                <form string = "Purchase Requisition" create="false">
+                    <header position="inside">  
+                        <button name="action_approve_analysis" string="Done" type="object" attrs="{'invisible':[('state', 'in', ('requisition_analysis','request','quotation', 'analysis','order','confirm','rejected','partially_approved'))]}"/>
+                        <button name="action_reject" string="Reject" type="object" groups="prakruti.group_purchase_rejection_management,base.group_no_one" attrs="{'invisible':[('state', 'in', ('requisition_analysis','request','quotation', 'analysis','order','confirm','rejected','partially_approved'))]}"/>  
+                        <field name='state' widget='statusbar'/>
+                    </header>
+                    <group string = "Purchase Requisition Approve"/>
+                    <button name="revise_requisition" string="Is Revision Required ?" type="object" class="oe_highlight" attrs="{'invisible':['|',('state', 'not in',('approve')),('revise_status', 'in', ('revise_requisition'))]}"/>                                         
+                    <button name="revise_done" string="Revise Done" type="object" class="oe_highlight" attrs="{'invisible':[('revise_status', 'not in', ('revise_requisition'))]}"/>
+                    <field name='revise_status' widget='statusbar' attrs="{'invisible':[('is_revise', '=', False)]}"/>
+                    <group colspan="2" col="6">
+                        <field name ="is_revise" attrs="{'invisible':[('is_revise', '=', False)]}"/>
+                        <field name ="revise_no" attrs="{'invisible':[('is_revise', '=', False)]}"/>
+                        <field name="revise_flag" invisible="True"/>
+                    </group>
+                    <group colspan="2" col="6">
+                        <field name ="requisition_no"/>                            
+                        <field name ="requisition_date" readonly="True"/>
+                        <field name ="approved_date" readonly= "True"/>                            
+                        <field name ="approved_by" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" attrs="{'readonly':[('state', 'not in', ('approve'))]}"/>
+                        <field name ="purchase_type" options="{'no_create': True, 'no_open': True}" attrs="{'readonly':[('state', 'not in', ('approve'))]}"/>
+                        <field name ="prepared_by" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                        <field name ="categorization" readonly="True"/>       
+                        <field name ="company_id" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                    </group>
+                    <notebook>
+                        <page string="Product Details" >                
+                            <button name="check_stock" string="Check Stock" type="object" />
+                            <field name="requisition_line" attrs="{'readonly':[('state', 'not in', ('approve')),('revise_status', 'not in', ('revise_requisition'))]}"/>  
+                        </page>
+                        <page string="Other Details">
+                            <group string="To" colspan="2" col="6">
+                                <field name="to_name" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                                <field name ="plant_manager" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True, 'limit':8}"/>
+                                <field name ="stores_incharge" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True, 'limit':8}"/>
+                                <field name ="purchase_manager" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>                                   
+                                <field name ="remarks" attrs="{'readonly':[('state', 'not in', ('approve'))]}"/>
+                                <field name ="document_no" attrs="{'readonly':[('state', 'not in', ('approve'))]}"/>
+                                <field name ="revision_no" attrs="{'readonly':[('state', 'not in', ('approve'))]}"/>
+                                <field name ="default_pr_date" attrs="{'readonly':[('state', 'not in', ('approve'))]}"/>
+                                <field name ="revise_remarks" placeholder='Enter Revise Remarks Here...' attrs="{'invisible': [('is_revise', '=', False)]}"/>
+                                <field name ="revise_id" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" attrs="{'invisible': [('is_revise', '=', False)]}"/>
+                                <field name ="revise_remarks_update" />
+                            </group>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+        
+        <!--     Pivot View for Purchase Requisition Approval-->
+        <record model="ir.ui.view" id="view_prakruti_purchase_requisition_approve_pivot">
+            <field name="name">prakruti.purchase_requisition_approve.pivot</field>
+            <field name="model">prakruti.purchase_requisition_approve</field>
+            <field name="arch" type="xml">
+                <pivot string=" Purchase Requisition " display_quantity="True">
+                    <field name="state" type="row"/>
+                    <field name="approved_by"/>
+                </pivot>
+            </field>
+        </record>
+        
+        <!--     Action View for Purchase Requisition Approval-->
+        <record model="ir.actions.act_window" id="purchase_requisition_approve_action">
+            <field name="name">Purchase Requisition Approve</field>
+            <field name="res_model">prakruti.purchase_requisition_approve</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('revise_flag','=',0)]</field>
+            <field name="view_mode">tree,form,pivot</field>
+        </record>
+    
+        <menuitem 
+            name="Purchase Requisition Approval" 
+            id="purchase_requisition_approve_menu"
+            action="purchase_requisition_approve_action" 
+            sequence="2"
+            parent="prakruti_purchase_main_sub_menu" groups="prakruti.group_prakruti_requisition_approval_read_only,prakruti.group_prakruti_requisition_approval_edit,group_prakruti_requisition_approval_create,prakruti.group_prakruti_requisition_approval_delete"
+                />
+     
+    </data>
+</openerp>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_prakruti_production_transfer_note_wizard" model="ir.ui.view">
+            <field name="name">PTN Wizard</field>
+            <field name="model">prakruti.production_transfer_note_wizard</field>
+            <field name="arch" type="xml">
+                <form string="Grid Allocation">
+                    <sheet>
+                        <group>
+                            <field name="batch_no" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                            <field name="ptn_no"/>
+                            <field name="ptn_id" invisible="True"/>
+                        </group>
+                        <notebook colspan="2"> 
+                            <page string="PTN Details">
+                                <field name='ptn_wizard_line'>
+                                    <tree string="PTN Line" editable='bottom' >
+                                        <field name="product_id"  on_change="onchange_product(product_id)" domain="[('group_ref','in',(5,6))]" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                                        <field name="uom_id"  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                                        <field name="description"  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                                        <field name="specification_id"  domain="[('product_id','=','product_id')]" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                                        <field name="packing_style"/>
+                                        <field name="packing_qty"/>
+                                        <field name="total_output_qty"/>
+                                        <field name="qc_status" invisible="True"/>
+                                        <field name="remarks" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                        <footer>
+                            <button name="action_approve" string="Update" colspan="1" type="object" class="oe_highlight"  />
+                            or
+                            <button string="Cancel" class="oe_link" special="cancel" />    
+                        </footer>
+                    </sheet> 
+                </form>
+            </field>
+        </record>       
+    </data>
+</openerp>    

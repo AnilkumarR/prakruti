@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"  ?>
+<openerp>
+ <data>
+     
+        <!--Search view for Batch Master         -->
+        <record model="ir.ui.view" id="view_prakruti_batch_master_search">
+            <field name="name">prakruti.batch_master.search</field>
+            <field name="model">prakruti.batch_master</field>
+            <field name="arch" type="xml">
+                <search string="Product Wise Search">
+                    <field name ="company_id"/>
+                    <field name ="batch_name"/>
+                    <field name ="batch_no" />
+                    <field name ="subplant_id"/>
+                    <field name ="batch_capacity" />
+                    <field name ="batch_allocated_by"/>
+                    <field name ="is_batch_closed"/>
+                    <field name ="bmr_no"/>
+                </search>
+            </field>
+        </record>
+        
+      <!--Tree view for Batch Master         -->
+        <record model="ir.ui.view" id="view_prakruti_batch_master_tree">
+                <field name="name">Batch Master</field>
+                <field name="model">prakruti.batch_master</field>
+                <field name="arch" type="xml">
+                    <tree string="Batch Master" >
+                        <field name ="company_id"/>
+                        <field name ="batch_name"/>
+                        <field name ="batch_no" />
+                        <field name ="subplant_id"/>
+                        <field name ="batch_capacity" />
+                        <field name ="batch_allocation_date"/>
+                        <field name ="batch_end_date"/>
+                        <field name ="batch_allocated_by"/>
+                        <field name ="is_batch_closed"/>
+                    </tree>
+                </field>
+            </record>  
+            
+         <!--Form view for Batch Master         -->
+            <record model="ir.ui.view" id="view_prakruti_batch_master_form">
+                <field name="name">Batch Master</field>
+                <field name="model">prakruti.batch_master</field>
+                <field name="arch" type="xml">
+                    <form string="Batch Master" >
+                    <header>
+                            <button name="send_mail" string="Send By Mail" type="object"  class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name ="company_id" style="width:45%%" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                            <field name ="subplant_id"  style="width:25%%" on_change="onchange_subplant_id(subplant_id)" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                            <field name ="slip_id"  style="width:25%%" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                            <field name ="batch_name"  on_change="onchange_batch_name(batch_name)" style="width:25%%" />
+                            <field name ="batch_no" on_change="onchange_batch_no(batch_no)" style="width:25%%"  />
+                            <field name ="batch_capacity" style="width:145%%"/>
+                            <field name ="batch_allocation_date" style="width:145%%"/>
+                            <field name ="batch_end_date" style="width:145%%"/>
+                            <field name ="batch_allocated_by" readonly="True"/>
+                            <field name ="is_batch_closed" readonly="True"/>  
+                            <field name ="plant_type" style="width:25%%"/>
+                            <field name ="formulation_type" style="width:25%%" attrs="{'invisible':[('plant_type','not in',('formulation'))]}"/>
+                            <field name ="batch_allocated_flag" invisible="True"/>
+                            <field name ="insert_flag" invisible="True"/>
+                            <field name ="insert_into_bom" invisible="True"/>
+                            <field name ="bmr_no" invisible="True"/>
+                            <field name="batch_closed_flag" invisible="1"/>
+                        </group>
+                        <group>
+                            <group string='Process List:'>
+                                <field name ="pulverisation" style="width:35%%" attrs="{'invisible':[('plant_type', 'in', ('tablet','formulation'))]}" />
+                                <field name ="extraction_new" style="width:35%%" attrs="{'invisible':[('plant_type', 'in', ('tablet','formulation'))]}"/>
+                                <field name ="precipitation" style="width:35%%"  attrs="{'invisible':[('plant_type', 'in', ('tablet','formulation'))]}"/>
+                                <field name ="bleaching" style="width:35%%" attrs="{'invisible':[('plant_type', 'in', ('tablet','syrup','formulation'))]}"/>
+                                <field name ="filtration" style="width:35%%" attrs="{'invisible':[('plant_type', 'in', ('tablet','formulation'))]}"/>
+                                <field name ="concentration" style="width:35%%" attrs="{'invisible':[('plant_type', 'in', ('tablet','syrup','formulation'))]}"/>
+                                <field name ="evaporation" style="width:35%%" attrs="{'invisible':[('plant_type', 'in', ('tablet','syrup','formulation'))]}"/>
+                                <field name ="spent_cooling_unloading" style="width:35%%"  attrs="{'invisible':[('plant_type', 'in', ('tablet','syrup','formulation'))]}"/>
+                                <field name ="maturation_crystalization" style="width:35%%"  attrs="{'invisible':[('plant_type', 'in', ('tablet','syrup','formulation'))]}"/>
+                                <field name ="stirring" style="width:35%%" attrs="{'invisible':[('plant_type', 'in', ('tablet','syrup','formulation'))]}"/>
+                                <field name ="extract_solution" style="width:35%%" attrs="{'invisible':[('plant_type', 'in', ('tablet','extraction','formulation'))]}"/>
+                                <field name ="soak_raw_material" style="width:35%%" attrs="{'invisible':[('plant_type', 'in', ('tablet','extraction','formulation'))]}"/>
+                                <field name ="autoclave" style="width:35%%" attrs="{'invisible':[('plant_type', 'in', ('tablet','extraction','formulation'))]}"/>
+                                <field name ="addition_preservative" style="width:35%%" attrs="{'invisible':[('plant_type', 'in', ('tablet','extraction','formulation'))]}"/>
+                                <field name ="preparation_syrup" style="width:35%%" attrs="{'invisible':[('plant_type', 'in', ('tablet','extraction','formulation'))]}"/>
+                                <field name ="ph_control_buffer" style="width:35%%" attrs="{'invisible':[('plant_type', 'in', ('tablet','extraction','formulation'))]}"/>
+                                <field name ="solvent_name" style="width:35%%" attrs="{'invisible':[('plant_type', 'in', ('tablet','extraction','formulation'))]}"/>
+                                <field name ="filling" style="width:35%%" attrs="{'invisible':[('plant_type', 'in', ('tablet','extraction','formulation'))]}"/>
+                                <field name ="coding"  style="width:35%%" attrs="{'invisible':[('plant_type', 'in', ('tablet','extraction','formulation'))]}"/>
+                                <field name ="packing" style="width:35%%" attrs="{'invisible':['|',('plant_type', '=', ('extraction')),('formulation_type', '=', ('lotion'))]}"/>
+                                <field name ="other_ingredient_addition" style="width:35%" attrs="{'invisible':[('plant_type', 'in', ('extraction','tablet','formulation'))]}"/>
+                                <field name ="coating" style="width:35%%" attrs="{'invisible':['|',('plant_type', 'in', ('syrup','extraction')),('formulation_type', '=', ('lotion'))]}"/>
+                                <field name ="api_addition" style="width:35%%" attrs="{'invisible':['|',('plant_type', 'in', ('extraction','syrup')),('formulation_type', '=', ('lotion'))]}"/>
+                                <field name ="preparation_of_binder" style="width:35%%" attrs="{'invisible':['|',('plant_type', 'in', ('syrup','extraction')),('formulation_type', '=', ('lotion'))]}"/>
+                                <field name ="granulation" style="width:35%%" attrs="{'invisible':['|',('plant_type', 'in', ('syrup','extraction')),('formulation_type', '=', ('lotion'))]}"/>
+                                <field name ="semi_drying" style="width:35%%" attrs="{'invisible':['|',('plant_type', 'in', ('syrup','extraction')),('formulation_type', '=', ('lotion'))]}"/>
+                                <field name ="final_drying" style="width:35%%" attrs="{'invisible':['|',('plant_type', 'in', ('syrup','extraction')),('formulation_type', '=', ('lotion'))]}"/>
+                                <field name ="compression" style="width:35%%" attrs="{'invisible':['|',('plant_type', 'in', ('syrup','extraction')),('formulation_type', '=', ('lotion'))]}"/>
+                                <field name ="tablet_coating" style="width:35%%" attrs="{'invisible':['|',('plant_type', 'in', ('syrup','extraction')),('formulation_type', '=', ('lotion'))]}"/>
+                                <field name ="inspection" style="width:35%%" attrs="{'invisible':['|',('plant_type', 'in', ('syrup','extraction')),('formulation_type', '=', ('lotion'))]}"/>
+                                <field name ="metal_inspection" style="width:35%%" attrs="{'invisible':['|',('plant_type', 'in', ('syrup','extraction')),('formulation_type', '=', ('lotion'))]}"/>
+                                <field name ="water_striiping_chart" style="width:35%%" attrs="{'invisible':[('plant_type', 'in', ('syrup','tablet','formulation'))]}"/>
+                                <field name ="charcolisation_chart" style="width:35%%" attrs="{'invisible':[('plant_type', 'in', ('syrup','tablet','formulation'))]}"/>
+                                <field name ="spray_drying_chart" style="width:35%%" attrs="{'invisible':[('plant_type', 'in', ('syrup','tablet','formulation'))]}"/>
+                                <field name ="drying_chart" style="width:35%%" attrs="{'invisible':[('plant_type', 'in', ('syrup','tablet','formulation'))]}"/>
+                                <field name ="milling" style="width:35%%" attrs="{'invisible':['|',('plant_type', 'in', ('syrup')),('formulation_type', '=', ('lotion'))]}"/>
+                                <field name ="sieving" style="width:35%%" attrs="{'invisible':['|',('plant_type', 'in', ('syrup')),('formulation_type', '=', ('lotion'))]}"/>
+                                <field name ="magnetic_particle_seperation" style="width:35%%" attrs="{'invisible':[('plant_type', 'in', ('syrup','tablet','formulation'))]}"/>
+                                <field name ="blending" style="width:35%%" attrs="{'invisible':['|',('plant_type', 'in', ('syrup')),('formulation_type', '=', ('lotion'))]}"/>
+                                <field name ="heat_sterilization" style="width:35%%" attrs="{'invisible':[('plant_type', 'in', ('syrup','tablet','formulation'))]}"/>
+                                <field name ="spent_stripping" style="width:35%%" attrs="{'invisible':[('plant_type', 'in', ('syrup','tablet','formulation'))]}"/>                                
+                                <field name ="blow_off" style="width:35%%" attrs="{'invisible':['|',('plant_type', 'not in', ('extraction')),('formulation_type', '=', ('lotion'))]}"/>
+                                <field name ="washing" style="width:35%%" attrs="{'invisible':['|',('plant_type', 'not in', ('extraction')),('formulation_type', '=', ('lotion'))]}"/>
+                                <field name ="hexane_recover" style="width:35%%" attrs="{'invisible':['|',('plant_type', 'not in', ('extraction')),('formulation_type', '=', ('lotion'))]}"/>
+                                <field name ="addition_of_ingredients" style="width:35%%" attrs="{'invisible':[('formulation_type', 'not in', ('powder'))]}"/>
+                                <field name ="extract_solution_lotion" style="width:35%%" attrs="{'invisible':[('formulation_type', 'not in', ('lotion'))]}"/>
+                                <field name ="other_ingredient_addition_lotion" style="width:35%%" attrs="{'invisible':[('formulation_type', 'not in', ('lotion'))]}"/>
+                                <field name ="volume_make_up" style="width:35%%" attrs="{'invisible':[('formulation_type', 'not in', ('lotion'))]}"/>
+                                <field name ="filling_lotion" style="width:35%%" attrs="{'invisible':[('formulation_type', 'not in', ('lotion'))]}"/>
+                                <field name ="addition_of_solution" style="width:35%%" attrs="{'invisible':[('formulation_type', 'not in', ('lotion'))]}"/>
+                                <field name ="post_precipitation" style="width:35%%" attrs="{'invisible':[('plant_type', 'not in', ('extraction'))]}"/>
+                                <field name ="filtration_b" style="width:35%%" attrs="{'invisible':[('plant_type', 'not in', ('extraction'))]}"/>
+                                <field name ="ph_adjustment" style="width:35%%" attrs="{'invisible':[('plant_type', 'not in', ('extraction'))]}"/>
+                            </group>
+                            <group string = "Revision Status">
+                                <button name="refresh_production" default_focus="1" string="Refresh" type="object" class="oe_highlight" /><newline/>
+                                <field name ="revise_remarks_update" />
+                            </group>
+                        </group>
+                        </sheet>
+                    </form>
+                </field>
+            </record>
+            
+             <!--Pivot view for Batch Master         -->
+            <record model="ir.ui.view" id="view_prakruti_batch_master_pivot">
+                <field name="name">prakruti.batch_master.pivot</field>
+                <field name="model">prakruti.batch_master</field>
+                <field name="arch" type="xml">
+                    <pivot string=" Batch Master " display_quantity="True">
+                        <field name="subplant_id" type="row"/>
+                        <field name ="batch_no" />
+                    </pivot>
+                </field>
+            </record> 
+        
+             <!--ACtion view for Batch Master         -->
+            <record model="ir.actions.act_window" id="prakruti_batch_master_action">
+                <field name="name">Batch Master</field>
+                <field name="res_model">prakruti.batch_master</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form,pivot</field>
+            </record>
+        
+    
+
+       
+        <menuitem id="prakruti_batch_master_sub_menu" 
+                  name="Manage Batch" 
+                  action="prakruti_batch_master_action" 
+                  sequence="7"
+                  parent="prakruti_production_quality_analysis_parent_menu" groups="group_prakruti_batch_master_read_only,group_prakruti_batch_master_edit,group_prakruti_batch_master_create,group_prakruti_batch_master_delete"/>
+  
+</data>
+</openerp>
+            
+                        

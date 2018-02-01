@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_prakruti_gst_purchase_order">
+           
+            
+            <t t-name="report.external_layout_header">
+                <div class="header" style=" width: 235mm; border:1px solid black; ">
+                    <div class="row">
+                        <div align="center" style="font-size:20px;"> <strong>Purchase Order</strong> </div>
+                        <div class="col-xs-2">
+                            <img src='/prakruti/static/src/img/logo.png' style="margin-left:3px;"/>
+                        </div>
+                        <div class="col-xs-10 text-right" style="margin-top:0px;margin-right:0px;">
+                            <span t-field="o.company_address.rml_header1" /><br />
+                            <address>
+                                <strong> <span style="font-size: 20px" class="inline" t-field="o.company_address.name"/></strong><br/>
+                                        <span class="inline" t-field="o.company_address.street"/>,<span class="inline" t-field="o.company_address.street2"/> <br/>
+                                         <span class="inline" t-field="o.company_address.city"/>,<span class="inline" t-field="o.company_address.state_id"/>,<span class="inline" t-field="o.company_address.zip"/><br/>
+                                        <strong> Phone No:</strong><span class="inline" t-field="o.company_address.phone"/>
+                                        <br/>
+                            </address>
+                        </div>
+                        
+                        
+                    </div>
+                
+                </div>
+            </t>
+            
+            
+            
+            
+            
+            
+            <t t-name="prakruti.report_prakruti_gst_purchase_order">
+                 <t t-call="report.external_layout">
+                <div class="page" style="width: 235mm; border:1px solid black; ">
+                    <div class="row" style="font-size:11px">
+                        <div class="col-xs-12">
+                    <table border="1" style="width: 235mm; border:1px solid black;">
+                            <tr>
+                                <td style="margin-top:1px;margin-left:1px;margin-right:1px;"><strong>GSTIN NUMBER :</strong><span class="inline" t-field="o.company_address.gstin"/></td>
+                                <td style="margin-top:1px;margin-left:1px;margin-right:1px;"><strong>Transportation Mode : (Apply for Supply of Goods only)</strong><span t-field="o.dispatch_through"/></td>
+                            </tr>
+                            <tr>
+                                <td style="margin-left:1px;margin-right:1px;"><strong>TAX is Payable On Reverse Charge : (Yes/No)</strong></td>
+                                <td style="margin-left:1px;margin-right:1px;"><strong>Veh.No :</strong><span t-field="o.dispatch_through"/></td>
+                            </tr>
+                            <tr>
+                                <td style="margin-left:1px;margin-right:1px;"><strong>Order Serial Number :</strong><span t-field="o.po_no"/></td>
+                                <td style="margin-left:1px;margin-right:1px;"><strong>Date &amp; Time of Supply :</strong><span t-field="o.order_date"/></td>
+                            </tr>
+                            <tr>
+                                <td style="margin-left:1px;margin-right:1px;"><strong>Order Date :</strong><span t-field="o.order_date"/></td>
+                                <td style="margin-left:1px;margin-right:1px;"><strong>Place Of Supply :</strong><span t-field="o.destination"/></td>
+                            </tr>
+                             
+                    </table>
+                    
+                    
+                    <table border="1" style="width: 235mm; border:1px solid black;">
+                            <tr>
+                                <th class="text-center" style="border: 1px solid #000000;"><strong>Details Of Receiver (Billed to)</strong></th>
+                                <th class="text-center" style="border: 1px solid #000000;"><strong>Details Of Consignee (Shipped to)</strong></th>
+                            </tr>
+                            <tr>
+                                <td sstyle="margin-left:1px;margin-right:1px;"><strong>Name :</strong><span class="inline" t-field="o.vendor_id.name"/></td>
+                                <td style="margin-left:1px;margin-right:1px;"><strong>Name :</strong><span class="inline" t-field="o.delivery_address.name"/></td>
+                            </tr>
+                            <tr>
+                                <td style="margin-left:1px;margin-right:1px;"><strong>Address : </strong><span class="inline" t-field="o.vendor_id.street"/>,
+                                        <span class="inline" t-field="o.vendor_id.street2"/> ,
+                                        <span class="inline" t-field="o.vendor_id.city"/> </td>
+                                <td style="margin-left:1px;margin-right:1px;"><strong>Address :</strong><span class="inline" t-field="o.delivery_address.street"/> ,
+                                    <span class="inline" t-field="o.delivery_address.street2"/> ,
+                                    <span class="inline" t-field="o.delivery_address.city"/></td>
+                            </tr>
+                            <tr>
+                                <td style="margin-left:1px;margin-right:1px;"><strong>State :</strong>
+                                        <span class="inline" t-field="o.vendor_id.state_id"/>,
+                                        <span class="inline" t-field="o.vendor_id.zip"/>,
+                                        <span class="inline" t-field="o.vendor_id.phone"/></td>
+                                <td style="margin-left:1px;margin-right:1px;"><strong>State :</strong><span class="inline" t-field="o.delivery_address.state_id"/>,
+                                        <span class="inline" t-field="o.delivery_address.zip"/>,
+                                        <span class="inline" t-field="o.delivery_address.phone"/></td>
+                            </tr>
+                            <tr>
+                                <td style="margin-left:1px;margin-right:1px;"><strong>State Code :</strong><span class="inline" t-field="o.vendor_id.state_id.state_code"/></td>
+                                <td style="margin-left:1px;margin-right:1px;"><strong>State Code :</strong><span class="inline" t-field="o.delivery_address.state_id.state_code"/></td>
+                            </tr>
+                            <tr>
+                                <td style="margin-bottom:1px;margin-left:1px;margin-right:1px;"><strong>GSTIN Number :</strong><span class="inline" t-field="o.vendor_id.gst"/></td>
+                                <td style="margin-bottom:1px;margin-left:1px;margin-right:1px;"><strong>GSTIN Number :</strong><span class="inline" t-field="o.delivery_address.gstin"/></td>
+                            </tr>
+                            <tr>
+                                <td ></td>
+                                <td style="margin-bottom:1px;margin-left:1px;margin-right:1px;"><strong>Mode/Terms of Payments :</strong><span class="inline" t-field="o.payment"/></td>
+                            </tr>
+                    </table>
+                    
+                    <table border="1" style="width: 235mm; border:1px solid black;">
+                      <tr>
+                           <th  style="border: 1px solid #000000;" class="text-center">
+                               Sl.No
+                           </th>
+                           <th  style="border: 1px solid #000000;" class="text-center">
+                               Material
+                            </th>
+                           <th  style="border: 1px solid #000000;" class="text-center">
+                               Description Of Goods
+                            </th>
+                            <th  style="border: 1px solid #000000;" class="text-center">
+                              HSN Code(GST)
+                            </th>
+                            
+                            <th  style="border: 1px solid #000000;" class="text-center">
+                              Qty
+                            </th>
+                            <th  style="border: 1px solid #000000;" class="text-center">
+                              UOM
+                            </th>
+                            <th  style="border: 1px solid #000000;" class="text-center">
+                              Material Required Date
+                            </th>
+                            <th  style="border: 1px solid #000000;" class="text-center">
+                              Rate
+                            </th>
+                            <th  style="border: 1px solid #000000;" class="text-center">
+                              Total
+                            </th>
+                      </tr>
+                    
+                     
+                    
+                      <tr t-foreach="o.order_line" t-as="line">
+                            <td class="col-xs-1" style="border: 1px solid #000000;">
+                                <span t-esc="line_index+1"/>
+                            </td>
+                            <td  style="border: 1px solid #000000;">
+                              <span t-field="line.product_id"/>
+                            </td>
+                            <td  style="border: 1px solid #000000;">
+                              <span t-field="line.description"/>
+                            </td>
+                            <td  style="border: 1px solid #000000;">
+                              <span t-field="line.hsn_code"/>
+                            </td> 
+                            
+                            <td   class="text-right" style="border: 1px solid #000000;">
+                             <span t-field="line.quantity" t-esc="'%.3f'% line.quantity"/>
+                            </td>
+                            <td  style="border: 1px solid #000000;">
+                              <span t-field="line.uom_id"/>
+                            </td>
+                            <td  style="border: 1px solid #000000;">
+                              <span t-field="line.required_date"/>
+                            </td>
+                            <td  class="text-right" style="border: 1px solid #000000;">
+                             <span t-field="line.unit_price" t-esc="'%.3f'% line.unit_price"/>
+                            </td>
+                            <td  class="text-right" style="border: 1px solid #000000;">
+                                <b> <span t-field="line.total" t-esc="'%.3f'% line.total"/></b>
+                            </td>
+                      </tr>
+                      <tr>
+                            <th colspan="8" style="border: 1px solid #000000;" class="text-center">
+                            </th>
+                            <td class="text-right" style="border: 1px solid #000000;">
+                                <b> <span t-field="o.total_amount" t-esc="'%.3f'% o.total_amount"/> </b>
+                            </td>
+                      </tr>
+                      
+                      <tr>
+                        <th  colspan="8" style="border: 1px solid white;" class="text-right">Freight Charges</th>
+                        <td style="border: 1px solid #000000;" class="text-right"><span t-field="o.frieght_charges" t-esc="'%.3f'% o.frieght_charges"/></td>
+                        </tr>
+                         <tr>
+                        <th  colspan="8" style="border: 1px solid white;" class="text-right">Loading and Packing Charges</th>
+                      
+                        <td style="border: 1px solid #000000;" class="text-right"><span t-field="o.packing_charges" t-esc="'%.3f'% o.packing_charges"/></td>
+                        </tr>
+                        <tr>
+                        <th colspan="8" style="border: 1px solid white;" class="text-right">Insurance Charges</th>
+                       
+                        <td style="border: 1px solid #000000;" class="text-right"><span t-field="o.insurance_charges" t-esc="'%.3f'% o.insurance_charges"/></td>
+                        </tr>
+                        <tr>
+                        <th  colspan="8" style="border: 1px solid white;" class="text-right">Other Charges</th>
+                        <td style="border: 1px solid #000000;" class="text-right"><span t-field="o.additional_charges" t-esc="'%.3f'% o.additional_charges"/></td>
+                        </tr>
+                        
+                        <tr style="border: 1px solid black;">
+                            <div t-if="o.cash_amount">
+                                <th  colspan="8" style="margin-top:0px;margin-left:1px;margin-right:1px;" class="text-right">Advanced Payment</th>
+                                <td style="border: 1px solid #000000;" align="right"><span t-field="o.cash_amount" t-esc="'%.3f'% o.cash_amount"/></td>
+                            </div>
+                            <div t-if="o.cheque_amount">
+                                <th  colspan="8" style="margin-top:0px;margin-left:1px;margin-right:1px;" class="text-right">Advanced Payment</th>
+                                <td style="border: 1px solid #000000;"  align="right"><span t-field="o.cheque_amount" t-esc="'%.3f'% o.cheque_amount"/></td>
+                            </div>    
+                            <div t-if="o.draft_amount">
+                               <th  colspan="8" style="margin-top:0px;margin-left:1px;margin-right:1px;" class="text-right">Advanced Payment</th>
+                                <td style="border: 1px solid #000000;" align="right"><span t-field="o.draft_amount" t-esc="'%.3f'% o.draft_amount"/></td>
+                            </div>
+                        </tr>
+                        
+                        <tr>
+                            <td  style="border: 1px solid #000000;">
+                            </td>
+                            <td  style="border: 1px solid #000000;">
+                            </td>
+                            <td  style="border: 1px solid #000000;">
+                            </td>
+                            <td  style="border: 1px solid #000000;">
+                            </td>
+                            <td style="border: 1px solid #000000;" class="text-right"><span t-field="o.no_of_product" t-esc="'%.3f'% o.no_of_product"/>
+                            </td>
+                           <td style="border: 1px solid #000000;">
+                           </td>
+                           <td style="border: 1px solid #000000;">
+                           </td>
+                           <th style="border: 1px solid #000000;" class="text-right">Order Total</th>
+                           <td style="border: 1px solid #000000;" class="text-right"><b><span t-field="o.grand_total_after_payments" t-esc="'%.3f'% o.grand_total_after_payments"/></b></td>
+                      </tr>
+                      
+                      
+                       <tr>
+                           <th colspan="9" style="border: 1px solid #000000;" >
+                              Amount Chargeable(In words):
+                              <span t-field="o.grand_total_in_words"/>
+                            </th>
+                      </tr>
+                     
+                      
+             </table>
+              
+             <table border="1" style="width: 235mm; border:1px solid black;">
+                      <tr>
+                            <th  rowspan="2" style="border: 1px solid #000000;" class="text-center">
+                              HSN Code(GST)
+                            </th>
+                         
+                            <th rowspan="2" style="border: 1px solid #000000;" class="text-center">
+                              Discount(%)
+                            </th>
+                            <th rowspan="2" style="border: 1px solid #000000;" class="text-center">
+                              Taxable Value
+                            </th>
+                            
+                           <th colspan="2" style="border: 1px solid #000000;" class="text-center">CGST</th>
+                           <th colspan="2" style="border: 1px solid #000000;" class="text-center">SGST</th>
+                           <th colspan="2" style="border: 1px solid #000000;" class="text-center">IGST</th>
+                      </tr>
+                     <tr>
+                           <th style="border: 1px solid #000000;" class="text-center">Rate</th>
+                           <th style="border: 1px solid #000000;" class="text-center">Amount</th>
+                           <th style="border: 1px solid #000000;" class="text-center">Rate</th>
+                           <th style="border: 1px solid #000000;" class="text-center">Amount</th>
+                           <th style="border: 1px solid #000000;" class="text-center">Rate</th>
+                           <th style="border: 1px solid #000000;" class="text-center">Amount</th>
+                     </tr>
+                     
+                    
+                      <tr t-foreach="o.order_line" t-as="line">
+                          
+                        <td  style="border: 1px solid #000000;">
+                            <span t-field="line.hsn_code"/>
+                        </td>   
+                         <td  class="text-right" style="border: 1px solid #000000;">
+                            <span t-field="line.discount_rate" t-esc="'%.2f'% line.discount_rate"/>
+                         </td>
+                         <td  class="text-right" style="border: 1px solid #000000;">
+                            <span t-field="line.taxable_value_after_adding_other" t-esc="'%.3f'% line.taxable_value_after_adding_other"/>
+                         </td> 
+                         
+                         <!--cgst -->
+                          <td  class="text-right" style="border: 1px solid #000000;">
+                            <span t-field="line.cgst_rate" t-esc="'%.3f'% line.cgst_rate"/>
+                         </td> 
+                         <td  class="text-right" style="border: 1px solid #000000;">
+                            <span t-field="line.cgst_value" t-esc="'%.3f'% line.cgst_value"/>
+                         </td> 
+                         <!--sgst -->
+                          <td  class="text-right" style="border: 1px solid #000000;">
+                            <span t-field="line.sgst_rate" t-esc="'%.3f'% line.sgst_rate"/>
+                         </td> 
+                         <td  class="text-right" style="border: 1px solid #000000;">
+                            <span t-field="line.sgst_value" t-esc="'%.3f'% line.sgst_value"/>
+                         </td> 
+                         <!--igst -->
+                          <td  class="text-right" style="border: 1px solid #000000;">
+                            <span t-field="line.igst_rate" t-esc="'%.3f'% line.igst_rate"/>
+                         </td> 
+                         <td  class="text-right" style="border: 1px solid #000000;">
+                            <span t-field="line.igst_value" t-esc="'%.3f'% line.igst_value"/>
+                         </td>
+                      </tr>
+                      
+                      <tr>
+                          
+                        <td  class="text-right" style="border: 1px solid #000000;">
+                            
+                        </td>   
+                         <td  class="text-right" style="border: 1px solid #000000;">
+                            <!--<span t-field="o.total_igst" t-esc="'%.3f'% o.total_igst"/>-->
+                         </td>
+                         <td  class="text-right" style="border: 1px solid #000000;">
+                            <span t-field="o.amount_taxed" t-esc="'%.3f'% o.amount_taxed"/>
+                         </td> 
+                         
+                         <!--cgst -->
+                          <td  class="text-right" style="border: 1px solid #000000;">
+                            
+                         </td> 
+                         <td  class="text-right" style="border: 1px solid #000000;">
+                            <span t-field="o.total_cgst" t-esc="'%.3f'% o.total_cgst"/>
+                         </td> 
+                         <!--sgst -->
+                          <td  class="text-right" style="border: 1px solid #000000;">
+                            
+                         </td> 
+                         <td  class="text-right" style="border: 1px solid #000000;">
+                            <span t-field="o.total_sgst" t-esc="'%.3f'% o.total_sgst"/>
+                         </td> 
+                         <!--igst -->
+                          <td  class="text-right" style="border: 1px solid #000000;">
+                            
+                         </td> 
+                         <td  class="text-right" style="border: 1px solid #000000;">
+                            <span t-field="o.total_igst" t-esc="'%.3f'% o.total_igst"/>
+                         </td>
+                      </tr>
+                      
+                      <tr>
+                        <th colspan="9" style="border: 1px solid #000000;" >
+                              Tax Amount:
+                              <span t-field="o.total_gst"/>
+                            </th>
+                        </tr>
+                      <tr>
+                        <th colspan="9" style="border: 1px solid #000000;" >
+                              Tax Amount(In words):
+                              <span t-field="o.gst_total_in_words"/>
+                            </th>
+                      </tr>
+             </table>
+                    
+             
+             
+             
+             
+         
+
+
+            <table border="1" style="width: 235mm; border:1px solid black;">
+                <tr>
+                    
+                    <td style="border: 1px solid #000000;" class="text-center"><br/>Certified that the Particulars given above are true and correct</td>
+                    <td style="border: 1px solid #000000;" class="text-center"><br/>Electonic Reference Number :</td>
+                    
+                </tr>
+                <tr>
+                    <td style="border: 1px solid #000000;"><p><u>Declaration</u><br/>This PO is issued in adjustment to Original Order NO:...............<br/>Original Order Dated :...........................</p></td>
+                    <td style="border: 1px solid #000000;">.</td>
+                </tr>
+            </table>
+            
+             <table border="1" style="width: 235mm; border:1px solid black;">
+                <tr>
+                    <th  style="border: 1px solid #000000;" class="text-center">TERMS &amp; CONDITION OF ORDER</th>
+                    <th style="border: 1px solid #000000;" class="text-center"><span class="inline" t-field="o.company_address.name"/></th>
+                </tr>
+                <tr>
+                    <tr>              
+                        <th rowspan="5" style="border: 1px solid #000000;"><span class="inline" t-field="o.terms_of_delivery"/></th>
+
+                      <td  style="border: 1px solid #000000;"><br/>Signature :......................</td>
+                    </tr>
+                     <tr>
+                      <th  style="border: 1px solid #000000;">Authorised Signatory</th>
+                    </tr>
+                     <tr>
+                      <td style="border: 1px solid #000000;">Name :</td>
+                    </tr>
+                     <tr>
+                      <td style="border: 1px solid #000000;">Designation :<br/>.</td>
+                    </tr>
+                </tr>
+            </table>
+            
+            
+            
+            
+            
+            
+                    
+              
+                </div>
+                 </div>      
+                    
+            </div>              
+            
+        </t>
+    </t>
+                
+        <t t-name="report.external_layout_footer">
+            <div class="footer">
+                 <div class="text-center" style=" width: 235mm;">
+                    <ul class="list-inline">
+                        <li><strong>SUBJECT TO KARWAR JURISDICTION</strong> </li>
+                    </ul>
+                </div>
+            </div>
+        </t>   
+                
+                
+            </template>
+        
+        
+        <template id="report_prakruti_gst_purchase_order_template">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="prakruti.report_prakruti_gst_purchase_order"/>                    
+                </t>
+            </t>
+        </template>  
+
+        
+    </data>
+</openerp>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_specification_ar_no33">
+            <t t-name="prakruti.report_specification_ar_no33">
+                <t t-set="o" t-value="o.with_context({'lang':o.customer_name.lang})" />
+                    <div class="header">
+                        <div class="row">
+                                <div class="col-xs-4">
+                                    <img src='/prakruti/static/src/img/logo.png' style="max-height: 45px;"/>
+                                </div>
+                                    <div  class="col-xs-4" name="company_address">
+                                        <div t-field="o.company_id.partner_id" 
+                                            t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+                                            />
+                                    </div>
+                            <div class="col-xs-3 text-right" name="company_address"  t-field="o.company_id"/>
+                        </div>
+                        <div class="row zero_min_height">
+                            <div class="col-xs-12">
+                                <div style="border-bottom: 1px solid black;"></div>
+                            </div>
+                        </div>                         
+                    </div>                   
+                    <div class="footer">   
+                        <table style="width: 100%; border:1px solid white;">
+                            <tr>
+                                <td align="left">Doc No.</td>
+                                <td align="center">Rev. No.:</td>
+                                <td align="right">Date:</td>
+                            </tr>
+                        </table>
+                        <div class="text-right" style="border-top: 1px solid black;">
+                            <ul type="disc"  class="list-inline" >
+                                <li>R and D approved by Department of Scientists,<br/>
+                                   Industrial Research, Govt of India</li><br/>
+                                <li>Receipient of Export Excellence Report </li><br/>
+                                <li>National Award recepient of Quality Process </li><br/>
+                            </ul>
+                            
+                        </div>
+                    </div>            
+                    <div class="page">
+                        <h3 align="center"><u>CERTIFICATE OF ANALYSIS</u></h3> 
+                        <table align="left" style="width: 100%; border:1px solid black;">
+                            <tr>
+                                <td style="width: 25%;border:1px solid black;height:10mm" ><strong>Product Name</strong></td>
+                                <td style="width: 25%;border:1px solid black;height:10mm" ><span t-field="o.product_id"/></td>                                
+                                <td style="width: 25%;border:1px solid black;height:10mm" ><strong>Date</strong></td>
+                                <td style="width: 25%;border:1px solid black;height:10mm" ><span t-field="o.date"/></td>
+                            </tr>              
+                            <tr>
+                                <td style="width: 25%;border:1px solid black;height:10mm" ><strong>M.F.G Date</strong></td>
+                                <td style="width: 25%;border:1px solid black;height:10mm" ><span t-field="o.mfd_date"/></td>
+                                <td style="width: 25%;border:1px solid black;height:10mm" ><strong>Expiry Date</strong></td>
+                                <td style="width: 25%;border:1px solid black;height:10mm" ><span t-field="o.expiry_date"/></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 25%;border:1px solid black;height:10mm" ><strong>Batch No</strong></td>
+                                <td style="width: 25%;border:1px solid black;height:10mm" ><span t-field="o.batch_no"/></td>
+                                <td style="width: 25%;border:1px solid black;height:10mm" ><strong>A.R No</strong></td>
+                                <td style="width: 25%;border:1px solid black;height:10mm" ><span t-field="o.ar_number"/></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 25%;border:1px solid black;height:10mm" ><strong>Country of Origin</strong></td>
+                                <td style="width: 25%;border:1px solid black;height:10mm" ><span t-field="o.country_of_origin"/></td>
+                                <td style="width: 25%;border:1px solid black;height:10mm" ><strong>Sample Qty</strong></td>
+                                <td style="width: 25%;border:1px solid black;height:10mm" ><span t-field="o.sample_qty"/></td>
+                            </tr>
+                        </table>
+                        <h4 align="left">Scientific Name:<span t-field="o.scientific_name"/></h4>
+                        <h4 align="left">Plant Part Used:<span t-field="o.plant_part_used"/></h4>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Parameters</th>
+                                    <th class="text-right">Specifications</th>
+                                    <th class="text-right">Protocols</th>
+                                    <th class="text-right">results</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.ar_line" t-as="l">
+                                    <td>
+                                        <span t-field="l.parameter"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="l.specification"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="l.protocol"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="l.result"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+           
+                <table align="left" style="width: 100%; border:1px solid white;">
+                <tr style="border: 1px solid white;">
+                    <td align = "left"  ><strong>Remarks:</strong><span t-field="o.remarks"/></td>
+                </tr>
+                <br/>                
+                </table>
+                 <table style="width: 100%; border:1px solid white; border-collapse: collapse;">
+                       <td align="right" style="color:white;">Authorized Signatory</td>
+                           <td align="right" style="color:white;">Authorized Signatory</td>
+                           <td align="right" style="color:white;">Authorized Signatory</td>
+                    
+                       
+                          <tr>
+                        
+                                <td align="left"><strong>ANALYST</strong></td>
+                                <td align="right" style="padding-left:10cm;" ><strong>Authorized Signatory</strong></td>
+                          
+                        </tr>
+                </table>   
+                <!--<table style="width: 100%; border:1px solid white;">
+                            <tr>
+                                <td align="left">Doc No.</td>
+                                <td align="center">Rev. No.:</td>
+                                <td align="right">Date:</td>
+                            </tr>
+                </table>-->
+       </div>
+    </t>
+</template>
+        
+        
+        <template id="report_specification_ar_no3">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="prakruti.report_specification_ar_no33" />
+                    </t>
+                </t>
+        </template>
+    </data>
+</openerp>
+
+                            

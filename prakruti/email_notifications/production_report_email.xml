@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+      
+    <record model="ir.cron" id="cronjob_production_report_email_scheduler">
+	    <field name='name'>All Plant Production Report - Send by Email</field>
+	  <!--  <field name='interval_number'>24</field>
+	    <field name='interval_type'>hours</field>-->
+	    <field name="numbercall">-1</field>
+	    <field name="active">True</field>
+	    <field name="doall" eval="False" />
+	    <field name="model">report.production_report_email</field>
+	    <field name="function">send_mail</field>
+	    <field name="args">(None,)</field>
+    </record>
+      
+    <record model="ir.cron" id="cronjob_plant_incharge_email_scheduler">
+	    <field name='name'>Verify Mail to Plants</field>
+	   <!-- <field name='interval_number'>24</field>
+	    <field name='interval_type'>hours</field>-->
+	    <field name="numbercall">-1</field>
+	    <field name="active">True</field>
+	    <field name="doall" eval="False" />
+	    <field name="model">report.production_report_email</field>
+	    <field name="function">send_mail_to_plants</field>
+	    <field name="args">(None,)</field>
+    </record>
+
+    </data>
+</openerp>

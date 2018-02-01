@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+                
+        <!-- Inherited Emergency Qty in Stock Module -->
+        <record model="ir.ui.view" id="view_inherited_emergency_entry_form">
+            <field name="name">Inherited Product Stock</field>
+            <field name="model">stock.warehouse.orderpoint</field>
+            <field name="inherit_id" ref="stock.view_warehouse_orderpoint_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_min_qty']" position="before">				
+                    <field name='emergency_min_qty' />
+                </xpath>
+            </field>
+        </record>
+        
+        <!--  Tree View for Product Template       -->
+        <record id="view_prakruti_product_template_tree" model="ir.ui.view">
+            <field name="name">Inherited Product Template</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name= 'code'/>
+                    <field name= 'group_ref' />
+                    <field name= "hsn_code" />
+                </field>
+            </field>
+        </record>
+        
+        <!--  Search View for Product Template       -->
+
+        <record id="product_template_search_form_view_stock_prakruti" model="ir.ui.view">
+            <field name="name">Inherited Product Template</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <field name="pricelist_id" position="after">
+                    <separator/>
+                    <field name="code" />
+                    <field name="group_ref" widget="selection" />
+                    <separator/>
+                    <filter name="store_qty" string="Available Products" domain="[('store_qty','&gt;',0)]"/>
+                    <filter name="store_qty" string="Exhausted Stock" domain="[('store_qty','&lt;=',0)]"/>
+                    <filter name="store_qty" string="Negative Stock" domain="[('store_qty','&lt;',0)]"/>
+                </field>
+            </field>
+        </record>
+        
+        <!--  Kanban View for Product Template       -->
+        <record model="ir.ui.view" id="prakruti_product_template_kanban_stock_view">
+            <field name="name">Prakruti Product Template Kanban Stock</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_kanban_view"/>
+            <field name="arch" type="xml">
+                <field name="lst_price" position="after">
+                    <field name="type"/>
+                </field>
+                <ul position="inside">
+                    <li>Code: <field name="code"/></li>
+                    <li>Group: <field name="group_ref"/></li>
+                    <li>Categorization: <field name="categorization"/></li>
+                </ul>
+            </field>
+        </record>                                
+      
+      
+        <!-- Form View for Product Template-->
+     
+        <record model="ir.ui.view" id="view_packing_materials_inherited_form">
+            <field name="name">view.packing.materials.inherited.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml" >
+                <header position="inside">
+                        <button name= 'draft' type= 'workflow' string= 'Draft' states= 'approve' class= 'oe_highlight'/>
+                        <button name= 'approve' type= 'workflow' string= 'Approved' class= 'oe_highlight'/>                  
+                        <button name="check_stock" string="Check Stock" type="object" class= 'oe_highlight'/>
+                        <field name= 'state' widget= 'statusbar' />
+                </header>
+
+
+                        <xpath expr= "//field[@name='name']" position= 'after'>
+                            <div class="oe_title">                     
+                                <label string="Product Code" placeholder="Product Code"/>
+                                <field name= 'code'/>
+                                <field name= 'code_date' invisible="True"/>
+                                <field name='code_no' invisible="True"/>
+                                <field name='auto_no' invisible="True"/>
+                                <field name='req_no_control_id1' invisible="True"/>
+                            </div>
+                        </xpath>
+                        
+                        <!-- Adding Purchase Price in the general Information of the Product Template -->
+                        <xpath expr= "//field[@name='list_price']" position= 'after'>
+                            <field name= 'list_purchase_price' widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                        </xpath>
+                            
+                            <!-- Groupig of the product -->
+                                    <xpath expr= "//label[@for= 'purchase_ok']" position= 'after'>
+                                        <div>
+                                            <label string="Product Is a"/>
+                                            <field name= 'group_ref'  attrs="{'readonly':[('state','=', 'approve')]}" widget= 'selection'/>
+                                            <label string="Available Qty"/>
+                                            <field name= 'store_qty'/>
+                                            <label string="Specification (or) Any Attachment"/>
+                                            <field name="specification_attachement" />
+                                            <label string="HSN/SAC Code"/>
+                                            <field name="hsn_code" />
+                                            <label string="Categorization"/>
+                                            <field name="categorization" />
+                                            <label string="Sale Minimum Price" attrs="{'invisible':['|',('purchase_ok', '=', True),('group_ref','not in',(5,6))]}"/>
+                                            <field name="sale_price" attrs="{'invisible':['|',('purchase_ok', '=', True),('group_ref','not in',(5,6))]}"/>
+                                        </div>
+                                    </xpath>
+                                    
+                    <!-- Adding Packing material page in the product template screen, it will only be seen when the user select product type as Packing Materials -->
+                    <xpath expr="//page[@name='sales']" position="after" >
+                        <page name="packing" string="Packing Materials" attrs="{'invisible':[('group_ref','=', 3)]}">                                                   
+                                <field name= 'packingmaterial_name' widget= 'one2many_list'>
+                                    <tree editable="bottom">
+                                        <field name ='packing_name' options="{'no_create': True}"/>                                    
+                                        <field name ='qty'/>
+                                        <field name ='remarks'/>
+                                    </tree>
+                                </field>
+                        </page>
+                    </xpath>
+            </field>
+        </record>
+        
+        <!-- Menu for Product Template -->
+        <menuitem
+            id="product_specifications_menu" 
+            name="Product" 
+            parent="prakruti.prakruti_specification_menu" 
+            sequence="2"/>
+      
+        <menuitem
+            action="product.product_template_action_product" 
+            id="product_template_menu" 
+            name="Product Master" 
+            parent="prakruti.product_specifications_menu" 
+            sequence="1" groups="prakruti.group_prakruti_product_product_user_readonly,prakruti.group_prakruti_product_product_user_create,prakruti.group_prakruti_product_product_user_edit,prakruti.group_prakruti_product_product_user_delete,prakruti.group_product_approve_management"/>
+     
+     
+     
+        <!-- Form View for Product Group -->
+        <record id="view_product_group_form_view" model="ir.ui.view">
+            <field name="name">product.group.form.view</field>
+            <field name="model">product.group</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group colspan="4" col="4">
+                            <field name= 'group_name' on_change="onchange_group_name(group_name)"/>
+                            <field name= 'group_code'/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Tree View for Product Group -->
+        <record id="view_product_group_tree_view" model="ir.ui.view">
+            <field name="name">product.group.tree.view</field>
+            <field name="model">product.group</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name= 'group_name'/>
+                    <field name= 'group_code'/>  
+                </tree>
+            </field>
+        </record>
+      
+        <!-- Action for Product Group -->
+        <record model="ir.actions.act_window" id="product_group_view">
+            <field name="name">Product Group</field>
+            <field name="res_model">product.group</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>	
+        </record>   
+     
+        <!-- Menu for Product Group -->
+        <menuitem
+            action="product_group_view" 
+            id="prakruti_product_group_menu" 
+            name="Product Group" 
+            parent="product_specifications_menu" 
+            sequence="20" groups="prakruti.group_prakruti_product_group_user_readonly,prakruti.group_prakruti_product_group_user_create,prakruti.group_prakruti_product_group_user_edit,prakruti.group_prakruti_product_group_user_delete"/>
+     
+
+    </data>
+</openerp>

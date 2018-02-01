@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+ <data>
+        <!--  Search View for Dispatch        -->
+        <record model="ir.ui.view" id="view_prakruti_dispatch_search">
+            <field name="name">prakruti.dispatch.search</field>
+            <field name="model">prakruti.dispatch</field>
+            <field name="arch" type="xml">
+                <search string="Product Wise Search">
+                    <field name="product_id"/>
+                    <field name="dispatch_no"/>
+                    <field name='order_no'/>
+                    <field name="dispatch_to"/>
+                    <field name='state'/>
+                    <field name='product_type_id' string = "Product Group"/>
+                    <separator/>
+                    <filter name='product_type_id' string = "Product Group"/>
+                </search>
+            </field>
+        </record>
+        
+        <!--  Tree View for Dispatch        -->
+        <record model="ir.ui.view" id="view_prakruti_dispatch_tree">
+            <field name="name">prakruti.dispatch.tree</field>
+            <field name="model">prakruti.dispatch</field>
+            <field name="arch" type="xml">
+                <tree string="Dispatch" colors="orange:state =='partially_confirmed';">
+                   <field name="dispatch_no"/>
+                   <field name='dispatch_date'/>
+                   <field name='order_no'/>
+                   <field name='order_date'/>
+                   <field name="dispatch_to"/>
+                   <field name='qc_status'/>
+                   <field name='qa_status'/>
+                   <field name='state'/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Form View for Dispatch         -->
+        <record model="ir.ui.view" id="view_prakruti_dispatch_form">
+            <field name="name">prakruti.dispatch.form</field>
+            <field name="model">prakruti.dispatch</field>
+            <field name="arch" type="xml">
+              <form string="Dispatch"> 
+                    <header>
+                        <button name="dispatch_to_qc" string="Quality Check" type="object" attrs="{'invisible':['|',('qc_check_flag','=',2),('qa_check_flag','=',2)]}"/>
+                        <button name="UpdateDispatchStock" string="Dispatch" type="object" attrs="{'invisible':[('countflag','=',2)]}"/>
+                    </header>
+                    <footer>
+                      <label for="state" style="color:green;"/>
+                        <div>
+                            <field name='state' widget='statusbar' class = 'oe_inline'/>
+                        </div>
+                      <label for="qc_status" style="color:blue;"/>
+                        <div>
+                            <field name="qc_status" widget='statusbar' class = 'oe_inline'/>
+                        </div>                      
+                      <label for="qa_status" style="color:pink;"/>
+                        <div>
+                            <field name="qa_status" widget='statusbar' class = 'oe_inline'/>
+                        </div>
+                  </footer>
+                    <group>
+                        <group>
+                            <field name='dis_no' invisible="True"/>
+                            <field name='auto_no' invisible="True"/>
+                            <field name='req_no_control_id1' invisible="True"/>
+                            <field name='countflag' invisible='True'/>
+                            <field name='flag_count_accept'  invisible='True'/>
+                            <field name='flag_count_reject'  invisible="True"/>
+                            <field name='flag_count_par_reject'  invisible="True"/>
+                            <field name='any_partial_line' invisible="True"/>
+                            <field name='flag_count' invisible= "True"/>
+                            <field name='flag_count_display_product' invisible= "True"/>
+                            <field name= "flag_rejected_count" invisible="True"/>
+                            <field name='slip_no' invisible="True"/>
+                            <field name='dispatch_flag' invisible="True"/>
+                            <field name='reject_flag' invisible="True"/>
+                            <field name='qc_check_flag' invisible="True"/>
+                            <field name='qa_check_flag' invisible="True"/>
+                            <field name='all_send_to_invoice' invisible="True"/>
+                            <field name='coming_from' invisible="True"/>
+                            <field name='revision_no' invisible="True"/>
+                            <field name='terms' invisible="True"/>
+                            <field name='remarks' invisible="True"/>
+                            <field name='order_id'  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" invisible="True"/>
+                            <field name='requested_id'  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" invisible="True"/>
+                            <field name='quotation_id'  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" invisible="True"/>
+                        </group>
+                        <group colspan="4" col="4">
+                            <field name='dispatch_no' readonly="True" style="color: green; font-weight: bold;"/>
+                            <field name='dispatch_date' attrs="{'readonly':[('state','in',('sent_to_qc','qc_done','done','invoice','partially_confirmed','without_qc_partially_confirmed','without_qc_invoice','extra_invoice','extra_partially_confirmed','extra_without_qc_partially_confirmed','extra_without_qc_invoice'))]}"/>
+                            <field name='order_no' on_change="onchange_order_no(order_no)" domain="[('state','in',('partial_order','production_slip_confirmed','partially_confirmed','without_qc_partially_confirmed','extra_partially_confirmed','extra_without_qc_partially_confirmed'))]" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                            <field name='order_date' readonly="True"/>
+                            <field name='customer_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" readonly="True"/>
+                            <field name='dispatch_to' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" readonly="True"/>
+                            <field name='company_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" attrs="{'readonly':[('state','in',('sent_to_qc','qc_done','done','invoice','partially_confirmed','without_qc_partially_confirmed','without_qc_invoice','extra_invoice','extra_partially_confirmed','extra_without_qc_partially_confirmed','extra_without_qc_invoice'))]}" readonly="True"/>
+                            <field name='shipping_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" readonly="True"/>
+                            <field name='billing_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" readonly="True"/>
+                            <field name= "product_type_id" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" readonly="True"/>              
+                            <field name='po_no' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" readonly="True"/>           
+                            <field name='dispatch_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" />
+                            <field name='reference_no' />
+                            <field name='reference_date' readonly="True"/>
+                        </group>
+                    </group>
+                    <button name="action_list_products"  string="List" type="object" attrs="{'invisible':[('flag_count_display_product','=',1)]}"/>
+                    <button name="action_delete_products"  string="Delete" type="object" attrs="{'invisible':[('state','not in','draft')]}"/>
+                    <notebook colspan="2"> 
+                        <page  string="Product Details">                   
+                            <button name="check_stock" string="Check Stock" type="object" />
+                            <field name='grid_id'/>
+                        </page>
+                        <page string='Advanced Payment Details' invisible="True">
+                            <group name="payment_options" string="Advanced Payment Details">
+                                <group colspan="4" col="4">
+                                    <field name='advance_payment_type'/>
+                                    <field name='cash_amount' attrs="{'invisible':[('advance_payment_type', 'in', ('cheque','demand_draft'))]}"/>
+                                    <field name='cash_remarks' attrs="{'invisible':[('advance_payment_type', 'in', ('cheque','demand_draft'))]}"/>
+                                    <field name='cheque_amount' attrs="{'invisible':[('advance_payment_type', 'in', ('cash','demand_draft'))]}"/>
+                                    <field name='cheque_no' attrs="{'invisible':[('advance_payment_type', 'in', ('cash','demand_draft'))]}"/>
+                                    <field name='cheque_remarks' attrs="{'invisible':[('advance_payment_type', 'in', ('cash','demand_draft'))]}"/>
+                                    <field name='draft_amount' attrs="{'invisible':[('advance_payment_type', 'in', ('cash','cheque'))]}"/>
+                                    <field name='draft_no' attrs="{'invisible':[('advance_payment_type', 'in', ('cash','cheque'))]}"/>
+                                    <field name='draft_remarks' attrs="{'invisible':[('advance_payment_type', 'in', ('cash','cheque'))]}"/>
+                                </group>
+                            </group>
+                        </page> 
+                        <page  string="Product Wise Batch List">
+                            <field name='batch_line'>
+                                <tree string="Product Wise Batch List" editable='bottom' create="false">
+                                    <field name="product_id" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                                    <field name="uom_id" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" />
+                                    <field name="batch_no" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                                    <field name='specification_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" domain="['&amp;',('product_id','=',product_id),'|',('specification_sale_status','=',True),('common_specification','=',True)]"/>
+                                    <field name='ar_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"  domain="[('specification_id','=',specification_id)]"/> 
+                                    <field name="dispatched_qty" />
+                                    <field name='batch_size'/>
+                                    <field name='batch_qty'/>
+                                    <field name='packing_details'/>
+                                    <field name="remarks" />
+                                    <field name="send_to_qc_qa_flag" invisible="1"/>
+                                    <field name="send_to_invoice_flag" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string ="Other Details">
+                            <group colspan= "4" col= "4">
+                                <field name= "doc_no" />
+                            </group>
+                            <group colspan= "4" col= "4">
+                                <field name= "vehicle_no" />
+                                <field name= 'transport_name'/>
+                            </group>
+                            <group name="total_details"  string='Total'  invisible="True">
+                                <group class="oe_subtotal_footer oe_left">
+                                        <field name='total_no_of_products' invisible="True"/>
+                                        <field name='proportionate_amount_to_products' invisible="True"/>
+                                        <field name='freight_charges'/>
+                                        <field name='loading_and_packing_charges'/>
+                                        <field name='insurance_charges'/>
+                                        <field name='other_charges'/>
+                                        <field name='all_additional_charges' invisible="True"/>
+                                        <field name='total_amount_before_tax'/>
+                                        <field name='total_cgst_amount' invisible="True"/>
+                                        <field name='total_sgst_amount' invisible="True"/>
+                                        <field name='total_igst_amount' invisible="True"/>
+                                        <field name='total_gst_amount' />
+                                        <field name='total_amount_after_tax'/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+        
+        
+        <!--  Tree view for Dispatch Line     -->
+        <record model="ir.ui.view" id="view_prakruti_dispatch_line_tree">
+            <field name="name">prakruti.dispatch_line.tree</field>
+            <field name="model">prakruti.dispatch_line</field>
+            <field name="arch" type="xml">
+                <tree string="Dispatch Line" editable='bottom' create= "false" delete= "false">
+                    <field name="product_id" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                    <field name="uom_id" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" />
+                    <field name="description" />
+                    <field name='batch_no' domain="[('subplant_id.subplant_id','=',product_id)]"  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" invisible="1"/> 
+                    <field name="batch_list" />
+                    <field name="batch_wise_dispatch" invisible="1"/>
+                    <field name="ordered_qty" />
+                    <field name="total_dispatch_qty" />
+                    <field name="scheduled_date" />
+                    <field name="total_scheduled_qty" />
+                    <field name="dispatched_qty" />
+                    <field name="remaining_dispatched_qty" />
+                    <field name="packing_details" />
+                    <field name="accepted_qty" />
+                    <field name="rejected_qty" />
+                    <field name="store_qty"/>
+                    <field name="send_status" />
+                    <field name="dispatch_status" />
+                    <field name="remarks" />
+                    <button name="action_dispatch_qty_transfer" icon="gtk-go-forward" string="Batch Allocation" type="object" />
+                </tree>
+            </field>
+        </record>        
+        
+        <!--  Pivot for Dispatch                                    -->
+        <record model="ir.ui.view" id="view_prakruti_dispatch_pivot">
+            <field name="name">prakruti.dispatch.pivot</field>
+            <field name="model">prakruti.dispatch</field>
+            <field name="arch" type="xml">
+                <pivot string="Dispatch" display_quantity="True">
+                    <field name="customer_id" type="row"/>
+                    <field name="state"/>
+                </pivot>
+            </field>
+        </record>
+        
+        <!-- Action for Dispatch         -->
+        <record model="ir.actions.act_window" id="prakruti_dispatch_action">
+            <field name="name">Dispatch</field>
+            <field name="res_model">prakruti.dispatch</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,pivot</field>
+        </record>
+        
+        
+	<menuitem id="prakruti_sales_stores_sub_menu"
+                  name="Outward" 
+                  parent="prakruti_stores_main_menu" 
+                  sequence="3"/>
+        
+        <menuitem sequence="1" 
+                  name=" Sales Dispatch" 
+                  id="prakruti_dispatch_menu" 
+                  action="prakruti_dispatch_action" 
+                  parent="prakruti_sales_stores_sub_menu" groups="group_prakruti_dispatch_read_only,group_prakruti_dispatch_edit,group_prakruti_dispatch_create,group_prakruti_dispatch_delete" />
+</data>
+</openerp>

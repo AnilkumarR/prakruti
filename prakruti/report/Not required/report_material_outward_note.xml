@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_material_outward_note_document">
+            <t t-name="prakruti.report_material_outward_note_document">
+                <div class="page" style=" width: 215mm; height: 260mm; border:2px solid black; ">
+                    <table style="width: 214mm; border:1px solid black;">
+                        <tr>
+                            <td style="font-size:20px" align="center"><b><span t-field="o.company_id.name"/></b></td><br/>
+                                <tr>
+                                    <td align="center">Regd. Off:<span t-field="o.company_id.street"/>
+                                                                 <span t-field="o.company_id.street2"/>
+                                                                 <span t-field="o.company_id.city"/>
+                                                                 <span t-field="o.company_id.zip"/>
+                                    </td>
+                                </tr>
+                        </tr>
+        
+                        <tr>
+                            <td align="center">Factory:<span t-field="o.company_id.factory_address"/>
+                                                       <span t-field="o.company_id.factory_street"/>
+                                                       <span t-field="o.company_id.factory_city"/>
+                                                       <span t-field="o.company_id.factory_zip"/>
+                            </td>
+                        </tr>          
+                    </table>                    
+                    <table style="width: 214mm; border:1px solid black;">
+                        <tr>
+                            <td align="center"><b>MATERIAL OUTWARD NOTE</b></td>
+                        </tr>
+                        
+                        <!--     Just a Barcode Practice ands its working     -->
+                        <!--<tr height="40">
+                            <td>
+                                <img t-if="o.barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', o.barcode, 600, 100)" style="width:100%;height:20%;"/>
+                            </td>                              
+                        </tr>-->
+                        
+                        
+                    </table>     
+                    <table align="left" style="width: 100mm; border:1px solid black;height:30mm">
+                        <tr>
+                            <td>Name and address of the sender:</td>
+                            <table align="right" style="width:114mm; border:1px solid black;">  
+                                <tr>
+                                    <td style="width: 70mm; border:1px solid black" >MON No:<span t-field="o.mon_no"/></td>
+                                    <td style="width: 43mm;border:1px solid black" >Date:<span t-field="o.mon_date"/></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 70mm;border:1px solid black" >Invoice No:<span t-field="o.invoice_no"/></td>
+                                    <td style="width: 43mm;border:1px solid black" >Date:<span t-field="o.invoice_date"/></td>
+                                </tr>
+                                    <table align="right" style="width:114mm; border:1px solid black;height:20mm">
+                                        <tr>
+                                            <td>Party CST No:<span t-field="o.party_cst_no"/></td>
+                                            <td>Party VAT no:<span t-field="o.party_vat_no"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Other details if Any:</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Transport Payment details:</td>
+                                        </tr> 
+                                    </table>
+                                    <table align="left" style="width:100mm; border:1px solid black;height:11mm">
+                                            <tr>
+                                            <td>Name of the Transporter:</td>
+                                        </tr>
+                                    </table>
+                                    <table align="right" style="width:114mm; border:1px solid black">
+                                        <tr>
+                                            <td style="width: 70mm;height:11mm;border:1px solid black" >GC No:</td>
+                                            <td style="width: 43mm;height:11mm; border:1px solid black" >Date:</td>
+                                        </tr>
+                                    </table>
+                            </table>
+                        </tr>
+                        
+                    </table>
+        
+                    <tr><br></br></tr>
+           
+                    <table class="table table-condensed" style="border:1px solid black; border-collapse: collapse;">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="border: 1px solid #000000;"><strong>Sl No</strong></th>
+                                <th class="text-center" style="border: 1px solid #000000;"><strong>Name of the Material</strong></th>
+                                <th class="text-center" style="border: 1px solid #000000;"><strong>No of Packings</strong></th>
+                                <th class="text-center" style="border: 1px solid #000000;"><strong>Packing size</strong></th>
+                                <th class="text-center" style="border: 1px solid #000000;"><strong>Qty</strong></th>
+                                <th class="text-center" style="border: 1px solid #000000;"><strong>UOM</strong></th>
+                                <th class="text-center" style="border: 1px solid #000000;"><strong>Amount(Rs)</strong></th>
+                            </tr>
+                        </thead>
+                        
+                            <tr t-foreach="o.order_line" t-as="line">
+                                <td class="col-xs-1" style="border: 1px solid #000000;">
+                                    <span t-esc="line_index+1"/>
+                                </td>
+                                <td  style="border: 1px solid #000000;">
+                                    <span t-field="line.product_id"/>
+                                </td>
+                                <td  style="border: 1px solid #000000;">
+                                    <span t-field="line.no_of_pack"/>
+                                </td>
+                                <td  style="border: 1px solid #000000;">
+                                    <span t-field="line.pack_size"/>
+                                </td>
+                                <td  style="border: 1px solid #000000;">
+                                    <span t-field="line.qty"/>
+                                </td>
+                                <td  style="border: 1px solid #000000;">
+                                    <span t-field="line.uom_id"/>
+                                </td>
+                                <td  style="border: 1px solid #000000;">
+                                    <span t-field="line.amount"/>
+                                </td>
+                            </tr>
+                    </table>
+                    <table style="width: 214mm; border:1px solid white;height:40mm;">
+                        <tr>
+                            <td align="left"><strong>Remarks:</strong><span t-field="o.remarks"/></td><br/>                            
+                                <tr>
+                                    <td align="left">VAT TIN: <span t-field="o.c_tin_vat"/>Dated: 14-07-2006</td>                            
+                                </tr>                            
+                        </tr>
+                    </table>
+                    <table style="width: 214mm; border:1px solid white;height:20mm;">
+                        <tr>
+                            <td align ="left">Authorized Signatory</td>
+                            <td align ="right">Stores Incharge:</td><br/><br/>
+                                <tr>
+                                    <td><p>Kindly return the duplicate copy duly signed as acknowledgement</p></td>
+                                </tr>
+                        </tr>
+                    </table>
+                    <table style="width: 214mm; border:1px solid black;height:5mm;">
+                        <tr>
+                            <td align="left">Doc No.:<span t-field="o.doc_no"/></td>
+                            <td align="center">Review No.:<span t-field="o.rev_no"/></td>
+                            <td align="right">Date:<span t-field="o.doc_date"/></td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </template>
+           
+               
+        <template id="report_material_outward_n_document">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="prakruti.report_material_outward_note_document" t-lang="o.s_ing.lang"/>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

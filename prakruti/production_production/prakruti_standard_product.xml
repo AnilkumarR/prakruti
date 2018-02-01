@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"  ?>
+<openerp>
+ <data>
+     
+        <!--Search view for Standard Product       -->
+        <record model="ir.ui.view" id="view_prakruti_standard_product_search">
+            <field name="name">prakruti.standard_product.search</field>
+            <field name="model">prakruti.standard_product</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name ="subplant_id"/>
+                    <field name ="standard_batch_size"/> 
+                    <field name ="standard_output_yield" />
+                    <field name ="is_duplicate"/>       
+                </search>
+            </field>
+        </record>
+        
+        <!-- Tree view for standard product         -->
+    <record model="ir.ui.view" id="view_prakruti_standard_product_tree">
+            <field name="name">Standard Product</field>
+            <field name="model">prakruti.standard_product</field>
+            <field name="arch" type="xml">
+                <tree string="Standard Product" >
+                    <field name ="subplant_id"/>
+                    <field name ="standard_batch_size"/>
+                    <field name ="is_duplicate"/>
+                </tree>
+            </field>
+        </record>  
+        
+      <!--Form view for Standard Product     -->
+  
+     <record model="ir.ui.view" id="view_prakruti_standard_product_form">
+        <field name="name">Standard Product</field>
+        <field name="model">prakruti.standard_product</field>
+        <field name="arch" type="xml">
+            <form string="Standard Product" >
+                <sheet>
+                 <header position="inside">                       
+                     <button name="duplicate_standard_bom" string="Duplicate" type="object" class="oe_highlight" attrs="{'invisible':[('is_duplicate', '=', True)]}"/>
+                 </header>
+                 <group colspan="4" col="4">
+                     <field name ="is_duplicate"/>
+                     <field name="company_id" readonly="True"/>
+                     <field name ="subplant_id" style="width:100%%" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                     <field name ="standard_batch_size" style="width:100%%"/> 
+                     <field name ="standard_output_yield" style="width:100%%"/>
+                     <field name ="duplicate_flag" invisible="True"/>   
+                     <notebook colspan='4'>
+                         <page string='Product Details'>                   
+                             <button name="check_stock" string="Check Stock" type="object" />
+                             <field name ="subplant_line"/>
+                         </page>
+                     </notebook>
+                  </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+        <!-- Tree view for Standard Product Line     -->
+       <record model="ir.ui.view" id="view_prakruti_standard_product_line_tree">
+            <field name="name">Standard Product</field>
+            <field name="model">prakruti.standard_product_line</field>
+            <field name="arch" type="xml">
+                 <tree editable='bottom'>
+                    <field name ="product_id" on_change="onchange_product_id(product_id)" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                    <field name ="description" /> 
+                    <field name ="uom_id" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/> 
+                    <field name ="store_qty" />         
+                    <field name ="standard_value" />       
+                </tree>
+            </field>
+        </record>  
+    <!-- Pivot for Standard Product    -->
+        <record model="ir.ui.view" id="view_prakruti_standard_product_pivot">
+            <field name="name">prakruti.standard_product.pivot</field>
+            <field name="model">prakruti.standard_product</field>
+            <field name="arch" type="xml">
+                <pivot string=" Production" display_quantity="True">
+                    <field name="subplant_id" type="row"/>
+                </pivot>
+            </field>
+        </record> 
+        
+    <!-- Action for Standard Product         -->
+    <record model="ir.actions.act_window" id="prakruti_standard_product_action">
+            <field name="name">Standard Product</field>
+            <field name="res_model">prakruti.standard_product</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,pivot</field>
+        </record>
+        
+       
+       
+    <menuitem id="prakruti_standard_product_sub_menu" 
+              name="Standard Product BOM" 
+              action="prakruti_standard_product_action" 
+              sequence="5"
+              parent="prakruti_production_planning_menu" groups="group_prakruti_standard_product_read_only,group_prakruti_standard_product_create,group_prakruti_standard_product_edit,group_prakruti_standard_product_delete" />
+
+        
+</data>  
+</openerp>
+            
+                        

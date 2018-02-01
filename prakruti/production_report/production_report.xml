@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <report
+            id="report_production_transfer_note"
+            string="Production Transfer Note"
+            model="prakruti.production_transfer_note"
+            report_type="qweb-pdf"
+            name="prakruti.report_production_transfernote"
+        />
+        
+        
+        <report
+            id="report_bmr_extraction_production"
+            string="Extraction BMR"
+            model="prakruti.production"
+            report_type="qweb-pdf"
+            name="prakruti.report_bmr_extraction"
+        />
+        
+        
+        <report
+            id="report_bmr_tablet_production"
+            string="Tablet BMR"
+            model="prakruti.tablet_production"
+            report_type="qweb-pdf"
+            name="prakruti.report_bmr_tablet"
+        />
+        
+        
+        <report
+            id="report_bmr_syrup_production"
+            string="Syrup BMR"
+            model="prakruti.syrup_production"
+            report_type="qweb-pdf"
+            name="prakruti.report_bmr_syrup"
+        />
+        
+    </data>
+</openerp>
+

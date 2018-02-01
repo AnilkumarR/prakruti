@@ -1,0 +1,60 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        
+        
+        <record id="email_prakruti_production_transfer_note_ha" model="email.template">
+            <field name="name">PTN QC HA</field>
+            <field name="email_from">${object.checked_by.login}</field>          
+            <field name="email_to">${object.checked_by.login}</field>
+            <field name="model_id" ref="model_prakruti_production_transfer_note_ha"/>
+            <field name="auto_delete" eval="True"/> 
+            <field name="subject">
+                <![CDATA[ 
+                    ${object.ptn_no}-Inward
+                 ]]></field>
+            <field name="body_html">
+                <![CDATA[
+                    <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">                    
+                        <p>Dear Team,</p>
+                        <p><b>PTN HA Date:</b> ${object.qc_date},</p>
+                        <p>The PTN No. ${object.ptn_no}  is in Inward</p>
+                        <p><b>Product Details:</b></p> 
+                            <table  border=1>
+                                    <tr>
+                                        <td><b>Item </b></td>
+                                        <td><b>Description</b></td>
+                                        <td><b>Specification</b></td>
+                                        <td><b>Accepted Qty</b></td>
+                                        <td><b>Rejected Qty</b></td>
+                                        <td><b> Qty</b></td>
+                                        <td><b> Status</b></td>
+                                        <td><b> Remarks </b></td>
+                                    </tr>
+                                    %  for line in object.grid_id:
+                                    <tr>
+                                        <td>${line.product_id.name}</td>   
+                                        <td>${line.description}</td>        
+                                        <td>${line.specification_id.specification_name}</td>       
+                                        <td  align="right">${'{:.3f}'.format(line.accepted_qty)}</td>       
+                                        <td  align="right">${'{:.3f}'.format(line.rejected_qty)}</td>        
+                                        <td  align="right">${'{:.3f}'.format(line.mrg_quantity)}</td> 
+                                        <td>${line.qc_status}</td>       
+                                        <td>${line.remarks}</td>       
+                                    </tr>
+                                    %endfor
+                                </table>
+                    </div>
+                    <br><br>
+                    <p> Regards, </p>
+                    <p> Prakruti ERP Application </p>
+                    <p>  ${object.checked_by.name}</p>
+                ]]></field>
+        </record>
+        
+        
+        
+        
+        
+    </data>
+</openerp>

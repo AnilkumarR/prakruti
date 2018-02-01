@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        
+        
+        <record id="email_prakruti_sales_return" model="email.template">
+            <field name="name">Sales Return</field>
+            <field name="email_from">${object.return_id.login}</field>          
+            <field name="email_to">${object.dispatch_id.login},${object.return_id.login}</field>
+            <field name="model_id" ref="model_prakruti_sales_return"/>
+            <field name="auto_delete" eval="True"/> 
+            <field name="subject">
+                <![CDATA[ 
+                    ${object.return_no}-Sales GRN
+                 ]]></field>
+            <field name="body_html">
+                <![CDATA[
+                    <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">                    
+                        <p>Dear Team,</p>            
+                        <p><b>Return Date:</b> ${object.return_date},</p>
+                        <p>The SR No. ${object.return_no}  is in GRN </p>
+                        <p><b>Product Details:</b></p>
+                            <table  border=1>
+                                    <tr>
+                                        <td><b>Item </b></td>
+                                        <td><b>Description</b></td>
+                                        <td><b> Specification</b></td>
+                                        <td><b> Ordered Qty</b></td>
+                                        <td><b> Return/Returned Qty</b></td>
+                                        <td><b> Status</b></td>
+                                    </tr>
+                                    %  for line in object.grid_id:
+                                    <tr>
+                                        <td>${line.product_id.name}</td>
+                                        <td>${line.description}</td>        
+                                        <td>${line.specification_id.specification_name}</td>       
+                                        <td  align="right">${'{:.3f}'.format(line.ordered_qty)}</td>  
+                                        <td  align="right">${'{:.3f}'.format(line.rejected_qty)}</td> 
+                                        <td>${line.status}</td>     
+                                    </tr>
+                                    %endfor
+                                </table>
+                            <p><b>Remarks:</b> ${object.remarks}</p>
+                    </div>
+                    <br><br>
+                    <p> Regards, </p>
+                    <p> Prakruti ERP Application </p>
+                    <p> ${object.return_id.name} </p>
+                ]]></field>
+        </record>
+        
+ 
+
+ 
+
+        
+        
+        
+        
+        
+    </data>
+</openerp>

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"  ?>
+<openerp>
+ <data>
+        <!--Search View for Sales Invoice          -->
+        <record model="ir.ui.view" id="view_prakruti_sales_invoice_search">
+            <field name="name">Sales Invoice Search</field>
+            <field name="model">prakruti.sales_invoice</field>
+            <field name="arch" type="xml">
+                <search string="Product Wise Search">
+                    <field name="product_id"/>
+                    <field name ="invoice_type"/>
+                    <field name ="invoice_no"/>
+                    <field name ="invoice_date"/>
+                    <field name ="dispatch_no" />
+                    <field name ="order_no" />
+                    <field name ="customer_id" />
+                    <field name="state"/>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Tree view for Sales Invoice         -->
+        <record model="ir.ui.view" id="view_prakruti_sales_invoice_tree">
+            <field name="name">Sales Invoice</field>
+            <field name="model">prakruti.sales_invoice</field>
+            <field name="arch" type="xml">
+                <tree string="Sales Invoice" colors="orange:state =='partially_confirmed';salmon:state =='return'" create= "false">
+                    <field name ="invoice_type"/>
+                    <field name ="invoice_no"/>
+                    <field name ="invoice_date"/>
+                    <field name ="dispatch_no" />
+                    <field name ="order_no" />
+                    <field name ="order_date" />
+                    <field name ="customer_id" />
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>  
+        
+    <!--Form view for Sales Invoice          -->
+     <record model="ir.ui.view" id="view_prakruti_sales_invoice_form">
+        <field name="name">Sales Invoice</field>
+        <field name="model">prakruti.sales_invoice</field>
+        <field name="arch" type="xml">
+            <form string="Sales Invoice" create= "false">
+                <header position="inside" > 
+                    <button name= 'invoice_to_return' string="Return" type="object" attrs="{'invisible':[('state', 'in',('return'))]}"/>
+                    <button name= 'invoice_to_gate_pass' string="Gate Pass" type="object" attrs="{'invisible':[('state', 'in',('gate_pass','return'))]}"/> 
+                    <button name = 'print_local_invoice' string="Print Local Invoice" type="object" attrs="{'invisible':[('invoice_type', 'in',('export_invoice'))]}"/>
+                    <button name = 'print_export_invoice' string="Print Export Invoice" type="object" attrs="{'invisible':[('invoice_type', 'in',('commercial_invoice'))]}"/>
+                </header>
+                <group>
+                    <field name ="inv_no" invisible="True"/>
+                    <field name ="auto_no" invisible="True"/>
+                    <field name ="req_no_control_id" invisible="True"/>
+                    <field name='product_type_id' domain="[('id','=',(5,6))]"  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" invisible='True'/>
+                    <field name='slip_no' invisible='True'/> 
+                </group>   
+                <group name = 'invoice' string = "Sales Invoice"/>
+                    <group colspan="4" col="4">
+                        <field name ="invoice_no" style="color: orange; font-weight: bold;"/>
+                        <field name ="invoice_type" style="color: green; font-weight: bold;"/>
+                        <field name ="terms_payment" />
+                        <field name ="invoice_date"/>
+                        <field name ="dispatch_no" />
+                        <field name ="dispatch_date" />
+                        <field name ="order_no" />
+                        <field name ="order_date" />
+                        <field name ="supplier_ref" />
+                        <field name ="dispatch_through" />
+                        <field name ="company_address" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                        <field name ="customer_id" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" /> 
+                        <field name ="billing_id" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" /> 
+                        <field name ="shipping_id" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" />
+                        <field name='state' readonly="True"/>              
+                        <field name='po_no' readonly="True"/>
+                        <field name='return_id'  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" />
+                        <field name='reference_no' readonly="True"/>
+                        <field name='reference_date' readonly="True"/>          
+                        <field name='dispatch_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" invisible="True" />
+                        <field name='order_id'  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" invisible="True"/>
+                        <field name='requested_id'  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" invisible="True"/>
+                        <field name='quotation_id'  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" invisible="True"/>
+                </group>
+                <notebook>
+                    <page string='Product Details'>
+                        <field name='grid_id' widget='one2many_list'/>
+                        <group name="total_details"  string='Total'>
+                            <group class="oe_subtotal_footer oe_left">
+                                <field name='total_taxable_value' invisible="True"/>
+                                <field name='total_amount' readonly="1"/>
+                                <field name='total_no_of_products' invisible="True"/>
+                                <field name='proportionate_amount_to_products' invisible="True"/>
+                                <field name='freight_charges'/>
+                                <field name='loading_and_packing_charges'/>
+                                <field name='insurance_charges'/>
+                                <field name='other_charges'/>
+                                <field name='all_additional_charges' invisible="True"/>
+                                <field name='total_amount_before_tax' readonly="1"/>
+                                <field name='total_cgst_amount' invisible="True"/>
+                                <field name='total_sgst_amount' invisible="True"/>
+                                <field name='total_igst_amount' invisible="True"/>
+                                <field name='total_gst_amount' readonly="1"/>
+                                <field name='total_amount_after_tax' readonly="1"/>
+                                <field name='grand_total' readonly="1"/>
+                                <button name="calculate_total" string="(update)" type="object" class="oe_edit_only oe_link" /><newline/>
+                            </group>
+                            <group>
+                                <field name="total_gst_in_words" invisible="True"/>
+                                <field name="grand_total_in_words" invisible="True"/>
+                            </group>
+                        </group>
+                    </page> 
+                    <page  string="Product Wise Batch List">
+                        <field name='batch_line'>
+                            <tree string="Product Wise Batch List" editable='bottom' create="false">
+                                <field name="product_id" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                                <field name="batch_no" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                                <field name="dispatched_qty" />
+                                <field name='batch_size'/>
+                                <field name='batch_qty'/>
+                                <field name='packing_details'/>
+                                <field name="remarks" />
+                            </tree>
+                        </field>
+                    </page>
+                    <page  string="Other Details">
+                        <group colspan="2" col="6">
+                            <field name ="destination"/>
+                            <field name ="terms_delivery"/>
+                            <field name ="vehicle_no"  />
+                            <field name ="port_of_discharge"/>
+                            <field name ="bank_details"/>
+                            <field name ="other_ref" />
+                            <field name ="goods_datetime" />
+                            <field name ="invoice_datetime"/>
+                            <field name ="exporter_datetime"/>
+                            <field name ="bl_no"/> 
+                            <field name ="bl_date"/> 
+                            <field name ="vessal_name"/> 
+                            <field name ="country_origin"/>
+                            <field name ="serial_no"/>
+                            <field name ="form_to_recieve"/>
+                            <field name ="delivery_note"/>
+                            <field name ="delivery_date"/>  
+                            <field name='terms' readonly="True"/> 
+                            <field name='reference_no' readonly="True"/> 
+                            <field name='reference_date' readonly="True"/>
+                            <field name='revision_no' readonly="True"/>
+                            <field name="remarks" readonly="True"/>
+                        </group>
+                        <group name="payment_options" string="Advanced Payment Details">
+                            <group colspan="4" col="4">
+                                <field name='any_adv_payment'/>
+                                <field name='advance_payment_type'/>
+                                <field name='cash_amount' attrs="{'invisible':[('advance_payment_type', 'in', ('cheque','demand_draft'))]}"/>
+                                <field name='cash_remarks' attrs="{'invisible':[('advance_payment_type', 'in', ('cheque','demand_draft'))]}"/>
+                                <field name='cheque_amount' attrs="{'invisible':[('advance_payment_type', 'in', ('cash','demand_draft'))]}"/>
+                                <field name='cheque_no' attrs="{'invisible':[('advance_payment_type', 'in', ('cash','demand_draft'))]}"/>
+                                <field name='cheque_remarks' attrs="{'invisible':[('advance_payment_type', 'in', ('cash','demand_draft'))]}"/>
+                                <field name='draft_amount' attrs="{'invisible':[('advance_payment_type', 'in', ('cash','cheque'))]}"/>
+                                <field name='draft_no' attrs="{'invisible':[('advance_payment_type', 'in', ('cash','cheque'))]}"/>
+                                <field name='draft_remarks' attrs="{'invisible':[('advance_payment_type', 'in', ('cash','cheque'))]}"/>
+                            </group>
+                            <group string="Remarks">
+<!--                                 <field name ="remarks"/>  -->
+                                <field name ="excise_declaration"/> 
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record> 
+        
+        
+    <!--  Tree view for Sales Invoice Line     -->
+     <record model="ir.ui.view" id="view_prakruti_sales_invoice_line_tree">
+         <field name="name">prakruti.sales_invoice_line.tree</field>
+         <field name="model">prakruti.sales_invoice_line</field>
+         <field name="arch" type="xml">
+                <tree string = "Sales Invoice Line" editable = 'bottom' delete = "false" create = "false">
+                    <field name='product_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" domain="[ ('group_ref','=',parent.product_type_id)]" />
+                    <field name="description" />
+                    <field name="external_reference" />
+                    <field name='uom_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" />
+                    <field name='specification_id' domain="[('product_id','=',product_id)]" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" />
+                    <field name='batch_no' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" domain="[('subplant_id.subplant_id','=',product_id)]" invisible="1"/>
+                    <field name="batch_list" />
+                    <field name="batch_wise_dispatch" />
+                    <field name="packing_details" />
+                    <field name='hsn_code' readonly="True"/>
+                    <field name='mfg_date'  />
+                    <field name='exp_date' />
+                    <field name='mrp' />
+                    <field name='quantity' readonly="True"/>
+                    <field name='unit_price'/>
+                    <field name='amount' readonly="True"/>
+                    <field name='discount' />
+                    <field name='taxable_value' readonly="True"/>
+                    <field name='proportionate_amount_to_products' invisible="True"/>
+                    <field name='taxable_value_with_charges' readonly="True"/>
+                    <field name='gst_rate' invisible="True"/>
+                    <field name='cgst_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                    <field name='cgst_value' invisible="True"/>
+                    <field name='cgst_amount' readonly="1"/>
+                    <field name='sgst_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                    <field name='sgst_value' invisible="True"/>
+                    <field name='sgst_amount' readonly="1"/>
+                    <field name='igst_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                    <field name='igst_value' invisible="True"/>
+                    <field name='igst_amount' readonly="1"/>
+                    <field name='total' readonly="1"/>
+                    <field name='remarks'/>                      
+                    <field name='status' invisible="True"/> 
+                </tree>
+         </field>
+     </record>
+     
+    <!--  Pivot for Sales Invoice     -->
+     <record model="ir.ui.view" id="view_prakruti_sales_invoice_pivot">
+            <field name="name">prakruti.sales_invoice.pivot</field>
+            <field name="model">prakruti.sales_invoice</field>
+            <field name="arch" type="xml">
+                <pivot string=" Sales Invoice" display_quantity="True">
+                    <field name="customer_id" type="row"/>
+                    <field name='state' />              
+                </pivot>
+            </field>
+        </record>
+    <!--Action for Sales Invoice          -->
+        <record model="ir.actions.act_window" id="prakruti_sales_invoice_action">
+            <field name="name">Sales Invoice</field>
+            <field name="res_model">prakruti.sales_invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,pivot</field>
+        </record>
+
+        <menuitem name="Sales Invoice" 
+                  id="prakruti_sales_invoice_menu"
+                  action="prakruti_sales_invoice_action" 
+                  sequence="4"
+                  parent="prakruti_sales_main_sub_menu" groups="group_prakruti_sales_invoice_read_only,group_prakruti_sales_invoice_edit,group_prakruti_sales_invoice_create,group_prakruti_sales_invoice_delete"/>
+        
+</data>
+</openerp>

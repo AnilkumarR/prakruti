@@ -1,0 +1,11 @@
+# -*- coding: utf-8 -*-
+import batch_wizard
+import prakruti_grn_store_issue_wizard
+import prakruti_production_transfer_note_wizard 
+import prakruti_bill_of_material_wizard
+import prakruti_syrup_wizard
+import prakruti_syrup_packing_wizard
+import prakruti_tablet_wizard
+import prakruti_tablet_packing_wizard
+import prakruti_formulation_packing_wizard
+import prakruti_formulation_wizard

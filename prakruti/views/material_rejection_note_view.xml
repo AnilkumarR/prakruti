@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <!--     Search View for Material Rejection Note-->
+        <record model="ir.ui.view" id="view_prakruti_return_items_search">
+            <field name="name">Material Rejection Note</field>
+            <field name="model">prakruti.return_items</field>
+            <field name="arch" type="xml">
+                <search string ="Material Rejection Note">
+                    <field name ="product_id"/>
+                    <field name ="mrn_no"/>
+                    <field name ="po_no"/>
+                    <field name ="status"/>
+                </search>
+            </field>
+        </record>
+        
+        <!--     Tree View for Material Rejection Note-->
+        <record model="ir.ui.view" id="view_return_items_tree">
+            <field name="name">Material Rejection Note</field>
+            <field name="model">prakruti.return_items</field>
+            <field name="arch" type="xml">
+                <tree string="Material Rejection Note" >
+                    <field name ="mrn_no"/>
+                    <field name ="grn_id"/>
+                    <field name ="po_no"/>
+                    <field name ="vendor_id"/>
+                    <field name ="return_date"/>
+                    <field name ="status"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!--     Form View for Material Rejection Note-->
+        <record model="ir.ui.view" id="view_return_items_form">
+            <field name="name">Material Rejection Note</field>
+            <field name="model">prakruti.return_items</field>
+            <field name="arch" type="xml">
+                <form string="Material Rejection Note" >
+                    <sheet> 
+                        <header>
+                            <button name="purchase_return" string="Raise Purchase Return" type="object" attrs="{'invisible':[('purchase_return_flag','=',1)]}"/>
+                            <button name="material_outward" string="Raise Material Outward" type="object" attrs="{'invisible':[('material_outward_flag','=',1)]}"/>
+                            <field name ='status' widget="statusbar"/>           
+                        </header>
+                        <group string = "Material Rejection Note"/>
+                        <group> 
+                            <field name ="auto_no" invisible="True"/>
+                            <field name ="req_no_control_id" invisible="True"/>
+                            <field name ="material_reject_note_no" invisible="True"/>
+                            <field name ='flag_display_list' invisible="True"/>
+                            <field name ='flag_delete_list' invisible="True"/>
+                            <field name ='purchase_return_flag' invisible="True"/>
+                            <field name ='material_outward_flag' invisible="True"/>
+                            <field name ="grn_no" invisible = "True"/>
+                        </group>
+                        <group colspan="4" col="4">
+                            <div class="oe_title">
+                                <label for="grn_id" string="GRN No:"/>
+                                <h1><field name="grn_id" placeholder="Select Here" on_change="on_change_grn_id(grn_id)" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" style="width:25%%" attrs="{'readonly':[('status','!=','draft')]}"/></h1>
+                            </div>
+                        </group>
+                        <group colspan="2" col="6">
+                            <field name ="mrn_no" />
+                            <field name ="po_no" attrs="{'readonly':[('status','!=','draft')]}"/>
+                            <field name ="order_date" attrs="{'readonly':[('status','!=','draft')]}" />
+                            <field name ='grn_date' attrs="{'readonly':[('status','!=','draft')]}"/>
+                            <field name ="pr_no" attrs="{'readonly':[('status','!=','draft')]}"/>
+                            <field name ='company_address' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" attrs="{'readonly':[('status','!=','draft')]}"/>
+                            <field name ="vendor_id" domain="[ ('supplier','=',True)]" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" attrs="{'readonly':[('status','!=','draft')]}"/>
+                            <field name ="return_date" attrs="{'readonly':[('status','!=','draft')]}" />
+                            <field name ="categorization" attrs="{'readonly':[('status','!=','draft')]}" />
+                        </group>
+                        <button name="action_list_products"  string="List" type="object" attrs="{'invisible':['|',('flag_display_list','=',1),('status','!=','draft')]}"/>
+                        <button name="action_delete_products"  string="Delete" type="object" attrs="{'invisible':['|',('flag_delete_list', '=', 1),('status','!=','draft')]}"/>
+                        <notebook>
+                            <page string='Product Details'>
+                                <field name='return_line' widget= 'one2many_list'  attrs="{'readonly':[('status','!=','draft')]}"/>
+                            </page>
+                            <page string='Other Details' >
+                                <group colspan="4" col= "4" >
+                                    <field name='stores_incharge' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" attrs="{'readonly':[('status','!=','draft')]}"/>
+                                    <field name='doc_no' attrs="{'readonly':[('status','!=','draft')]}" />
+                                    <field name='rev_no' attrs="{'readonly':[('status','!=','draft')]}" />
+                                    <field name ="plant_manager"  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" attrs="{'readonly':[('status','!=','draft')]}"/>
+                                    <field name ="to_name"  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" attrs="{'readonly':[('status','!=','draft')]}"/>
+                                    <field name ="default_pr_date"  attrs="{'readonly':[('status','!=','draft')]}" />
+                                    <field name ="purchase_manager" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" attrs="{'readonly':[('status','!=','draft')]}"/>
+                                </group>
+                                <group invisible="True" >
+                                    <field name='dispatch_asst' />
+                                    <field name='tin_vat' />
+                                    <field name='reason_for_rejection' />
+                                    <field name='doc_date' />
+                                    <field name='time_of_removal' />
+                                    <field name='transporter_name' />
+                                    <field name ="party_vat_no" />
+                                    <field name ="party_cst_no" />
+                                    <field name ="gc_no" />
+                                    <field name ="gc_date" />
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!--     Tree View for Material Rejection Note Line-->
+        <record model="ir.ui.view" id="view_return_items_line_tree">
+            <field name="name">Material Rejection Note</field>
+            <field name="model">prakruti.return_items_line</field>
+            <field name="arch" type="xml">
+                <tree editable='bottom' create= "false">
+                    <field name="product_id" />
+                    <field name="description" />
+                    <field name="uom_id" />
+                    <field name="ordered_qty" />
+                    <field name="received_qty" />                                  
+                    <field name="return_qty"/>
+                    <field name="unit_price" invisible="True"/>
+                    <field name="remarks"/>
+                </tree>
+            </field>
+        </record>
+        
+        
+        <!--     Action for Material Rejection Note-->
+        <record model="ir.actions.act_window" id="return_items_action">
+            <field name="name">Material Rejection Note</field>
+            <field name="res_model">prakruti.return_items</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        
+        <!--     Menu for Material Rejection Note-->
+        <menuitem 
+            name="Material Rejection Note" 
+            id="prakruti_return_items"
+            action="return_items_action" 
+            sequence="6"
+            parent="prakruti.prakruti_sotres_main_sub_menu"
+            groups="group_prakruti_purchase_return_items_read_only,group_prakruti_purchase_return_items_edit,group_prakruti_purchase_return_items_create,group_prakruti_purchase_return_items_delete"/>
+        
+    </data>
+</openerp>

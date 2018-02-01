@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+ <data>
+<!--     Search View for Purchase Order Tracking  -->
+        <record model="ir.ui.view" id="view_prakruti_logistics_po_tracking_search">
+            <field name="name">prakruti.logistics_po_tracking.search</field>
+            <field name="model">prakruti.logistics_po_tracking</field>
+            <field name="arch" type="xml">
+                <search string="Product Wise Search">
+                    <field name="product_id"/>
+                    <field name="po_no" />
+                    <field name="vendor_id" />
+                    <field name="tracking_number" />
+                    <field name="status" />
+                </search>
+            </field>
+        </record>
+    
+     
+        <!-- Tree view of Purchase Order Tracking Details -->
+        <record model="ir.ui.view" id="view_prakruti_logistics_po_tracking_tree">
+            <field name="name">prakruti.logistics.po.tracking.tree</field>
+            <field name="model">prakruti.logistics_po_tracking</field>
+            <field name="arch" type="xml">
+                <tree string="Purchase Order Tracking Details" create="false">
+                    <field name="po_no" />
+                    <field name="order_date" />
+                    <field name="vendor_id" />
+                    <field name="tracking_number" />
+                    <field name="expected_date" />
+                    <field name="actual_date" />
+<!--                     <field name="state" string= "Order Status"/> -->
+                    <field name="status" string= "Tracking Status"/>
+                </tree>
+            </field>
+        </record> 
+        
+        
+        <!-- Form view of Purchase Order Tracking Details -->
+        <record model="ir.ui.view" id="view_prakruti_logistics_po_tracking_form">
+            <field name="name">prakruti.logistics.po.tracking.form</field>
+            <field name="model">prakruti.logistics_po_tracking</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Order Tracking" create="false">  
+                    <header position="inside">
+                        <button name="order_in_transit" string="Proceed" type="object" attrs="{'invisible':['|',('state','=','reject'),('status', 'in', ('in_transit','deliver','partial_deliver'))]}"/>
+                        <field name="status" widget='statusbar'/>
+                        <field name='state' invisible = "1"/>                               
+                    </header>
+                    <group name="prakruti_logistics_po_tracking">
+                        <group colspan="2" col="6" string="PO Details">
+                            <field name="po_no"  />
+                            <field name="order_date" readonly="True"/>
+                            <field name="vendor_id" readonly="True"/>                                
+                        </group>
+                        <group colspan="2" col="6" string="Tracking Details">
+                            <field name="tracking_number" attrs="{'readonly':[('status', 'in', ('in_transit','deliver'))]}"/>
+                            <field name="expected_date" attrs="{'readonly':[('status', 'in', ('in_transit','deliver'))]}"/>
+                            <field name="vendor_accepted_delivery_date" />
+                            <field name="actual_date" readonly="True"/>
+                            <field name="vehicle_no"  attrs="{'readonly':[('status', 'in', ('in_transit','deliver'))]}"/>
+                            <field name="transport_name" attrs="{'readonly':[('status', 'in', ('in_transit','deliver'))]}"/>
+                            <field name="tracking_date" invisible="True"/>
+                            <field name ="categorization" readonly="True"/>
+                        </group>
+                    </group>
+                    <group name="purchase_order_details" invisible= "True">                                  
+                        <field name ="purchase_type" />                              
+                        <field name='pr_no' />
+                        <field name='qa_no' />
+                        <field name='qo_no' />
+                        <field name='req_no' />
+                        <field name="request_date" />
+                        <field name="company_address" />
+                        <field name='vendor_reference' />
+                        <field name='dispatch_through' />
+                        <field name='amount_untaxed' /> 
+                        <field name='frieght_charges_applied' />
+                        <field name='frieght_charges' />  
+                        <field name='packing_charges' />  
+                        <field name='additional_charges' />
+                        <field name="excise_id" />
+                        <field name='excise_duty' />
+                        <field name='total_discount' />
+                        <field name='total_tax' />
+                        <field name='total_excise_duty' />
+                        <field name='grand_total' />
+                        <field name="payment" />                                     
+                        <field name='destination' />
+                        <field name='other_reference' />
+                        <field name="maintanence_manager" />                                   
+                        <field name="purchase_manager"  />
+                        <field name="stores_incharge"  />
+                        <field name='terms_of_delivery' />
+                        <field name='remarks' />
+                        <field name='flag_count_display_product'/>
+                    </group>
+                    <notebook>
+                        <page string="Product Details">
+                            <field name='order_line'/>
+                        </page> 
+                            <page string='Other details'>
+                                <group colspan="2" col="6" invisible="True"> 
+                                    <field name ="plant_manager" />
+                                    <field name ="to_name" />
+                                    <field name ="document_no" />
+                                    <field name ="revision_no" />
+                                    <field name ="default_pr_date" />
+                                </group>
+                            </page>
+                        <page string="Payment Details" invisible= "True">
+                            <group>
+                                <group colspan="2" col="6">
+                                    <field name='any_adv_payment'/>
+                                    <field name='advance_payment_type' />
+                                    <group string="Cash Details" >
+                                        <field name='cash_amount' />
+                                        <field name='cash_remarks' />
+                                    </group>
+                                    <group string="Cheque Details" >
+                                        <field name='cheque_amount' />
+                                        <field name='cheque_no' />
+                                        <field name='cheque_remarks' />
+                                    </group>
+                                    <group string="Draft Details" >
+                                        <field name='draft_amount' />
+                                        <field name='draft_no' />
+                                        <field name='draft_remarks' />
+                                    </group>
+                                </group>
+                            </group>
+                        </page> 
+                    </notebook>
+                    <group colspan="4" col="4" string= "CheckList">
+                        <field name='invoice_no_check' widget='radio' options="{'horizontal': true}" attrs="{'readonly':[('status', 'in', 'deliver')]}"/>
+                        <field name='dc_no_inward_check' widget='radio' options="{'horizontal': true}" attrs="{'readonly':[('status', 'in', 'deliver')]}"/>
+                        <field name='mod_vat_copy_collected_check' invisible="1"/>
+                        <field name='po_no_check' invisible="1" />
+                        <field name='does_lr_copy_received_check' widget='radio' options="{'horizontal': true}" attrs="{'readonly':[('status', 'in', 'deliver')]}"/>
+                    </group> 
+                    <group string= "Revised Remards">
+                        <field name= 'revise_remarks_update'/>
+                    </group> 
+                </form>
+            </field>
+        </record>
+        
+    
+     
+        <!-- Tree view of Purchase Order Tracking line Details -->
+        <record model="ir.ui.view" id="view_prakruti_purchase_line_in_logistics_tree">
+            <field name="name">prakruti.purchase_line_in_logistics.tree</field>
+            <field name="model">prakruti.purchase_line_in_logistics</field>
+            <field name="arch" type="xml">
+                <tree editable='bottom' create= "false" delete="false">
+                    <field name='product_id' readonly="True"/>
+                    <field name="no_of_packings" readonly="True"/>
+                    <field name="pack_per_qty" readonly="True"/>
+                    <field name="extra_packing" readonly="True"/>
+                    <field name='quantity' readonly="True"/>
+                    <field name='remarks' />
+                    <field name="expected_date" />
+                    <field name="vendor_accepted_delivery_date" />
+                    <field name="actual_date" readonly="True"/>
+                    <field name='description' invisible= "True"/>
+                    <field name='scheduled_date' invisible= "True"/>
+                    <field name='unit_price' invisible= "True"/>
+                    <field name='uom_id' invisible= "True"/>
+                    <field name='discount' invisible= "True"/>
+                    <field name='tax_id'  invisible= "True"/>
+                    <field name='tax_price' invisible= "True"/>
+                    <field name='subtotal' invisible= "True"/>
+                    <field name='status' invisible= "True"/>
+                    <field name="purchase_line_common_id" invisible= "True"/>  
+                </tree>
+            </field>
+        </record> 
+        
+        
+    <!--Pivot for Purchase Order Tracking           -->
+     <record model="ir.ui.view" id="view_prakruti_logistics_po_tracking_pivot">
+            <field name="name">prakruti.logistics_po_tracking.pivot</field>
+            <field name="model">prakruti.logistics_po_tracking</field>
+            <field name="arch" type="xml">
+                <pivot string=" Purchase Order Tracking " display_quantity="True">
+                    <field name="tracking_number" type="row"/>
+                    <field name="status"/>
+                    <field name="vendor_id"/>   
+                </pivot>
+            </field>
+        </record>
+        
+
+        <!-- Action for Purchase Order Tracking Details -->
+        <record model="ir.actions.act_window" id="prakruti_logistics_po_tracking_action">
+            <field name="name">Purchase Order Tracking Details</field>
+            <field name="res_model">prakruti.logistics_po_tracking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,pivot</field>
+        </record>
+	
+        
+        <!--  Main Menu for Purchase Order Tracking Details       -->
+        <menuitem name="Logistic" 
+                  id="prakruti_logistics_po_tracking_main_menu" 
+                  sequence="7"  
+                  web_icon="prakruti,static/src/img/icons/logistics.png"/>
+	
+        <!--  Main Sub Menu for Purchase Order Tracking Details       -->
+        <menuitem name="PO/Invoice Tracking" 
+                  id="prakruti_logistics_po_tracking_main_sub_menu"
+                  parent="prakruti_logistics_po_tracking_main_menu"
+                  sequence="1" />
+        
+        <!--  Sub Menu for Purchase Order Tracking Details       -->
+        <menuitem name="PO Tracking" 
+                  id="prakruti_logistics_po_tracking_sub_menu" 
+                  action="prakruti_logistics_po_tracking_action" 
+                  parent="prakruti_logistics_po_tracking_main_sub_menu" 
+                  groups="group_prakruti_logistics_po_tracking_read_only,group_prakruti_logistics_po_tracking_edit,group_prakruti_logistics_po_tracking_create,group_prakruti_logistics_po_tracking_delete"
+                  />
+
+        
+   
+
+</data>
+</openerp>

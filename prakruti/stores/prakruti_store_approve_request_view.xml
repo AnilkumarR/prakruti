@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+ <data>
+         <!-- Search view of store approve request Information -->
+        <record model="ir.ui.view" id="view_prakruti_store_approve_request_search">
+            <field name="name">Store Approve Request</field>
+            <field name="model">prakruti.store_approve_request</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name="product_id"/>
+                   <field name='request_no'/>
+                   <field name="requested_by"/> 
+                   <field name='approved_by'/>
+                   <field name='state'/>
+                </search>
+            </field>
+        </record>
+     
+        <!-- Tree view of store approve request Information -->
+        <record model="ir.ui.view" id="view_prakruti_store_approve_request_tree">
+            <field name="name">Store Approve Request</field>
+            <field name="model">prakruti.store_approve_request</field>
+            <field name="arch" type="xml">
+                <tree string="Store Approve Request" create='false'>
+                   <field name='request_no'/>
+                   <field name="requested_by"/> 
+                   <field name='approved_by'/>
+                   <field name='approved_date'/>
+                   <field name='state'/>
+                </tree>
+            </field>
+        </record>
+	
+        
+         <!-- Form view of store approve request Information -->
+        <record model="ir.ui.view" id="view_prakruti_store_approve_request_form">
+            <field name="name">Store Approve Request</field>
+            <field name="model">prakruti.store_approve_request</field>
+            <field name="arch" type="xml">
+             <form string="Store Approve Request" create='false'>
+                <header>                   
+                    <button name="action_to_issue" string="Done" type="object" attrs="{'invisible':['|',('coming_from', 'in', ('Tablet BOM','Syrup BOM','Extraction BOM','Powder BOM')),('state', 'not in', ('approve','partial_approve'))]}"/>  
+                    <field name='state' widget='statusbar'/>
+                </header>
+                <group>
+                    <button name="revise_approval" string="Is Revision Required ?" type="object" class="oe_highlight" attrs="{'invisible':['|',('state', 'not in','approve'),('revise_status', 'in', ('revise_approval'))]}"/>                                         
+                    <button name="revise_done" string="Revise Done" type="object" class="oe_highlight" attrs="{'invisible':[('revise_status', 'not in', ('revise_approval'))]}"/>
+                    <field name='revise_status' widget='statusbar' attrs="{'invisible':[('is_revise', '=', False)]}"/>
+                </group>
+                <group colspan="2" cols="6">
+                    <field name ="is_revise" attrs="{'invisible':[('is_revise', '=', False)]}"/>
+                    <field name ="revise_no" attrs="{'invisible':[('is_revise', '=', False)]}"/>
+                    <field name="revise_flag" invisible="True"/>
+                </group>
+                <group>
+                    <group colspan="2" col="6">
+                        <field name='request_date'/>
+                        <field name='request_no'/>
+                        <field name="requested_by"  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>   
+                        <field name='dept_id'  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                        <field name='company_id'  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                        <field name='approved_date'/>
+                        <field name='approved_by'  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                        <field name='location_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" />
+                        <field name='coming_from' />
+                        <field name='subplant_id' attrs="{'invisible':[('coming_from', 'not in', ('Tablet BOM','Syrup BOM','Extraction BOM','Powder BOM'))]}"/>
+                        <field name="extraction_bom_id" invisible="True"/>
+                        <field name="syrup_bom_id"  invisible="True"/>
+                        <field name="tablet_bom_id" invisible="True"/>                                
+                        <field name="syrup_packing_bom_id" invisible="True"/>
+                        <field name="tablet_packing_bom_id" invisible="True"/>
+                        <field name="revise_from_issue" invisible="True"/>
+                        <field name="powder_bom_id" invisible="True"/>
+                        <field name="powder_packing_bom_id" invisible="True"/>
+                    </group>
+                    <notebook colspan="2"> 
+                        <page  string="Product Details">               
+                            <button name="check_stock" string="Check Stock" type="object"  attrs="{'invisible':[('state', 'not in', ('approve'))]}"/>
+                            <field name='grid_id'/>
+                        </page>
+                        <page string="Other Deatils" >
+                            <group colspan="2" col="6">
+                                <field name='store_incharge' style="width:30%%"  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                                <field name='plant_incharge' style="width:30%%"  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                                <field name='doc_no' style="width:30%%"/>
+                                <field name='date' style="width:30%%"/>
+                                <field name='production_incharge' style="width:30%%"  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                                <field name='revise_id' style="width:30%%" attrs="{'invisible': [('is_revise', '=', False)]}"/>
+                                <field name='revise_remarks' placeholder='Enter Revise Remarks Here...'  style="width:30%%" attrs="{'invisible': [('is_revise', '=', False)]}"/>
+                                <field name ="revise_remarks_update" />
+                            </group>
+                        </page>
+                    </notebook>
+                </group>
+             </form>
+           </field>
+        </record>
+    
+        
+         <!-- Tree view of store approve request item Information -->
+         <record model="ir.ui.view" id="view_prakruti_store_approve_request_item_tree">
+            <field name="name">prakruti.store_approve_request_item.tree</field>
+            <field name="model">prakruti.store_approve_request_item</field>
+            <field name="arch" type="xml">
+                <tree string="Store Approve Requests Item " editable='bottom' create= "false" >
+                    <field name="product_id" on_change="onchange_product(product_id)" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" attrs="{'readonly':[('revise_issue_line', 'in', (0,2))]}"/>
+                    <field name="uom_id" attrs="{'readonly':[('revise_issue_line', 'in', (0,2))]}" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                    <field name="description" attrs="{'readonly':[('revise_issue_line', 'in', (0,2))]}" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                    <field name="store_qty"/>
+                    <field name="requested_quantity" attrs="{'readonly':[('status', '=','close')]}"/>
+                    <field name="approved_quantity" attrs="{'readonly':[('status', '=','close')]}"/>
+                    <field name='status' attrs="{'readonly':[('approve_flag', 'in', (2,3))]}"/>
+                    <field name="approve_flag" invisible= '1'/>
+                    <field name="total_approve_qty"/>
+                    <field name="balance_qty" />
+                    <field name="remarks" />
+                    <field name="extra_issued_packing" invisible="True"/>
+                    <field name='ar_no' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" domain="[ ('product_id','=',product_id)]" invisible="True"/>
+                    <field name="grn_no" invisible="True"/>
+                    <field name="grid_common_id" invisible="True"/>
+                    <field name="extra_readonly_flag" invisible="True"/>
+                    <field name="main_id" invisible="True"/>
+                    <field name="revise_issue_line" invisible="1" />
+                    <field name="request_line_id" invisible="True"/>
+                </tree>
+            </field>
+        </record>
+
+         <!-- Pivot view of store approve request Information -->
+        <record model="ir.ui.view" id="view_prakruti_store_approve_request_pivot">
+            <field name="name">Store Approve Request</field>
+            <field name="model">prakruti.store_approve_request</field>
+            <field name="arch" type="xml">
+                <pivot string=" Store Approve Request  " display_quantity="True">
+                    <field name="state" type="row"/>
+                    <field name="approved_by"/>
+                </pivot>
+            </field>
+        </record>
+        
+         <!-- Action view of store approve request Information -->
+        <record model="ir.actions.act_window" id="prakruti_store_approve_request_action">
+            <field name="name">Store Approve Request</field>
+            <field name="res_model">prakruti.store_approve_request</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('revise_flag','=',0)]</field>
+            <field name="view_mode">tree,form,pivot</field>
+        </record>
+	
+	
+        <menuitem name="Material Request Approval " 
+                  id="prakruti_store_approve_request_menu"
+                  action="prakruti_store_approve_request_action" 
+                  sequence="2"
+                  parent="prakruti_sotres_main_sub_menu"
+                  groups="group_prakruti_store_approve_request_read_only,group_prakruti_store_approve_request_edit,group_prakruti_store_approve_request_create,group_prakruti_store_approve_request_delete"/>
+   
+
+</data>
+</openerp>

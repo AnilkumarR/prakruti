@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_purchaserequistion_document">
+            <t t-name="report.external_layout_header">
+                <div class="header" style=" width: 235mm; border:1px solid black; ">
+                    <div class="row">
+                        <div align="center" style="font-size:20px;"> <strong>Purchase Requistion</strong> </div>
+                        <div class="col-xs-2">
+                            <img src='/prakruti/static/src/img/logo.png' style="margin-left:3px;"/>
+                        </div>
+                        <div class="col-xs-10 text-right" style="margin-top:0px;margin-right:0px;">
+                            <span t-field="o.company_id.rml_header1" /><br />
+                            <address>
+                                <strong> Address: </strong>
+                                <span class="inline" t-field="o.company_id.name"/><br/>
+                                <span class="inline" t-field="o.company_id.street"/> 
+                                <span class="inline" t-field="o.company_id.street2"/> <br/>
+                                <span class="inline" t-field="o.company_id.city"/>,
+                                <span class="inline" t-field="o.company_id.zip"/>
+                                <span class="inline" t-field="o.company_id.state_id"/><br/>
+                                <strong> Phone No:</strong>
+                                <span class="inline" t-field="o.company_id.phone"/>
+                            </address>
+                        </div>
+                        
+                        
+                    </div>
+                
+                </div>
+            </t>
+        <t t-name="prakruti.report_purchaserequistion_document">
+            <div class="page" style="width: 235mm; border:1px solid black; ">
+                <div class="row" style="font-size:11px">
+                    <div class="col-xs-12">
+                <table border="1" style="width: 235mm; border:1px solid black;">
+                    <tr>
+                        <td style="margin-top:1px;margin-left:1px;margin-right:1px;" ><strong>PR No:  </strong><span class="inline" t-field="o.requisition_no"/></td>
+                        <td style="margin-top:1px;margin-left:1px;margin-right:1px;"><strong>Date: </strong>  <span class="inline" t-field="o.requisition_date"/></td>
+                    </tr>
+                    <tr>
+                        <td style="margin-top:1px;margin-left:1px;margin-right:1px;"><strong> To,</strong></td>
+                    
+                        <td style="margin-top:1px;margin-left:1px;margin-right:1px;"><span class="inline" t-field="o.to_name"/></td>
+                    </tr> 
+                    <tr>
+                        <td style="margin-top:1px;margin-left:1px;margin-right:1px;"><p><b>Kindly arrange to procure following materials as detailed below</b></p></td>
+                    </tr>
+                </table>
+                                    
+                <table border="1" style="width: 235mm; border:1px solid black;">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="border: 1px solid #000000;"><strong>Sl.No</strong></th>
+                            <th class="text-center" style="border: 1px solid #000000;"><strong>Name of the Material</strong></th>
+                            <th class="text-center" style="border: 1px solid #000000;"><strong>Description and Technical details</strong></th>
+                            <th class="text-center" style="border: 1px solid #000000;"><strong>Qty Required</strong></th>
+                            <th class="text-center" style="border: 1px solid #000000;"><strong>UOM</strong></th>
+                            <th class="text-center" style="border: 1px solid #000000;"><strong>Suggested Packing Size</strong></th>
+                            <th class="text-center" style="border: 1px solid #000000;"><strong>Required Date</strong></th>
+                            <th class="text-center" style="border: 1px solid #000000;"><strong>Stock on PR date</strong></th>
+                            <th class="text-center" style="border: 1px solid #000000;"><strong>Last Purchase Date</strong></th>
+                            <th class="text-center" style="border: 1px solid #000000;"><strong>Remarks</strong></th>  
+                        </tr>
+                    </thead>
+                    
+                        <tr t-foreach="o.requisition_line" t-as="line">
+                            <td class="col-xs-1" style="border: 1px solid #000000;">
+                                <span t-esc="line_index+1"/>
+                            </td>
+                            <td style="border: 1px solid #000000;">
+                                <span t-field="line.product_id"/>
+                            </td>
+                            <td style="border: 1px solid #000000;">
+                                <span t-field="line.description"/>
+                            </td>
+                            <td class="text-right" style="border: 1px solid #000000;">
+                                <span t-field="line.quantity_req"/>
+                            </td>
+                            <td style="border: 1px solid #000000;">
+                                <span t-field="line.uom_id"/>
+                            </td>
+                            <td class="text-right" style="border: 1px solid #000000;">
+                                <span t-field="line.suggested_packing_size"/>
+                            </td>
+                            <td style="border: 1px solid #000000;">
+                                <span t-field="line.required_date"/>
+                            </td>     
+                            <td style="border: 1px solid #000000;">
+                                <span t-field="line.stock_on_pr_date_ref"/>
+                            </td>
+                            <td style="border: 1px solid #000000;">
+                                <span t-field="line.last_purchase_date"/>
+                            </td>
+                            <td style="border: 1px solid #000000;">
+                                <span t-field="line.remarks"/>
+                            </td>
+                        </tr>
+                    </table>
+                                    
+                    <table border="1" style="width: 235mm; border:1px solid black;">
+                        <tr>
+                            <td style="margin-top:1px;margin-left:1px;margin-right:1px;"><strong>Remarks:   </strong><span class="inline" t-field="o.remarks"/>  </td>
+                        </tr>
+                        <tr>
+                            <td style="margin-top:1px;margin-left:1px;margin-right:1px;"><h5><strong>Prepared By : </strong></h5><br></br><span class="inline" t-field="o.prepared_by"/></td>
+                            <td style="margin-top:1px;margin-left:1px;margin-right:1px;"><h5><strong>Stores Incharge :</strong></h5><br></br><span class="inline" t-field="o.stores_incharge"/></td>
+                        </tr>
+                        <tr>
+                            <td style="margin-top:1px;margin-left:1px;margin-right:1px;"><h5><strong>Plant Manager : </strong></h5><br></br><span class="inline" t-field="o.plant_manager"/></td>
+                            <td style="margin-top:1px;margin-left:1px;margin-right:1px;"><h5><strong>Purchase Manager :</strong></h5><br></br><span class="inline" t-field="o.purchase_manager"/></td>
+                        </tr>
+                    </table>
+                        </div>
+                    </div>
+                 </div>      
+           </t>
+            
+        <t t-name="report.external_layout_footer">
+            <div class="footer">
+                 <div class="text-center" style=" width: 235mm;">
+                    <ul class="list-inline">    
+                        <li align="left">PPPL - PUR -F - 003</li>
+                        <li align="center">Rev. No.:<span class="inline" t-field="o.revision_no"/></li>
+                        <li align="right">Date:<span class="inline" t-field="o.default_pr_date"/></li>
+                    </ul>
+                </div>
+            </div>
+        </t>      
+            
+        
+        
+</template>
+                
+               
+<template id="report_purchaserequistion">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="prakruti.report_purchaserequistion_document" t-lang="o.prepared_by.lang"/>
+            </t>
+        </t>
+</template>
+
+</data>
+</openerp>

@@ -1,0 +1,116 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        
+        
+        <record id="email_prakruti_bill_of_material" model="email.template">
+            <field name="name">Sales BOM</field>
+            <field name="email_from">${object.material_requested_by.login}</field>          
+            <field name="email_to">${object.material_requested_by.login}</field>
+            <field name="model_id" ref="model_prakruti_bill_of_material"/>
+            <field name="auto_delete" eval="True"/> 
+            <field name="subject">
+                <![CDATA[ 
+                  BOM requested for Batch No  ${object.batch_id.batch_no} is in Store Request
+                 ]]></field>
+            <field name="body_html">
+                <![CDATA[
+                    <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">                    
+                        <p>Dear Team,</p>     
+                        <p><b>BOM Date:</b> ${object.date},</p>
+                        <p>The Batch No. ${object.batch_id.batch_no} </p>
+                        <p><b>Product Details:</b></p>
+                            <table  border=1>
+                                    <tr>
+                                        <td><b>Item </b></td>
+                                        <td><b>Description</b></td>
+                                        <td><b> Standard Quantity</b></td>
+                                        <td><b> Actual Qty</b></td>
+                                        <td><b> Extra Req Qty</b></td>
+                                        <td><b> Issued Qty</b></td>
+                                        <td><b> Extra Qty</b></td>
+                                        <td><b> Qty Returned</b></td>
+                                        <td><b> Remarks</b></td>
+                                    </tr>
+                                    %  for line in object.grid_id:
+                                    <tr>
+                                        <td>${line.material_id.name}</td>
+                                        <td>${line.description}</td>          
+                                        <td  align="right">${'{:.3f}'.format(line.std_qty)}</td>         
+                                        <td  align="right">${'{:.3f}'.format(line.actual_qty)}</td>         
+                                        <td  align="right">${'{:.3f}'.format(line.extra_qty)}</td>         
+                                        <td  align="right">${'{:.3f}'.format(line.issued_qty)}</td>         
+                                        <td  align="right">${'{:.3f}'.format(line.extra_issued_qty)}</td>         
+                                        <td  align="right">${'{:.3f}'.format(line.qty_returned)}</td>
+                                        <td>${line.remarks}</td>        
+                                    </tr>
+                                    %endfor
+                                </table>
+                    </div>
+                    <br><br>
+                    <p> Regards, </p>
+                    <p> Prakruti ERP Application </p>
+                    <p> ${object.material_requested_by.name} </p>
+                ]]></field>
+        </record>
+
+        
+        
+        
+        
+        
+        <record id="email_prakruti_bill_of_material_extra" model="email.template">
+            <field name="name">Sales BOM Extra</field>
+            <field name="email_from">${object.material_requested_by.login}</field>          
+            <field name="email_to">${object.material_requested_by.login}</field>
+            <field name="model_id" ref="model_prakruti_bill_of_material"/>
+            <field name="auto_delete" eval="True"/> 
+            <field name="subject">
+                <![CDATA[ 
+                  BOM Extra Qty  requested for Batch No  ${object.batch_id.batch_no} is in Store Request
+                 ]]></field>
+            <field name="body_html">
+                <![CDATA[
+                    <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">                    
+                        <p>Dear Team,</p>     
+                        <p><b>BOM Date:</b> ${object.date},</p>
+                        <p>The Batch No. ${object.batch_id.batch_no} </p>
+                        <p><b>Product Details:</b></p>
+                            <table  border=1>
+                                    <tr>
+                                        <td><b>Item </b></td>
+                                        <td><b>Description</b></td>
+                                        <td><b> Standard Quantity</b></td>
+                                        <td><b> Actual Qty</b></td>
+                                        <td><b> Extra Req Qty</b></td>
+                                        <td><b> Issued Qty</b></td>
+                                        <td><b> Extra Qty</b></td>
+                                        <td><b> Qty Returned</b></td>
+                                        <td><b> Remarks</b></td>
+                                    </tr>
+                                    %  for line in object.grid_id:
+                                    <tr>
+                                        <td>${line.material_id.name}</td>
+                                        <td>${line.description}</td>          
+                                        <td  align="right">${'{:.3f}'.format(line.std_qty)}</td>         
+                                        <td  align="right">${'{:.3f}'.format(line.actual_qty)}</td>         
+                                        <td  align="right">${'{:.3f}'.format(line.extra_qty)}</td>         
+                                        <td  align="right">${'{:.3f}'.format(line.issued_qty)}</td>         
+                                        <td  align="right">${'{:.3f}'.format(line.extra_issued_qty)}</td>         
+                                        <td  align="right">${'{:.3f}'.format(line.qty_returned)}</td>
+                                        <td>${line.remarks}</td>        
+                                    </tr>
+                                    %endfor
+                                </table>
+                    </div>
+                    <br><br>
+                    <p> Regards, </p>
+                    <p> Prakruti ERP Application </p>
+                    <p> ${object.material_requested_by.name} </p>
+                ]]></field>
+        </record>
+
+        
+        
+    </data>
+</openerp>

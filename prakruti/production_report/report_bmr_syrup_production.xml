@@ -1,0 +1,934 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <template id="report_bmr_syrup_document">
+            <t t-name="report.external_layout_header">
+                <div class="header" style="width: 235mm;">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <img src='/prakruti/static/src/img/logo.png' style="margin-left:3px;"/>
+                        </div>
+                        <div class="col-xs-10 text-right" style="margin-top:0px;margin-right:0px;">
+                            <span t-field="o.company_id.rml_header1"/><br/>
+                            <address>
+                                <strong>
+                                    <span style="font-size: 20px" class="inline" t-field="o.company_id.name"/>
+                                </strong><br/>
+                                    <span class="inline" t-field="o.company_id.street"/>,<span class="inline" t-field="o.company_id.street2"/><br/>
+                                    <span class="inline" t-field="o.company_id.city"/>,<span class="inline" t-field="o.company_id.state_id"/>,<span class="inline" t-field="o.company_id.zip"/><br/>
+                                <strong>Phone No:</strong><span class="inline" t-field="o.company_id.phone"/><br/>
+                            </address>
+                        </div>
+                    </div>
+                </div>
+            </t>
+            
+            <t t-name="prakruti.report_bmr_syrup_document">
+                <div class="page" style="width: 235mm;">
+                    <h2 align="center"><b><u>BMR SYRUP</u></b></h2>
+                    <br/>
+                    <h4 align="left"><b>Subplant :</b><i><span t-field="o.subplant_id"/></i></h4>
+                    <h4 align="left"><b>Batch No :</b><i><span t-field="o.batch_id"/></i></h4>
+                    <h4 align="left"><b>Batch Size :</b><i><span t-field="o.batch_size"/></i></h4>
+                    <h4 align="left"><b>Batch Allocation Date :</b><i><span t-field="o.batch_allocation_date"/></i></h4>
+                    <h4 align="left"><b>Batch End Date :</b><i><span t-field="o.batch_end_date"/></i></h4>
+                    <br/>
+                    <h2 align="left"><b>Total Yield :</b><i><span t-field="o.total_output_yeild"/></i></h2>
+                    <br/>
+                    
+                    <div t-if="o.pulverization_production_syrup_id">                    
+                        <h2 align="center">PULVERIZATION</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Weight Before</th>
+                                    <th class="text-center">Weight After</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.pulverization_production_syrup_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.std_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.machine_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.weight_before"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.weight_after"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.extract_solution_syrup_id">    
+                        <h2 align="center">PREPERATION OF EXTRACT SOLUTION</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Name Of Extract</th>
+                                    <th class="text-center">Solvent 1</th>
+                                    <th class="text-center">Solvent 2</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Qty of Extract Charged</th>
+                                    <th class="text-center">Qty of Solvent Charged 1</th>
+                                    <th class="text-center">Qty of Solvent Charged 2</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Volume Before</th>
+                                    <th class="text-center">Volume After</th>
+                                    <th class="text-center">Temp/Pressure/PH/RH</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.extract_solution_syrup_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.std_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.name_of_extract"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.name_of_solvent"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.solvent_name"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.machine_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.qty_of_extract_charged"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.qty_of_solvent_charged"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.qty_of_solvent"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.volume_before"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.volume_after"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.temp_pressure_ph"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.soak_raw_material_syrup_id">
+                        <h2 align="center">SOAKING OF RAW MATERIAL</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Solvent 1</th>
+                                    <th class="text-center">Solvent 2</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Qty  Charged</th>
+                                    <th class="text-center">Solvent Charged 1</th>
+                                    <th class="text-center">Solvent Charged 2</th>
+                                    <th class="text-center">Temp/Pressure/PH/RH</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.soak_raw_material_syrup_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.std_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.name_of_solvent"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.solvent_name"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.machine_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.qty_charged"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.solvent_charged"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.charged_solvent"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.temp_pressure_ph"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.extraction_syrup_id">
+                        <h2 align="center">EXTRACTION</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Weight Before</th>
+                                    <th class="text-center">Solvent Charged</th>
+                                    <th class="text-center">Temp/Pressure/PH/RH</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.extraction_syrup_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.std_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.machine_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.weight_before"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.solvent_charged"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.temp_pressure_ph"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.filtration_syrup_id">
+                        <h2 align="center">FILTERATION</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Volume Collected</th>
+                                    <th class="text-center">Temp/Pressure/PH/RH</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.filtration_syrup_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.std_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.machine_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.volume_collected"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.temp_pressure_ph"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.autoclave_syrup_id">
+                        <h2 align="center">AUTOCLAVE</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Temp/Pressure/PH/RH</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.autoclave_syrup_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.std_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.machine_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.temp_pressure_ph"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.addition_preservative_syrup_id">
+                        <h2 align="center">ADDITION OF PRESERVATIVE</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Temp/Pressure/PH/RH</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.addition_preservative_syrup_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.std_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.machine_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.temp_pressure_ph"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.syrup_preparation_id">
+                        <h2 align="center">PREPARATION OF SYRUP</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Qty of Sugar</th>
+                                    <th class="text-center">Volume Before</th>
+                                    <th class="text-center">Volume After</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Temp/Pressure/PH/RH</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.syrup_preparation_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.std_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.machine_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.quantity_of_sugar"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.volume_before"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.volume_after"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.temp_pressure_ph"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.other_ingredient_addition_syrup_id">
+                        <h2 align="center">OTHER INGREDIENT ADDITION</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Ingredient</th>
+                                    <th class="text-center">Quantity</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Temp/Pressure/PH/RH</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.other_ingredient_addition_syrup_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.std_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.machine_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.ingredient_name"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.quantity"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.temp_pressure_ph"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.ph_control_buffer_action_syrup_id">
+                        <h2 align="center">PH CONTROL BUFFER ACTION</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Ingredient</th>
+                                    <th class="text-center">Quantity</th>
+                                    <th class="text-center">PH Before</th>
+                                    <th class="text-center">PH After</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.ph_control_buffer_action_syrup_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.std_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.machine_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.ingredient_name"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.quantity"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.ph_before"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.ph_after"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.solvent_name_syrup_id">
+                        <h2 align="center">VOLUME MAKE UP</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Name Of Solvent</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Volume Added</th>
+                                    <th class="text-center">Volume Before</th>
+                                    <th class="text-center">Volume After</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.solvent_name_syrup_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.std_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.name_of_solvent"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.machine_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.volume_added"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.volume_before"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.volume_after"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.filling_syrup_id">
+                        <h2 align="center">FILLING</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">No of Bottles Filled</th>
+                                    <th class="text-center">No of Bottles Rejected</th>
+                                    <th class="text-center">Total Bottles Accepted</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.filling_syrup_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.std_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.machine_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.no_of_bottles_filled"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.no_of_bottles_rejected"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.total_bottles_accepted"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.coding_syrup_id">
+                        <h2 align="center">CODING</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">No of Units Code</th>
+                                    <th class="text-center">No of Units Rejected</th>
+                                    <th class="text-center">Total Units Accepted</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.coding_syrup_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.std_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.machine_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.no_of_units_code"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.no_of_units_rejected"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.total_units_accepted"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.packing_syrup_id">
+                        <h2 align="center">PACKING</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Packing Style</th>
+                                    <th class="text-center">No Of Packing</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.packing_syrup_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.std_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.machine_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.packing_style"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.no_of_packing"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.breakdown_production_id">
+                        <h2 align="center">BREAKDOWN</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Machine</th>
+                                    <th class="text-center">BreakDown Item</th>
+                                    <th class="text-center">Running Hours</th>
+                                    <th class="text-center">BreakDown Hours</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.breakdown_production_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.machine_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.breakdown_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.running_hours"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.breakdown_hours"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>                    
+                    
+                    
+                    <br/>
+                    <h4 align="left"><b>Created By :</b><i><span t-field="o.created_by"/></i></h4>
+                    
+                </div>
+            </t>
+            
+        </template>
+        
+               
+        <template id="report_bmr_syrup">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="prakruti.report_bmr_syrup_document" />
+                </t>
+            </t>
+        </template>
+
+    </data>
+</openerp>

@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        
+        
+        <record id="email_prakruti_store_approve_request" model="email.template">
+            <field name="name">Store Approve Request</field>
+            <field name="email_from">${object.approved_by.login}</field>          
+            <field name="email_to">${object.store_incharge.login},${object.plant_incharge.login},${object.production_incharge.login}</field>
+            <field name="model_id" ref="model_prakruti_store_approve_request"/>
+            <field name="auto_delete" eval="True"/> 
+            <field name="subject">
+                <![CDATA[ 
+                   Request No ${object.request_no} approved  and sent to Issue
+                 ]]></field>
+            <field name="body_html">
+                <![CDATA[
+                    <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">                    
+                        <p>Dear Team,</p>     
+                        <p><b>Approved Date:</b> ${object.approved_date},</p>
+                        <p>The Approve Request No. ${object.request_no} </p>
+                        <p><b>Product Details:</b></p>
+                            <table  border=1>
+                                    <tr>
+                                        <td><b>Item </b></td>
+                                        <td><b>Description</b></td>
+                                        <td><b> Store Qty</b></td>
+                                        <td><b> Req Qty</b></td>
+                                    </tr>
+                                    %  for line in object.grid_id:
+                                    <tr>
+                                        <td>${line.product_id.name}</td>
+                                        <td>${line.description}</td>          
+                                        <td  align="right">${'{:.3f}'.format(line.store_qty)}</td>         
+                                        <td  align="right">${'{:.3f}'.format(line.requested_quantity)}</td> 
+                                    </tr>
+                                    %endfor
+                                </table>
+                    </div>
+                    <br><br>
+                    <p> Regards, </p>
+                    <p> Prakruti ERP Application </p>
+                    <p> ${object.approved_by.name} </p>
+                ]]></field>
+        </record>
+
+        
+        
+        
+    </data>
+</openerp>

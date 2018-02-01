@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data> 
+        
+        <!-- Search View for the Product Specification -->
+        <record model="ir.ui.view" id="view_prakruti_product_specification_search">
+            <field name="name">Product Specification</field>
+            <field name="model">product.specification.main</field>
+            <field name="arch" type="xml">
+                <search string="Product Specification">
+                    <field name="specification_id"/>
+                    <field name= "specification_name" />
+                    <field name= "scientific_name" />
+                    <field name= "product_id"/>
+                    <field name= "code"/>
+                    <field name= "common_specification" />
+                    <field name= "specification_sale_status"/> 
+                    <field name= "specification_purchase_status"/>                   
+                    <field name= "specification_table" /> 
+                    <field name= 'status'/>       
+                </search>
+            </field>
+        </record>
+        
+        <!-- Form View for Product Specification Parameter-->
+        <record id="view_account_payment_form" model="ir.ui.view">
+            <field name="name">Product Specification</field>
+            <field name="model">product.specification</field>
+            <field name="arch" type="xml">
+                <form string="Specification Parameter Entry Form" >
+                    <group colspan= '4' col= '4'>
+                        <field name= 'parameter_category' placeholder= 'e.g., = Physical, Chemical, Others, Microbiology, Others Information'/>
+                        <field name= 'parameter_value'/>
+                        <field name= 'parameter_name'/>
+                        <field name= 'pcal'/>					
+                    </group>                    
+                </form>
+            </field>
+        </record>
+        
+        <!-- Tree View for Product Specification Parameter-->
+        <record id="view_account_payment_tree" model="ir.ui.view">
+            <field name="name">Product Specification</field>
+            <field name="model">product.specification</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name= 'parameter_category' placeholder= 'e.g., = Physical, Chemical, Others, Microbiology, Others Information'/>
+                    <field name= 'parameter_value'/>
+                    <field name= 'parameter_name'/>
+                    <field name= 'pcal'/>  
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Tree View for the Product Specification -->
+        <record id="product_specification_tree_view" model="ir.ui.view">
+            <field name="name">Product Specification</field>
+            <field name="model">product.specification.main</field>
+            <field name="arch" type="xml">
+                <tree string="Product Specification">
+                    <field name= "specification_name" />
+                    <field name= "scientific_name" />
+                    <field name= "product_id"/>
+                    <field name= "code"/>
+                    <field name= "common_specification" />
+                    <field name= "specification_sale_status"/> 
+                    <field name= "specification_purchase_status"/>                   
+                    <field name= "specification_table" /> 
+                    <field name= 'status'/>    
+                    <field name ="is_duplicate" />   
+                </tree>
+            </field>
+        </record>
+  
+ 
+       <!-- Form View for Product Specification --> 
+       <record model="ir.ui.view" id="product_specification_form_view">
+          <field name="name">Product Specification</field>
+          <field name="model">product.specification.main</field>
+          <field name="arch" type="xml">
+              <form string="Product Specification">
+                  <sheet>
+                    <header>
+                      <button name="assign_no" string="Assign" type="object" attrs="{'invisible':[('status','=','assign')]}"/>
+                       <button name="duplicate_specification" string="Duplicate" type="object" class="oe_highlight" attrs="{'invisible':[('is_duplicate', '=', True)]}"/>
+                      <field name= 'status' widget='statusbar'/>
+                    </header>
+                      <group string="Product Specification" colspan="4"/>
+                        <group>
+                            <field name="common_name" invisible= 'True'/>
+                            <field name="extraction_ratio" invisible= 'True'/>
+                             <field name ="duplicate_flag" invisible="True"/>
+                       </group>
+                      <group colspan='2' col='6'>  
+                            <field name ="is_duplicate" /> 
+                            <field name="company_id" />
+                            <field name="specification_name" placeholder= "Specification Name" />
+                            <field name="code" on_change="onchange_check_code(code)" placeholder= "Product code"/>
+                            <field name="scientific_name" />
+                            <field name="product_id" on_change="onchange_product_id(product_id)" options="{'no_create': True, 'no_open': True, 'no_create_edit': True,}" />
+                            <field name="customer_name" attrs="{'invisible':[('specification_sale_status','=',False)]}" options="{'no_create': True, 'no_open': True}"/>
+                       </group>
+                       <group colspan='2' col='6'>
+                            <field name="common_specification" />
+                            <field name="specification_sale_status" attrs="{'invisible':[('common_specification','=',True)]}"/>
+                            <field name="specification_purchase_status" attrs="{'invisible':[('common_specification','=',True)]}"/>
+                       </group>
+                        <group colspan='2' col='6'>
+                            <field name="plant_part_used" />
+                            <field name="preparation_type" />
+                            <field name="standardization" />
+                            <field name="excipients_used" />
+                            <field name="excipients_details" />
+                            <field name="extraction_solvent" />
+                            <field name="final_extract_ratio" />
+                            <field name="issue_date"/>
+                            <field name="effective_date"/>
+                            <field name="review_date"/>
+                            <field name= 'doc_no'/>
+                            <field name= 'rev_no'/>		
+                        </group>
+                        <group name="infospecification" string="Specification Info" colspan="4" />
+                          <field name = 'specification_table' >
+                              <tree editable="bottom">
+                                  <field name ='specification_id'/>
+                                  <field name ='specification'/>
+                                  <field name ='protocol'/>
+                                  <field name ='remarks'/>
+                               </tree>
+                          </field>
+                 </sheet>
+            </form>
+        </field>
+      </record>
+      
+      <!-- Action for Product Specification -->
+      <record id="product_specification_main_action" model="ir.actions.act_window">
+            <field name="name">Products Specification</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.specification.main</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,pivot</field>
+            <field name="view_id" eval="False"/>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                  <p class="oe_view_nocontent_create">
+                      Click to define a new product Specification.
+                  </p>
+                   <p>
+                      You must define a product for everything you sell, whether it's a physical product, a consumable or a service you offer to  customers. 
+                   </p>
+                   <p>
+                       The product form contains information to simplify the sale process: price, notes in the quotation, accounting data, procurement methods, etc.
+                   </p>
+            </field>
+        </record>
+      
+        
+        <!-- Pivot View for Product Specification -->
+        <record model="ir.ui.view" id="view_prakruti_product_specification_main_pivot">
+            <field name="name">Product Specification</field>
+            <field name="model">product.specification.main</field>
+            <field name="arch" type="xml">
+                <pivot string=" Prakruti Specification" display_quantity="True">
+                    <field name="product_id" type="row"/>
+                </pivot>
+            </field>
+        </record>
+        
+                  
+        <!-- Menu for Product Specification -->
+	<menuitem
+            action="product_specification_main_action" 
+            id="product_specifications_menu_for_product_customer" 
+            name="Product Specification"
+            parent="prakruti.product_specifications_menu" 
+            sequence="2" groups="prakruti.group_prakruti_product_specification_main_read_only,prakruti.group_prakruti_product_specification_main_edit,prakruti.group_prakruti_product_specification_main_create,prakruti.group_prakruti_product_specification_main_delete"/>
+    </data>
+</openerp>

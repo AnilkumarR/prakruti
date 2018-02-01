@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+      
+    <record model="ir.cron" id="cronjob_prakruti_store_approve_request_email_scheduler">
+	    <field name='name'>Store Approve Request Hours Exceeds</field>
+	   <!-- <field name='interval_number'>4</field>
+	    <field name='interval_type'>hours</field>-->
+	    <field name="numbercall">-1</field>
+	    <field name="active">True</field>
+	    <field name="doall" eval="False" />
+	    <field name="model">prakruti.store_approve_request_notifications</field>
+	    <field name="function">send_mail_to_higher_authority</field>
+	    <field name="args">(None,)</field>
+    </record>
+
+    </data>
+</openerp>
+
+

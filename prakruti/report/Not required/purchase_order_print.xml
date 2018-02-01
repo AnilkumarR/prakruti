@@ -1,0 +1,14 @@
+
+<openerp>
+<data>
+ <report 
+            id="custom_report_purchase_order"
+            model="purchase.order"
+            string="purchase Order Qweb Report"
+            report_type="qweb-pdf"
+            name="purchase.report_purchase_order"
+            attachment_use="False"
+            file="purchase.report_purchase_order"
+        />
+ </data>
+</openerp>

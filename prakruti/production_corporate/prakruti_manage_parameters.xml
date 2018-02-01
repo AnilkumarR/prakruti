@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"  ?>
+<openerp>
+ <data>
+        <!-- Search view for Parameters      -->
+        <record model="ir.ui.view" id="view_prakruti_manage_parameters_search">
+            <field name="name">prakruti.manage_parameters.search</field>
+            <field name="model">prakruti.manage_parameters</field>
+            <field name="arch" type="xml">
+                <search string="Product Wise Search">
+                    <field name ="company_id"/>
+                    <field name="parameter_name"/>
+                    <field name ="parameter_code" />
+                </search>
+            </field>
+        </record>
+     
+        <!--Form view for Parameters       -->
+        <record model="ir.ui.view" id="view_prakruti_manage_parameters_form">
+            <field name="name">Parameters</field>
+            <field name="model">prakruti.manage_parameters</field>
+            <field name="arch" type="xml">
+                <form string="Parameters" >
+                    <sheet>
+                        <group >
+                            <field name ="company_id"/>
+                            <field name ="parameter_name" style="width:45%%" on_change="onchange_check_parameter_name(parameter_name)"/>
+                            <field name ="parameter_code" style="width:45%%" on_change="onchange_check_parameter_code(parameter_code)"/>
+                        </group>
+                    </sheet>
+                    </form>
+                </field>
+            </record>
+            
+        <!--  Tree view for Parameters            -->
+            <record model="ir.ui.view" id="view_prakruti_manage_parameters_tree">
+                <field name="name">Parameters</field>
+                <field name="model">prakruti.manage_parameters</field>
+                <field name="arch" type="xml">
+                    <tree string="Parameters" editable="top">
+                        <field name ="company_id" style="width:45%%" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                        <field name ="parameter_name" on_change="onchange_check_parameter_name(parameter_name)"/>
+                        <field name ="parameter_code" on_change="onchange_check_parameter_code(parameter_code)" />
+                    </tree>
+                </field>
+            </record> 
+            
+        <!-- Pivot for Parameters            -->
+            <record model="ir.ui.view" id="view_prakruti_manage_parameters_pivot">
+                    <field name="name">prakruti.manage_parameters.pivot</field>
+                    <field name="model">prakruti.manage_parameters</field>
+                    <field name="arch" type="xml">
+                        <pivot string=" Parameters " display_quantity="True">
+                            <field name="parameter_name" type="row"/>
+                            <field name ="parameter_code" />
+                        </pivot>
+                    </field>
+            </record>  
+            
+        <!-- Action for Parameters         -->
+            <record model="ir.actions.act_window" id="prakruti_manage_parameters_action">
+                <field name="name">Parameters</field>
+                <field name="res_model">prakruti.manage_parameters</field>
+                <field name="view_type">form</field>
+                <field name="view_mode">tree,form,pivot</field>
+            </record>
+        
+
+       
+        <menuitem id="prakruti_manage_parameters_sub_menu" 
+                  name="Manage Parameters" 
+                  action="prakruti_manage_parameters_action" 
+                  sequence="6"
+                  parent="prakruti_production_quality_analysis_parent_menu" groups="group_prakruti_manage_parameters_read_only,group_prakruti_manage_parameters_edit,group_prakruti_manage_parameters_create,group_prakruti_manage_parameters_delete"/>
+  
+</data>
+</openerp>
+            
+                        

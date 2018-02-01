@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+ <data>
+     
+                <!-- Search view of  PTN Information -->
+                <record model="ir.ui.view" id="view_prakruti_production_transfer_note_search">
+                    <field name="name">prakruti.production_transfer_note.search</field>
+                    <field name="model">prakruti.production_transfer_note</field>
+                    <field name="arch" type="xml">
+                        <search string="Product Wise Search">
+                            
+                            <field name="ptn_no"/>
+                            <field name="batch_no"/>
+                            <field name="state"/>
+                        </search>
+                    </field>
+                </record>
+
+
+
+
+                <!-- Tree view of  PTN Information -->
+                <record model="ir.ui.view" id="view_prakruti_production_transfer_note_tree">
+                    <field name="name">prakruti.production_transfer_note.tree</field>
+                    <field name="model">prakruti.production_transfer_note</field>
+                    <field name="arch" type="xml">
+                        <tree string=" Production Transfer Note Information" >
+                            
+                            <field name="ptn_no"/>
+                            <field name="batch_no"/>
+                            <field name="date"/>
+                            <field name="state"/>
+                        </tree>
+                    </field>
+                </record>
+
+                <!-- Form view of  PTN Information -->
+                <record model="ir.ui.view" id="view_prakruti_production_transfer_note_form">
+                    <field name="name">prakruti.production_transfer_note.form</field>
+                    <field name="model">prakruti.production_transfer_note</field>
+                    <field name="arch" type="xml">
+                        <form string=" Production Transfer Note Information" >
+                            <sheet>
+                                <header>  
+                                    <button name="action_to_inward" string= "To Inward" type="object"  attrs="{'invisible':[('state', 'not in', ('ptn'))]}"/>
+                                    <field name='state' widget='statusbar'/>
+                                </header>
+                                <group colspan = "2" col = "4">
+                                    <field name="ptn_no"/>
+                                    <field name="date" readonly="1"/>
+                                    <field name="batch_no" on_change="onchange_batch_no(batch_no)" domain="[('batch_allocated_flag','=',1),('is_batch_closed','=','open'),('batch_closed_flag','=',0),('is_ptn_done', '=',0)]" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" attrs="{'readonly':['|',('extraction_display_flag','=',1),'|',('tablet_display_flag','=',1),'|',('powder_display_flag','=',1),('syrup_display_flag','=',1)]}"/>
+                                    <field name="batch_allocated_by" readonly="1"/>
+                                    <field name="company_id" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                                    <field name="formulation_type" attrs="{'invisible':[('batch_allocated_by', 'in', ('syrup','tablet','extraction'))]}"/>
+                                </group>
+                                <group>
+                                    <field name ='pt_no' invisible="True"/>
+                                    <field name ='auto_no' invisible="True"/>
+                                    <field name ='req_no_control_id' invisible="True"/>
+                                    <field name ="bmr_no" invisible="True"/>
+                                    <field name ='tablet_display_flag' invisible="1"/>
+                                    <field name ='tablet_delete_flag' invisible="1"/>
+                                    <field name ='extraction_display_flag' invisible="1"/>
+                                    <field name ='extraction_delete_flag' invisible="1"/>
+                                    <field name ='syrup_display_flag' invisible="1"/>
+                                    <field name ='syrup_delete_flag' invisible="1"/>
+                                    <field name ='powder_display_flag' invisible="1"/>
+                                    <field name ='powder_delete_flag' invisible="1"/>
+                                </group>
+                                    <button name="action_list_products_for_extraction"  string="List Out Extraction Info." type="object" attrs="{'invisible':['|',('batch_allocated_by', 'in', ('syrup','tablet','formulation')),('extraction_display_flag','=',1)]}"/>
+                                    <button name="action_delete_products_for_extraction"  string="Delete Extraction Info." type="object" attrs="{'invisible':['|',('batch_allocated_by', 'in', ('syrup','tablet','formulation')),('extraction_delete_flag','=',1)]}"/>
+                                    <button name="action_list_products_for_tablet"  string="List Out Tablet Info." type="object" attrs="{'invisible':['|',('batch_allocated_by', 'in', ('syrup','extraction','formulation')),('tablet_display_flag','=',1)]}"/>
+                                    <button name="action_delete_products_for_tablet"  string="Delete Tablet Info." type="object" attrs="{'invisible':['|',('batch_allocated_by', 'in', ('syrup','extraction','formulation')),('tablet_delete_flag','=',1)]}"/>
+                                    <button name="action_list_products_for_syrup"  string="List Out Syrup Info." type="object" attrs="{'invisible':['|',('batch_allocated_by', 'in', ('tablet','extraction','formulation')),('syrup_display_flag','=',1)]}"/>
+                                    <button name="action_delete_products_for_syrup"  string="Delete Syrup Info." type="object" attrs="{'invisible':['|',('batch_allocated_by', 'in', ('tablet','extraction','formulation')),('syrup_delete_flag','=',1)]}"/>
+                                    <button name="action_list_products_for_powder"  string="List Out Powder Info." type="object" attrs="{'invisible':['|',('batch_allocated_by', 'in', ('tablet','extraction','syrup')),('powder_display_flag','=',1)]}"/>
+                                    <button name="action_delete_products_for_powder"  string="Delete Powder Info." type="object" attrs="{'invisible':['|',('batch_allocated_by', 'in', ('tablet','extraction','syrup')),('powder_delete_flag','=',1)]}"/>
+                                <notebook colspan="2"> 
+                                    <page  string="Product Details">
+                                        <button name="action_ptn_product_id_transfer"  string="Add" type="object" attrs="{'invisible':[('state', 'in', ('inward','destruction'))]}" />
+                                        <field name='grid_id' attrs="{'readonly':[('state', 'not in', ('ptn'))]}"/>
+                                    </page>
+                                    <page string="Other Details">
+                                        <group colspan="2" col='4'>
+                                            <field name='doc_no' attrs="{'readonly':[('state', 'not in', ('ptn'))]}"/>
+                                            <field name='dept_from' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" attrs="{'readonly':[('state', 'not in', ('ptn'))]}" />
+                                            <field name='dept_to' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" attrs="{'readonly':[('state', 'not in', ('ptn'))]}"/>
+                                            <field name='rev_no' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" attrs="{'readonly':[('state', 'not in', ('ptn'))]}"/>
+                                            <field name='prepared_by' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" attrs="{'readonly':[('state', 'not in', ('ptn'))]}"/>
+                                            <field name='store_incharge' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" attrs="{'readonly':[('state', 'not in', ('ptn'))]}"/>
+                                            <field name='approved_by' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" attrs="{'readonly':[('state', 'not in', ('ptn'))]}"/>
+                                            <field name='ref_if_any' />
+                                            <field name ="revise_remarks_update" />
+                                        </group>
+                                    </page>
+                                </notebook>
+                            </sheet>
+                        </form>
+                    </field>
+                </record>
+
+
+                <!-- Tree view of  PTN Line Information -->
+                <record model="ir.ui.view" id="view_prakruti_production_transfer_note_line_tree">
+                    <field name="name">prakruti.production_transfer_note_line.tree</field>
+                    <field name="model">prakruti.production_transfer_note_line</field>
+                    <field name="arch" type="xml">
+                        <tree string=" Production Transfer Note Line " editable='bottom' create='false' >
+                            <field name="product_id"  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                            <field name="uom_id"  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                            <field name="description"  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                            <field name="specification_id"  domain="[('product_id','=','product_id')]" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                            <field name="packing_style"/>
+                            <field name="packing_qty"/>
+                            <field name="total_output_qty"/>
+                            <field name="qc_status" invisible="True"/>
+                            <field name="remarks" />
+                            <field name="main_id" invisible="True"/>
+                        </tree>
+                    </field>
+                </record>
+
+
+                <!-- Pivot view of  PTN Information -->
+
+                <record model="ir.ui.view" id="view_prakruti_production_transfer_note_pivot">
+                    <field name="name">prakruti.production_transfer_note_.pivot</field>
+                    <field name="model">prakruti.production_transfer_note</field>
+                    <field name="arch" type="xml">
+                        <pivot string="  Production Transfer Note" display_quantity="True">
+                            <field name="batch_no" type="row"/>
+                        </pivot>
+                    </field>
+                </record>
+
+
+
+
+                <!-- Action for   PTN Information -->
+                <record model="ir.actions.act_window" id="prakruti_production_transfer_note_action">
+                    <field name="name"> Production Transfer Note</field>
+                    <field name="res_model">prakruti.production_transfer_note</field>
+                    <field name="view_type">form</field>
+                    <field name="view_mode">tree,form,pivot</field>
+                </record>
+
+
+
+
+                <menuitem name="Production Transfer Note" 
+                          id="prakruti_production_transfer_note_main_menu"
+                          action="prakruti_production_transfer_note_action" 
+                          sequence="7"
+                          parent="prakruti_production_slip_main_sub_menu" groups="group_prakruti_production_transfer_note_read_only,group_prakruti_production_transfer_note_create,group_prakruti_production_transfer_note_edit,group_prakruti_production_transfer_note_delete"/>
+
+
+</data>
+</openerp>

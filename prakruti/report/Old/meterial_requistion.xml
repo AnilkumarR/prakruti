@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_meterial_requistion_issue_document">
+           
+            
+            <t t-name="report.external_layout_header">
+                <div class="header" style=" width: 235mm; border:1px solid black; ">
+                    <div class="row">
+                        <div align="center"> <strong>STORES REQUISITION/ISSUE SLIP</strong> </div>
+                        <div class="col-xs-3">
+                            <img src='/prakruti/static/src/img/logo.png' />
+                        </div>
+                        <div class="col-xs-9 text-right" style="margin-top:0px;">
+                            <span t-field="o.company_id.rml_header1" /><br />
+                            <address>
+                                <strong>Address: </strong><span class="inline" t-field="o.company_id.name"/><br/>
+                                        <span class="inline" t-field="o.company_id.street"/> <br/>
+                                        <span class="inline" t-field="o.company_id.street2"/> <br/>
+                                        <span class="inline" t-field="o.company_id.city"/>,
+                                        <span class="inline" t-field="o.company_id.zip"/><br/>
+                                        <span class="inline" t-field="o.company_id.state_id"/><br/>
+                                        <strong> Phone No:</strong><span class="inline" t-field="o.company_id.phone"/>
+                            </address>
+                        </div>
+                    </div>
+                
+                </div>
+            </t>
+            
+            
+            
+            
+            
+            
+            <t t-name="prakruti.report_meterial_requistion_issue_document">
+                
+                <div class="page" style="width: 235mm; border:2px solid black; ">
+                    <!--<table style="width: 214mm; border:1px solid black;">
+                        <tr>
+                            <td style="font-size:20px" align="center"><b>PRAKRUTI PRODUCTS PVT LIMITED</b></td>
+                        </tr>
+                        <tr>
+                            <td align="center"><p>Regd. Off: Sagar Complex, Maruti Temple Road, Karwar - 581301</p></td>
+                        </tr>
+                        <tr>
+                            <td align="center"><p>Factory: B 1/2, Navagadde, Agsoor, Ankola - 581314</p></td>
+                        </tr>          
+                    </table>
+                                    
+                    <table style="width: 214mm; border:1px solid black;">
+                        <tr>
+                            <td align="center"><b>STORES REQUISITION CUM ISSUE SLIP</b></td>
+                        </tr>         
+                    </table>-->
+                                    
+                    <table style="width: 235mm; border:1px solid black;">
+                        <tr>
+                            <td align="right" >Issue No:  <span class="inline" t-field="o.issue_no"/></td>
+                        </tr>
+                        <tr>
+                            <td align="right">Date:   <span class="inline" t-field="o.issue_date"/></td>
+                        </tr>
+                    </table>
+
+                     <table style="width: 235mm; border:1px solid black;">
+                            <tr>
+                                <td align="left"  style="width: 235mm; height:20mm; border:1px solid #000000;">
+                                    <strong>From,</strong>
+                                    <span class="inline" t-field="o.store_incharge"/>
+                                </td>
+                                
+                                <td align="left"  style="width: 235mm; height:20mm; border:1px solid #000000;">
+                                    <strong>To,</strong>
+                                    <span class="inline" t-field="o.store_incharge"/>
+                                </td>
+                                
+                            </tr> 
+                     </table>
+                    
+                     
+                     <table style="width: 235mm; border:1px solid black;">
+                        <tr>
+                            <td><p><b>Take receipt of the following materials</b></p></td>
+                        </tr>
+                     </table>
+                    
+                    
+                    
+                    
+                                        
+                    <table class="table table-condensed" style=" width: 235mm; border:1px solid black;">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="border: 1px solid #000000;"><strong>Sl.No</strong></th>
+                                <th class="text-center" style="border: 1px solid #000000;"><strong>Particulars</strong></th>
+                                <th class="text-center" style="border: 1px solid #000000;"><strong>Batch No if Any</strong></th>
+                                <th class="text-center" style="border: 1px solid #000000;"><strong>Required Qty</strong></th>
+                                <th class="text-center" style="border: 1px solid #000000;"><strong>Issued Qty</strong></th>
+                                <th class="text-center" style="border: 1px solid #000000;"><strong>UOM</strong></th>
+                                <th class="text-center" style="border: 1px solid #000000;"><strong>Remarks</strong></th>  
+                            </tr>
+                        </thead>
+                        
+                            <tr t-foreach="o.grid_id" t-as="line">
+                                <td class="col-xs-1" style="border: 1px solid #000000;">
+                                    <span t-esc="line_index+1"/>
+                                </td>
+                                <td style="border: 1px solid #000000;">
+                                    <span t-field="line.product_id"/>
+                                </td>
+                                <td style="border: 1px solid #000000;">
+                                    <span t-field="line.batch_no"/>
+                                </td>
+                                <td style="border: 1px solid #000000;">
+                                    <span t-field="line.approved_quantity"/>
+                                </td>
+                                
+                                <td style="border: 1px solid #000000;">
+                                    <span t-field="line.issued_quantity"/>
+                                </td>
+                                
+                                <td style="border: 1px solid #000000;">
+                                    <span t-field="line.uom_id"/>
+                                </td>
+                                
+                                <td style="border: 1px solid #000000;">
+                                    <span t-field="line.remarks"/>
+                                </td>
+                            </tr>
+                        </table>
+                                        
+                       
+                    
+                                    
+                        <table style="width: 235mm; border:1px solid black;">
+                            <tr>
+                                <td align="left"  style="width: 235mm; height:10mm; border:1px;"><strong>Stores Incharge      </strong><span class="inline" t-field="o.store_incharge"/></td>
+                                <td align="right"  style="width: 235mm; height:10mm; border:1px;"><strong>Production Incharge    </strong><span class="inline" t-field="o.production_incharge"/></td>
+                            </tr> 
+                            <tr>
+                                <td align="left" style="width: 235mm; height:10mm; border:1px;"><strong>Plant Manager     </strong><span class="inline" t-field="o.plant_incharge"/></td>
+                                <td align="right" style="width: 235mm; height: 10mm; border:1px solid white;"> </td>
+                            </tr>
+
+                        </table>
+                        
+                        <table style="width: 235mm; border:1px solid black;">
+                            <tr>
+                                <td align="left">PPPL - PUR -F - 003</td>
+                                <td align="center">Rev. No.:<span class="inline" t-field="o.rev_no"/></td>
+                                <td align="right">Date:<span class="inline" t-field="o.date"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+                
+                
+                
+        <t t-name="report.external_layout_footer">
+            <div class="footer">
+                 <div class="text-center" style=" width: 235mm;">
+                    <ul class="list-inline">
+                        <li><strong> SUBJECT TO KARWAR JURISDICTION</strong> </li>
+                    </ul>
+                </div>
+            </div>
+        </t>
+                
+                
+                
+                
+            </template>
+        
+        
+        <template id="report_meterial_requistion_issue">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="prakruti.report_meterial_requistion_issue_document" t-lang="o.issued_by.lang"/>                    
+                </t>
+            </t>
+        </template>  
+
+        
+    </data>
+</openerp>

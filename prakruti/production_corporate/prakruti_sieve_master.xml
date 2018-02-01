@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"  ?>
+<openerp>
+ <data>
+     
+        <!-- Search view for Sieve Master      -->
+        <record model="ir.ui.view" id="view_prakruti_sieve_master_search">
+            <field name="name">prakruti.sieve_master.search</field>
+            <field name="model">prakruti.sieve_master</field>
+            <field name="arch" type="xml">
+                <search string="Product Wise Search">
+                    <field name ="company_id"  />
+                    <field name ="subplant_id" />
+                    <field name="sieve"/>
+                </search>
+            </field>
+        </record>
+        
+        <!--Tree view for Sieve Master  -->
+        <record model="ir.ui.view" id="view_prakruti_sieve_master_tree">
+            <field name="name">Sieve Master</field>
+            <field name="model">prakruti.sieve_master</field>
+            <field name="arch" type="xml">
+                <tree string="Sieve Master" editable="top" >
+                    <field name ="company_id"/>
+                    <field name ="subplant_id" style="width:45%%" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" />
+                    <field name ="sieve"/>
+                    
+                </tree>
+            </field>
+        </record>  
+        
+        <!--  Form view for Sieve Master        -->
+        <record model="ir.ui.view" id="view_prakruti_sieve_master_form">
+        <field name="name">Sieve Master</field>
+        <field name="model">prakruti.sieve_master</field>
+        <field name="arch" type="xml">
+            <form string="Sieve Master" >
+                <sheet>
+                    <group>
+                        <field name ="company_id" style="width:25%%" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                        <field name ="subplant_id" style="width:25%%"  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                        <field name ="sieve" style="width:145%%"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+        </record>
+        
+        
+        <!-- Pivot for Sieve Master         -->
+        <record model="ir.ui.view" id="view_prakruti_sieve_master_pivot">
+            <field name="name">prakruti.sieve_master.pivot</field>
+            <field name="model">prakruti.sieve_master</field>
+            <field name="arch" type="xml">
+                <pivot string=" Sieve Master" display_quantity="True">
+                    <field name="subplant_id" type="row"/>
+                    <field name="sieve"/>
+                </pivot>
+            </field>
+        </record> 
+        
+        <!--Action for Sieve Master  -->
+        <record model="ir.actions.act_window" id="prakruti_sieve_master_action">
+            <field name="name">Sieve Master</field>
+            <field name="res_model">prakruti.sieve_master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,pivot</field>
+        </record>
+    
+        
+
+       
+        <menuitem id="prakruti_sieve_master_sub_menu" 
+                  name="Manage Sieve " 
+                  action="prakruti_sieve_master_action" 
+                  sequence="3"
+                  parent="prakruti_production_quality_analysis_parent_menu" groups="group_prakruti_sieve_master_read_only,group_prakruti_sieve_master_edit,group_prakruti_sieve_master_create,group_prakruti_sieve_master_delete"/>
+  
+</data>
+</openerp>
+            
+                        

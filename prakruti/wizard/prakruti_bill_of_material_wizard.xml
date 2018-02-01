@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_prakruti_bill_of_material_wizard" model="ir.ui.view">
+            <field name="name">Extraction Wizard</field>
+            <field name="model">prakruti.bill_of_material_wizard</field>
+            <field name="arch" type="xml">
+                <form string="Grid Allocation">
+                    <sheet>
+                        <group>
+                            <field name="batch_id" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                            <field name="subplant_id"/>
+                            <field name="extraction_bom_id" invisible="True"/>
+                        </group>
+                        <notebook colspan="2"> 
+                            <page string="Extraction Details">
+                                <field name='bom_wizard_line'>
+                                    <tree string="Extraction Line" editable='bottom' >
+                                        <field name='material_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"  on_change="onchange_material_id(material_id)" />
+                                        <field name='description' />
+                                        <field name='uom_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" />
+                                        <field name='std_qty'  />
+                                        <field name='actual_qty' />
+                                        <field name='extra_qty' />
+                                        <field name='grn_no' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" invisible="1"/>
+                                        <field name='grn_list' />
+                                        <field name='ar_no' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" domain="[ ('product_id','=',material_id)]"/>
+                                        <field name='issued_qty' />
+                                        <field name='extra_issued_qty' />
+                                        <field name='qty_returned' />
+                                        <field name="remarks" />
+                                        <field name='extra_flag' invisible="True"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                        <footer>
+                            <button name="action_approve" string="Update" colspan="1" type="object" class="oe_highlight"  />
+                            or
+                            <button string="Cancel" class="oe_link" special="cancel" />    
+                        </footer>
+                    </sheet> 
+                </form>
+            </field>
+        </record>       
+    </data>
+</openerp>    

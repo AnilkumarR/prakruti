@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        
+        
+        <record id="email_prakruti_credit_note" model="email.template">
+            <field name="name">Credit Note</field>
+            <field name="email_from">${object.write_uid.login}</field>          
+            <field name="email_to">${object.write_uid.login}</field>
+            <field name="model_id" ref="model_prakruti_credit_note"/>
+            <field name="auto_delete" eval="True"/> 
+            <field name="subject">
+                <![CDATA[ 
+                    ${object.credit_note_no}
+                 ]]></field>
+            <field name="body_html">
+                <![CDATA[
+                    <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">                    
+                        <p>Dear Team,</p>                 
+                        <p><b>Credit Note Date:</b> ${object.credit_date},</p>
+                        <p>The CR No. ${object.credit_note_no}  </p>
+                        <p><b>Product Details:</b></p>
+                            <table  border=1>
+                                    <tr>
+                                        <td><b>Item </b></td>
+                                        <td><b> Returned Qty</b></td>
+                                        <td><b> Unit Price</b></td>
+                                        <td><b> Total</b></td>
+                                    </tr>
+                                    %  for line in object.order_line:
+                                    <tr>
+                                        <td>${line.product_id.name}</td>    
+                                        <td  align="right">${'{:.3f}'.format(line.rejected_qty)}</td>          
+                                        <td  align="right">${'{:.3f}'.format(line.unit_price)}</td>   
+                                        <td  align="right">${'{:.3f}'.format(line.total)}</td>
+                                    </tr>
+                                    %endfor
+                                </table>
+                    </div>
+                    <br><br>
+                    <p> Regards, </p>
+                    <p> Prakruti ERP Application </p>
+                    <p> ${object.write_uid.name} </p>
+                ]]></field>
+        </record>
+        
+        
+
+        
+        
+        
+        
+        
+    </data>
+</openerp>

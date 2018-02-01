@@ -1,0 +1,133 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        
+        
+        <record id="email_prakruti_logistics_invoice_tracking" model="email.template">
+            <field name="name">Invoice Tracking</field>
+            <field name="email_from">${object.order_id.login}</field>          
+            <field name="email_to">${object.order_id.login}</field>
+            <field name="model_id" ref="model_prakruti_logistics_invoice_tracking"/>
+            <field name="auto_delete" eval="True"/> 
+            <field name="subject">
+                <![CDATA[ 
+                   Material against SO No ${object.order_no.order_no}is in Transit
+                 ]]></field>
+            <field name="body_html">
+                <![CDATA[
+                    <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">                    
+                        <p>Dear Team,</p>
+                        <p><b>The Logistic Date:</b> ${object.order_date} </p>
+                        <p>The INV-TR No. ${object.order_no.order_no}  is in Deliver</p>
+                        <p>The Tracking No. is ${object.tracking_number}</p>
+                        <p>Status is ${object.status}</p>
+                        <p><b>Product Details:</b></p>
+                            <table  border=1>
+                                    <tr>
+                                        <td><b>Item </b></td>
+                                        <td><b> Qty</b></td>
+                                        <td><b> Packing Style</b></td>
+                                        <td><b> Packing Per Qty </b></td>
+                                        <td><b> Extra Packing</b></td>
+                                        <td><b> remarks</b></td>
+                                    </tr>
+                                    %  for line in object.order_line:
+                                    <tr>
+                                        <td>${line.product_id.name}</td>
+                                        <td  align="right">${'{:.3f}'.format(line.quantity)}</td>          
+                                        <td  align="right">${'{:.3f}'.format(line.packing_style)}</td>          
+                                        <td  align="right">${'{:.3f}'.format(line.no_of_packings)}</td>          
+                                        <td  align="right">${'{:.3f}'.format(line.extra_packing)}</td>
+                                        <td>${line.remarks}</td>     
+                                    </tr>
+                                    %endfor
+                                </table>
+                    </div>
+                    <br><br>
+                    <p> Regards, </p>
+                    <p> Prakruti ERP Application </p>
+                    <p> ${object.order_id.name}</p>
+                ]]></field>
+        </record>
+        
+        <record id="email_prakruti_logistics_invoice_tracking_for_grn" model="email.template">
+            <field name="name">Logistics Invoice GRN</field>
+            <field name="email_from">${object.order_id.login}</field>          
+            <field name="email_to">${object.order_id.login}</field>
+            <field name="model_id" ref="model_prakruti_logistics_invoice_tracking"/>
+            <field name="auto_delete" eval="True"/> 
+            <field name="subject">
+                <![CDATA[ 
+                  Material against SO No  ${object.order_no.order_no} is in delivered
+                 ]]></field>
+            <field name="body_html">
+                <![CDATA[
+                    <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">                    
+                        <p>Dear Team,</p>
+                        <p><b>The Logistic Date:</b> ${object.order_date} </p>
+                        <p>The INV-TR No. ${object.order_no.order_no}  is in delivered</p>
+                        <p>The Tracking No. is ${object.tracking_number}</p>
+                        <p><b>Product Details:</b></p>
+                            <table  border=1>
+                                    <tr>
+                                        <td><b>Item </b></td>
+                                        <td><b> Qty</b></td>
+                                        <td><b> Packing Style</b></td>
+                                        <td><b> Packing Per Qty </b></td>
+                                        <td><b> Extra Packing</b></td>
+                                        <td><b> remarks</b></td>
+                                    </tr>
+                                    %  for line in object.order_line:
+                                    <tr>
+                                        <td>${line.product_id.name}</td>
+                                        <td  align="right">${'{:.3f}'.format(line.quantity)}</td>          
+                                        <td  align="right">${'{:.3f}'.format(line.packing_style)}</td>          
+                                        <td  align="right">${'{:.3f}'.format(line.no_of_packings)}</td>          
+                                        <td  align="right">${'{:.3f}'.format(line.extra_packing)}</td>
+                                        <td>${line.remarks}</td>     
+                                    </tr>
+                                    %endfor
+                                </table>
+                    </div>
+                    <br><br>
+                    <p> Regards, </p>
+                    <p> Prakruti ERP Application </p>
+                    <p> ${object.order_id.name}</p>
+                ]]></field>
+        </record>
+        
+
+        
+        
+        
+        <record id="email_prakruti_logistics_invoice_tracking_exceed" model="email.template">
+            <field name="name">Logistics Invoice Exceed</field>
+            <field name="email_from">${object.order_id.login}</field>          
+            <field name="email_to">${object.order_id.login}</field>
+            <field name="model_id" ref="model_prakruti_logistics_invoice_tracking"/>
+            <field name="auto_delete" eval="True"/> 
+            <field name="subject">
+                <![CDATA[ 
+                  Delivery Date Exceeds with the Order No ${object.order_no.order_no}
+                 ]]></field>
+            <field name="body_html">
+                <![CDATA[
+                    <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">                    
+                        <p>Dear Team,</p>
+                        <p><b>The Logistic Date:</b> ${object.order_date} </p>
+                        <p> The Delivery date has been Exceeded with the order No ${object.order_no.order_no}.
+                    </div>
+                    <br><br>
+                    <p> Regards, </p>
+                    <p> Prakruti ERP Application </p>
+                    <p> ${object.order_id.name}</p>
+                ]]></field>
+        </record>
+        
+
+        
+        
+        
+        
+    </data>
+</openerp>

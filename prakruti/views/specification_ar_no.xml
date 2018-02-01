@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+ <data>
+        
+        <!--     Search View for Specification AR Number-->
+        <record model="ir.ui.view" id="view_prakruti_specification_ar_no_generator_search">
+            <field name="name">Specification AR Number</field>
+            <field name="model">prakruti.specification.ar.no</field>
+            <field name="arch" type="xml">
+                <search string="Specification AR Number">
+                    <field name= "parameter"/>
+                    <field name= 'specification_id'/>
+                    <field name= 'scientific_name'/>
+                    <field name= 'product_id'/>
+                    <field name= 'ar_number'/>
+                    <field name= 'status'/>   
+                </search>
+            </field>
+        </record>
+        
+        <!--     Tree View for Specification AR Number-->
+        <record id="specification_ar_no_generator_tree_view" model="ir.ui.view">
+            <field name="name">Specification AR Number</field>
+            <field name="model">prakruti.specification.ar.no</field>
+            <field name="arch" type="xml">
+                <tree string="Specification AR Number">
+                    <field name= 'specification_id'/>
+                    <field name= 'scientific_name'/>
+                    <field name= 'product_id'/>
+                    <field name= 'ar_number'/>
+                    <field name= 'status'/>
+                </tree>
+            </field>
+        </record>
+        
+        <!--     Form View for Specification AR Number-->
+        <record id="specification_ar_no_generator_form_view" model="ir.ui.view">
+            <field name="name">Specification AR Number</field>
+            <field name="model">prakruti.specification.ar.no</field>
+            <field name="arch" type="xml">
+                <form string="Specification AR Number">
+                    <sheet>
+                        <header>
+                            <button name="assign_no" string="Assign" type="object" attrs="{'invisible':[('status','=','assign')]}"/>
+                            <field name= 'status' widget='statusbar'/>
+                        </header>
+                        <group string="Specification AR Number">
+                            <field name= 'display_product' invisible="True"/>
+                            <field name= "customer_name" invisible="True"/>
+                        </group>
+                        <group colspan='2' col='6'>
+                            <field name= "company_id" />
+                            <field name= 'specification_id' placeholder= 'Select Specification' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" on_change="onchange_specification_id(specification_id)" attrs="{'readonly':[('status','=','assign')]}"/>
+                            <field name= 'scientific_name'/>
+                            <field name= 'product_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                            <field name= 'ar_number' attrs="{'readonly':[('status','=','assign')]}"/>
+                            <field name= "date" />
+                            <field name= "mfd_date" />
+                            <field name= "expiry_date"/>
+                            <field name= "country_of_origin"/>
+                            <field name= "batch_no"/>
+                            <field name= "batch_size"/>
+                            <field name= "dispatch_qty"/>
+                            <field name= "plant_part_used"/>
+                            <field name= "sample_qty"/>
+                            <field name= "remarks"/>
+                            <field name= "issue_date"/>
+                            <field name= "effective_date"/>
+                            <field name= "review_date"/>
+                            <field name= "doc_no"/>
+                            <field name= "rev_no"/>
+                            <field name= "rm_assay" style="width:25%%" />
+                        </group>
+                        <button name="action_list_products" string="List" type="object" attrs="{'invisible':[('display_product','=',1)]}"/>
+                        <button name="action_delete_products" string="Delete" type="object" attrs="{'invisible':['|',('display_product','=',0),('status','=','assign')]}"/>
+                        <notebook>
+                            <page string="Details">
+                                <field name= 'ar_line' attrs="{'readonly':[('status','=','assign')]}">
+                                    <tree editable='bottom' create= "false">
+                                        <field name= 'parameter'/>
+                                        <field name= 'specification'/>
+                                        <field name= 'protocol'/>
+                                        <field name= 'result'/>                                      
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!--     Pivot View for Specification AR Number-->
+        <record model="ir.ui.view" id="view_prakruti_specification_ar_no_generator_pivot">
+            <field name="name">prakruti.specification.ar.no.pivot</field>
+            <field name="model">prakruti.specification.ar.no</field>
+            <field name="arch" type="xml">
+                <pivot string="Specification AR Number " display_quantity="True">
+                    <field name="product_id" type="row"/>
+                    <field name="specification_id"/>
+                </pivot>
+            </field>
+        </record>
+        
+        <!--     Action for Specification AR Number-->
+        <record id="specification_ar_no_generator_action" model="ir.actions.act_window">
+            <field name="name">Specification AR Number</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">prakruti.specification.ar.no</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,pivot</field>
+            <field name="help" type="html">
+                  <p class="oe_view_nocontent_create">
+                    <h2>Click Here To Define AR Number For The Product Specification.</h2>
+                  </p>
+            </field>
+        </record>
+        
+        <!--     Menu for Specification AR Number-->
+        
+	<menuitem
+            action="specification_ar_no_generator_action" 
+            id="specification_ar_no_generator" 
+            name="Generate Specification AR Number " 
+            parent="prakruti.product_specifications_menu" 
+            sequence="3" 
+            groups="group_prakruti_specification_ar_no_read_only,group_prakruti_specification_ar_no_edit,group_prakruti_specification_ar_no_create,group_prakruti_specification_ar_no_delete" />
+        
+      </data>
+</openerp>

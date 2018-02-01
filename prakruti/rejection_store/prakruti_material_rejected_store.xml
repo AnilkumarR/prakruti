@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Search view for Material Rejected Store         -->
+        <record model="ir.ui.view" id="view_prakruti_material_rejected_store_search">
+            <field name="name">prakruti.material_rejected_store.search</field>
+            <field name="model">prakruti.material_rejected_store</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name="product_id"/>
+                    <field name="rejection_date" />
+                    <field name="grn_no"/>
+                    <field name='checked_by'/>
+                    <field name='state'/>
+                    <field name="bmr_no"/>
+                    <field name='coming_from'/>
+                </search>
+            </field>
+        </record>
+        
+        <!--Tree view for Material Rejected Store   -->
+        <record model="ir.ui.view" id="view_prakruti_material_rejected_store_tree">
+            <field name="name">Material Rejected Store</field>
+            <field name="model">prakruti.material_rejected_store</field>
+            <field name="arch" type="xml">
+                <tree string="Material Rejected Store" create= "false">
+                    <field name="rejection_date" />
+                    <field name="grn_no"/>
+                    <field name='grn_date' />
+                    <field name='coming_from'/>
+                    <field name='checked_by'/>
+                    <field name='state'/>
+                </tree>
+            </field>
+        </record> 
+        
+        
+        <!--   Form view for Material Rejected Store       -->
+        <record model="ir.ui.view" id="view_prakruti_material_rejected_store_form">
+            <field name="name">Material Rejected Store</field>
+            <field name="model">prakruti.material_rejected_store</field>
+            <field name="arch" type="xml">
+                <form string="Material Rejected Store" create= "false">
+                    <sheet>
+                        <header position="inside">
+                            <button name="to_destruction" string="Destruction/Scrap" type="object" attrs="{'invisible':[('state','in',('destruction_note','reprocess'))]}"/>
+                            <button name="do_reprocess" string="Re-Process" type="object" attrs="{'invisible':['|',('coming_from','not in','production'),('state','in',('reprocess','destruction_note'))]}"/>
+                            <field name='state' widget='statusbar'/>
+                        </header>
+                        <group colspan="4" col="4">
+                            <field name='rejection_date' />
+                            <field name="company_address" readonly="True"/>
+                            <field name='grn_no'/>
+                            <field name='grn_date' />
+                            <field name='checked_by' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" />
+                            <field name='po_no' attrs="{'invisible':[('coming_from','not in','purchase')]}"/>
+                            <field name='order_no' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" attrs="{'invisible':[('coming_from','not in','sales')]}"/>
+                            <field name="order_date"/>
+                            <field name="coming_from" readonly="True"/>
+                            <field name='location_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                            <field name="batch_id" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" attrs="{'invisible':[('coming_from','not in','production')]}"/>
+                            <field name="bmr_no" invisible="True"/>
+                        </group>
+                        <notebook>
+                            <page string='Product Details'>
+                                <field name='qc_check_line'/>
+                            </page>
+                            <page string='Other details'>
+                                <group name = 'details' string = 'QC Information'/>
+                                <group colspan= "4" col= "4">
+                                    <field name= "store_incharge" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                                    <field name= 'quality_incharge' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                                    <field name= 'remarks'/> 
+                                    <field name='terms' readonly="True"/> 
+                                    <field name='reference_no' readonly="True"/> 
+                                    <field name='reference_date' readonly="True"/>
+                                    <field name='revision_no' readonly="True"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        
+    <!--  Tree view for Material Rejected Store Line    -->
+     <record model="ir.ui.view" id="view_prakruti_rejected_material_store_line_tree">
+         <field name="name">prakruti.rejected_material_store_line.tree</field>
+         <field name="model">prakruti.rejected_material_store_line</field>
+         <field name="arch" type="xml">
+            <tree editable='bottom' create= "false" delete= "false">
+                <field name='product_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" readonly= "True"/>
+                <field name='uom_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" readonly= "True"/>
+                <field name='description' readonly= "True"/>
+                <field name="quantity" readonly= "True"/>
+                <field name='remarks' readonly= "True"/>
+            </tree>
+         </field>
+     </record>
+        
+        <!-- Pivot for Material Rejected Store         -->
+     <record model="ir.ui.view" id="view_prakruti_material_rejected_store_pivot">
+            <field name="name">prakruti.material_rejected_store.pivot</field>
+            <field name="model">prakruti.material_rejected_store</field>
+            <field name="arch" type="xml">
+                <pivot string=" Material Rejected Store" display_quantity="True">
+                    <field name="checked_by" type="row"/>
+                </pivot>
+            </field>
+        </record>
+        
+        <!-- Actionn for Material Rejected Store -->
+        <record model="ir.actions.act_window" id="prakruti_material_rejected_store_action">
+            <field name="name">Material Rejected Store</field>
+            <field name="res_model">prakruti.material_rejected_store</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,pivot</field>
+        </record>
+        
+        <menuitem id="prakruti_rejection_store_sub_menu" 
+                  name="Material Rejection " 
+                  parent="prakruti_stores_main_menu" 
+                  sequence="5"/>
+        
+        <menuitem sequence="1" 
+                  name="Material Rejection Store" 
+                  id="prakruti_material_rejected_store_menu" 
+                  action="prakruti_material_rejected_store_action" 
+                  parent="prakruti_rejection_store_sub_menu" groups="group_prakruti_material_rejected_store_read_only,group_prakruti_material_rejected_store_edit,group_prakruti_material_rejected_store_create,group_prakruti_material_rejected_store_delete"/>
+        
+        
+    </data>
+</openerp>

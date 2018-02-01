@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_sales_dispatch_document">
+<t t-name="prakruti.report_sales_dispatch_document">
+    <div class="page" style="width:229mm ;height:260mm; border:1px solid black;">
+        <table style=" width:229mm;border:1px solid black;">
+            <tr>
+                <td style="font-size:15px" align="center"><b>PRAKRUTI PRODUCTS PRIVATE LIMITED</b></td>
+            </tr>
+            <tr>
+                <td style="font-size:13px" align="center"><p>Regd. Off: Sagar Complex, Maruti Temple Road, Karwar - 581301</p></td>
+            </tr>
+            <tr>
+                <td style="font-size:13px" align="center"><p>Factory: B 1/2, Navagadde, Agsoor, Ankola - 581314</p></td>
+            </tr>
+        </table>
+          <table style="width:229mm;border:1px solid black;">
+                <tr>
+                    <td style="font-size:14px" align="center"><b> DISPATCH TO</b></td>
+                </tr>
+         </table>
+             <table align="left" style="width: 113.5mm; border:1px solid black;height:40mm">
+              <tr>
+                <td style="width: 70mm; border:1px solid black" ><strong>Order No:</strong><span t-field="o.order_no"/></td>
+            </tr>
+            <tr>
+                <td style="width: 70mm; border:1px solid black" ><strong>Dispatch No :</strong><span t-field="o.dispatch_no"/></td>
+                   <table align="right" style="width:115.2mm; border:1px solid black;height:40mm">  
+                      <tr>
+                          <td style="width: 70mm; border:1px solid black" ><strong>Order Date  : </strong><span t-field="o.order_date"/></td>
+                      </tr>
+                      <tr>
+                          <td style="width: 70mm; border:1px solid black" ><strong>Dispatch Date :</strong><span t-field="o.dispatch_date"/></td>
+                      </tr>
+                      <tr>
+                         <td style="width: 70mm; border:1px solid black" ><strong>Dispatch To :</strong><span t-field="o.dispatch_to"/></td>
+                      </tr>
+                 </table>
+               </tr>
+             </table>
+            <table  class="table table-condensed" style="width:229mm ;border:1px solid black;">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="border: 1px solid #000000;"> <strong>S.NO</strong></th>  
+                        <th class="text-center" style="border: 1px solid #000000;"> <strong>Product</strong></th>
+                        <th class="text-center" style="border: 1px solid #000000;"> <strong>UOM</strong></th>
+                        <th class="text-center" style="border: 1px solid #000000;"> <strong>Description </strong></th>
+                        <th class="text-center" style="border: 1px solid #000000;"> <strong>Specification</strong></th>
+                        <th class="text-center" style="border: 1px solid #000000;"> <strong>Material Type </strong></th>  
+                        <th class="text-center" style="border: 1px solid #000000;"> <strong>Ordered Quantity</strong></th>
+                        <th class="text-center" style="border: 1px solid #000000;"> <strong>Scheduled Qty </strong></th>
+                        <th class="text-center" style="border: 1px solid #000000;"> <strong>Scheduled Date</strong></th>
+                        <th class="text-center" style="border: 1px solid #000000;"> <strong>Dispatched Qty </strong></th>
+                        <th class="text-center" style="border: 1px solid #000000;"> <strong>Remarks</strong></th> 
+                    </tr>
+                </thead>
+                    <tr t-foreach="o.grid_id" t-as="line">
+                        <td class="col-xs-1" style="border: 1px solid #000000;">
+                            <span t-esc="line_index+1"/>
+                        </td>
+                        <td style="border:1px solid #000000">
+                            <span t-field="line.product_id"/>
+                        </td>
+                        <td style="border:1px solid #000000">
+                            <span t-field="line.uom_id"/>
+                        </td>
+                        <td style="border:1px solid #000000">
+                            <span t-field="line.description"/>
+                        </td>
+                        <td style="border:1px solid #000000">
+                            <span t-field="line.specification"/>
+                        </td>
+                        <td style="border:1px solid #000000">
+                            <span t-field="line.material_type"/>
+                        </td>
+                        <td style="border:1px solid #000000">
+                            <span t-field="line.ordered_qty"/>
+                        </td>
+                        <td style="border:1px solid #000000">
+                            <span t-field="line.scheduled_qty"/>
+                        </td>
+                        <td style="border:1px solid #000000">
+                            <span t-field="line.scheduled_date"/>
+                        </td>
+                         <td style="border:1px solid #000000">
+                            <span t-field="line.dispatched_qty"/>
+                        </td>
+                         <td style="border:1px solid #000000">
+                            <span t-field="line.remarks"/>
+                        </td>
+                    </tr>
+            </table>
+    </div>       
+</t>
+</template>
+                
+               
+<template id="report_sales_dispatch">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="prakruti.report_sales_dispatch_document" />
+            </t>
+        </t>
+        
+</template>
+
+</data>
+</openerp>
+
+                            

@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+   
+    
+    <data noupdate="0">
+    <!-- Multi - Company Rules -->
+	<record model="ir.rule" id="prakruti_purchase_requistion_comp_rule">
+	    <field name="name">Purchase Requistion multi-company</field>
+	    <field name="model_id" ref="model_prakruti_purchase_requisition"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        <record model="ir.rule" id="prakruti_purchase_requisition_approve_comp_rule">
+	    <field name="name">Purchase Requistion Approve multi-company</field>
+	    <field name="model_id" ref="model_prakruti_purchase_requisition_approve"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+	
+        
+           <record model="ir.rule" id="prakruti_purchase_requistion_analysis_comp_rule">
+	    <field name="name">Purchase Requistion Analysis multi-company</field>
+	    <field name="model_id" ref="model_prakruti_purchase_requistion_analysis"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+	
+        <record model="ir.rule" id="prakruti_price_request_comp_rule">
+	    <field name="name">Price Request multi-company</field>
+	    <field name="model_id" ref="model_prakruti_price_request"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+        <record model="ir.rule" id="prakruti_purchase_order_quotation_comp_rule">
+	    <field name="name">Purchase Order Quotation multi-company</field>
+	    <field name="model_id" ref="model_prakruti_purchase_order_quotation"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_address','=',False),('company_address','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+          <record model="ir.rule" id="prakruti_purchase_order_quotation_analysis_comp_rule">
+	    <field name="name">Purchase Order Quotation Analysis multi-company</field>
+	    <field name="model_id" ref="model_prakruti_purchase_order_quotation_analysis"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_address','=',False),('company_address','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+        <record model="ir.rule" id="prakruti_purchase_order_comp_rule">
+	    <field name="name">Purchase Order multi-company</field>
+	    <field name="model_id" ref="model_prakruti_purchase_order"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_address','=',False),('company_address','child_of',[user.company_id.id])]</field>
+	</record>
+        
+         <record model="ir.rule" id="prakruti_purchase_invoice_comp_rule">
+	    <field name="name">Purchase Invoice multi-company</field>
+	    <field name="model_id" ref="model_prakruti_purchase_invoice"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_address','=',False),('company_address','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+         <record model="ir.rule" id="prakruti_purchase_return_comp_rule">
+	    <field name="name">Purchase Return multi-company</field>
+	    <field name="model_id" ref="model_prakruti_purchase_return"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_address','=',False),('company_address','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+        
+        <record model="ir.rule" id="prakruti_grn_analysis_comp_rule">
+	    <field name="name">GRN Analysis multi-company</field>
+	    <field name="model_id" ref="model_prakruti_grn_analysis"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_address','=',False),('company_address','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+         <record model="ir.rule" id="prakruti_grn_inspection_details_comp_rule">
+	    <field name="name">GRN  multi-company</field>
+	    <field name="model_id" ref="model_prakruti_grn_inspection_details"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_address','=',False),('company_address','child_of',[user.company_id.id])]</field>
+	</record>
+        
+          <record model="ir.rule" id="prakruti_return_items_comp_rule">
+	    <field name="name">Return Items  multi-company</field>
+	    <field name="model_id" ref="model_prakruti_return_items"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_address','=',False),('company_address','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+         <record model="ir.rule" id="prakruti_stock_adjustments_comp_rule">
+	    <field name="name">Stock Adjustments  multi-company</field>
+	    <field name="model_id" ref="model_prakruti_stock_adjustments"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+        
+        <record model="ir.rule" id="prakruti_material_outward_note_comp_rule">
+	    <field name="name">Material Outward Note multi-company</field>
+	    <field name="model_id" ref="model_prakruti_material_outward_note"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+         <record model="ir.rule" id="prakruti_stock_comp_rule">
+	    <field name="name">Prakruti Stock multi-company</field>
+	    <field name="model_id" ref="model_prakruti_stock"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+         <record model="ir.rule" id="product_specification_main_comp_rule">
+	    <field name="name">Specification multi-company</field>
+	    <field name="model_id" ref="model_product_specification_main"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+         <record model="ir.rule" id="prakruti_specification_ar_no_comp_rule">
+	    <field name="name">Specification AR No multi-company</field>
+	    <field name="model_id" ref="model_prakruti_specification_ar_no"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+        
+         <record model="ir.rule" id="prakruti_logistics_po_tracking_comp_rule">
+	    <field name="name">PO Tracking multi-company</field>
+	    <field name="model_id" ref="model_prakruti_logistics_po_tracking"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_address','=',False),('company_address','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+         <record model="ir.rule" id="prakruti_gate_pass_comp_rule">
+	    <field name="name">Gate Pass multi-company</field>
+	    <field name="model_id" ref="model_prakruti_gate_pass"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+         <record model="ir.rule" id="prakruti_bmr_requisition_comp_rule">
+	    <field name="name">BMR Requistion multi-company</field>
+	    <field name="model_id" ref="model_prakruti_bmr_requisition"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+         <record model="ir.rule" id="prakruti_production_planning_comp_rule">
+	    <field name="name">Production Planning multi-company</field>
+	    <field name="model_id" ref="model_prakruti_production_planning"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        <record model="ir.rule" id="prakruti_production_slip_comp_rule">
+	    <field name="name">Production Slip multi-company</field>
+	    <field name="model_id" ref="model_prakruti_production_slip"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        <record model="ir.rule" id="prakruti_reserved_product_comp_rule">
+	    <field name="name">Resevered Product multi-company</field>
+	    <field name="model_id" ref="model_prakruti_reserved_product"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        <record model="ir.rule" id="prakruti_quality_control_comp_rule">
+	    <field name="name">Quality Control multi-company</field>
+	    <field name="model_id" ref="model_prakruti_quality_control"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_address','=',False),('company_address','child_of',[user.company_id.id])]</field>
+	</record>
+        
+         <record model="ir.rule" id="prakruti_quality_control_ha_comp_rule">
+	    <field name="name">Quality Control HA multi-company</field>
+	    <field name="model_id" ref="model_prakruti_quality_control_ha"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_address','=',False),('company_address','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+         <record model="ir.rule" id="prakruti_material_rejected_store_comp_rule">
+	    <field name="name">Material Rejected multi-company</field>
+	    <field name="model_id" ref="model_prakruti_material_rejected_store"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_address','=',False),('company_address','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        <record model="ir.rule" id="prakruti_gate_pass_manual_comp_rule">
+	    <field name="name">Manual Gate Pass multi-company</field>
+	    <field name="model_id" ref="model_prakruti_gate_pass_manual"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+         <record model="ir.rule" id="prakruti_sales_inquiry_comp_rule">
+	    <field name="name">Sales Inquiry multi-company</field>
+	    <field name="model_id" ref="model_prakruti_sales_inquiry"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_address','=',False),('company_address','child_of',[user.company_id.id])]</field>
+	</record> <record model="ir.rule" id="prakruti_sales_quotation_comp_rule">
+	    <field name="name">Sales Quotation multi-company</field>
+	    <field name="model_id" ref="model_prakruti_sales_quotation"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_address','=',False),('company_address','child_of',[user.company_id.id])]</field>
+	</record>
+        
+         <record model="ir.rule" id="prakruti_sales_order_comp_rule">
+	    <field name="name">Sales Order multi-company</field>
+	    <field name="model_id" ref="model_prakruti_sales_order"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_address','=',False),('company_address','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+        <record model="ir.rule" id="prakruti_sales_invoice_comp_rule">
+	    <field name="name">Sales Invoice multi-company</field>
+	    <field name="model_id" ref="model_prakruti_sales_invoice"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_address','=',False),('company_address','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+        <record model="ir.rule" id="prakruti_sales_proforma_invoice_comp_rule">
+	    <field name="name">Sales Proforma Invoice multi-company</field>
+	    <field name="model_id" ref="model_prakruti_sales_proforma_invoice"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_address','=',False),('company_address','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+         <record model="ir.rule" id="prakruti_sales_return_comp_rule">
+	    <field name="name">Sales Return multi-company</field>
+	    <field name="model_id" ref="model_prakruti_sales_return"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+         <record model="ir.rule" id="prakruti_sales_return_grn_comp_rule">
+	    <field name="name">Sales Return GRN multi-company</field>
+	    <field name="model_id" ref="model_prakruti_sales_return_grn"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+         <record model="ir.rule" id="prakruti_sales_return_grn_qc_comp_rule">
+	    <field name="name">Sales Return GRN QC multi-company</field>
+	    <field name="model_id" ref="model_prakruti_sales_return_grn_qc"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        <record model="ir.rule" id="prakruti_sales_return_grn_qc_ha_comp_rule">
+	    <field name="name">Sales Return GRN QC HA multi-company</field>
+	    <field name="model_id" ref="model_prakruti_sales_return_grn_qc_ha"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        <record model="ir.rule" id="prakruti_sales_scrap_comp_rule">
+	    <field name="name">Sales Scrap multi-company</field>
+	    <field name="model_id" ref="model_prakruti_sales_scrap"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+        
+        
+        <!--Stores -->
+        
+        <record model="ir.rule" id="prakruti_store_request_comp_rule">
+	    <field name="name">Store Request multi-company</field>
+	    <field name="model_id" ref="model_prakruti_store_request"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+         <record model="ir.rule" id="prakruti_store_approve_request_comp_rule">
+	    <field name="name">Store Request Approve multi-company</field>
+	    <field name="model_id" ref="model_prakruti_store_approve_request"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+        <record model="ir.rule" id="prakruti_store_issue_comp_rule">
+	    <field name="name">Store Issue multi-company</field>
+	    <field name="model_id" ref="model_prakruti_store_issue"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+          <record model="ir.rule" id="prakruti_dispatch_comp_rule">
+	    <field name="name">Sales Dispatch multi-company</field>
+	    <field name="model_id" ref="model_prakruti_dispatch"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+        <record model="ir.rule" id="prakruti_quality_check_comp_rule">
+	    <field name="name">Quality Check multi-company</field>
+	    <field name="model_id" ref="model_prakruti_quality_check"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+        <record model="ir.rule" id="prakruti_quality_check_ha_comp_rule">
+	    <field name="name">Quality Check HA multi-company</field>
+	    <field name="model_id" ref="model_prakruti_quality_check_ha"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+    
+        <record model="ir.rule" id="prakruti_process_quality_control_qa_comp_rule">
+	    <field name="name">Process Quality Control QA multi-company</field>
+	    <field name="model_id" ref="model_prakruti_process_quality_control_qa"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+        <record model="ir.rule" id="prakruti_process_quality_check_qa_ha_comp_rule">
+	    <field name="name">Process Quality Control QA HA multi-company</field>
+	    <field name="model_id" ref="model_prakruti_process_quality_check_qa_ha"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+        
+         <record model="ir.rule" id="prakruti_logistics_invoice_tracking_comp_rule">
+	    <field name="name">Invoice Tracking multi-company</field>
+	    <field name="model_id" ref="model_prakruti_logistics_invoice_tracking"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_address','=',False),('company_address','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+        
+        
+         <record model="ir.rule" id="prakruti_batch_master_comp_rule">
+	    <field name="name">Batch Master multi-company</field>
+	    <field name="model_id" ref="model_prakruti_batch_master"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+         <record model="ir.rule" id="prakruti_breakdown_item_comp_rule">
+	    <field name="name">Break Down Item multi-company</field>
+	    <field name="model_id" ref="model_prakruti_breakdown_item"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+         <record model="ir.rule" id="prakruti_extraction_changes_comp_rule">
+	    <field name="name">Extraction Changes multi-company</field>
+	    <field name="model_id" ref="model_prakruti_extraction_changes"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        <record model="ir.rule" id="prakruti_machine_comp_rule">
+	    <field name="name">Machine multi-company</field>
+	    <field name="model_id" ref="model_prakruti_machine"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        <record model="ir.rule" id="prakruti_main_plant_comp_rule">
+	    <field name="name">Main Plant multi-company</field>
+	    <field name="model_id" ref="model_prakruti_main_plant"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        <record model="ir.rule" id="prakruti_manage_parameters_comp_rule">
+	    <field name="name">Main Parameters multi-company</field>
+	    <field name="model_id" ref="model_prakruti_manage_parameters"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+         <record model="ir.rule" id="prakruti_mesh_master_comp_rule">
+	    <field name="name">Mesh Master multi-company</field>
+	    <field name="model_id" ref="model_prakruti_mesh_master"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+         <record model="ir.rule" id="prakruti_process_order_comp_rule">
+	    <field name="name">Process Order multi-company</field>
+	    <field name="model_id" ref="model_prakruti_process_order"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        <record model="ir.rule" id="prakruti_shift_assignment_comp_rule">
+	    <field name="name">Shift Assignment multi-company</field>
+	    <field name="model_id" ref="model_prakruti_shift_assignment"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+         <record model="ir.rule" id="prakruti_shift_master_comp_rule">
+	    <field name="name">Shift Master multi-company</field>
+	    <field name="model_id" ref="model_prakruti_shift_master"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+         <record model="ir.rule" id="prakruti_sieve_master_comp_rule">
+	    <field name="name">Sieve Master multi-company</field>
+	    <field name="model_id" ref="model_prakruti_sieve_master"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+         <record model="ir.rule" id="prakruti_stage_comp_rule">
+	    <field name="name">Stage Master multi-company</field>
+	    <field name="model_id" ref="model_prakruti_stage"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+         <record model="ir.rule" id="prakruti_sub_plant_comp_rule">
+	    <field name="name">Sub Plant multi-company</field>
+	    <field name="model_id" ref="model_prakruti_sub_plant"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+        
+        
+         <record model="ir.rule" id="prakruti_bill_of_material_comp_rule">
+	    <field name="name">Bill Of Material multi-company</field>
+	    <field name="model_id" ref="model_prakruti_bill_of_material"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+         <record model="ir.rule" id="prakruti_destruction_note_comp_rule">
+	    <field name="name">Destruction Note multi-company</field>
+	    <field name="model_id" ref="model_prakruti_destruction_note"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        <record model="ir.rule" id="prakruti_powder_comp_rule">
+	    <field name="name">Prakruti Powder multi-company</field>
+	    <field name="model_id" ref="model_prakruti_powder"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+         <record model="ir.rule" id="prakruti_powder_production_comp_rule">
+	    <field name="name">Prakruti Powder Production multi-company</field>
+	    <field name="model_id" ref="model_prakruti_powder_production"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        <record model="ir.rule" id="prakruti_production_comp_rule">
+	    <field name="name">Extraction Production multi-company</field>
+	    <field name="model_id" ref="model_prakruti_production"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        <record model="ir.rule" id="prakruti_production_inward_comp_rule">
+	    <field name="name">Production Inward multi-company</field>
+	    <field name="model_id" ref="model_prakruti_production_inward"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+         <record model="ir.rule" id="prakruti_production_transfer_note_comp_rule">
+	    <field name="name">Production Transfer Note multi-company</field>
+	    <field name="model_id" ref="model_prakruti_production_transfer_note"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+         <record model="ir.rule" id="prakruti_production_transfer_note_ha_comp_rule">
+	    <field name="name">Production Transfer Note HA multi-company</field>
+	    <field name="model_id" ref="model_prakruti_production_transfer_note_ha"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+         <record model="ir.rule" id="prakruti_production_transfer_note_qc_comp_rule">
+	    <field name="name">Production Transfer Note QC multi-company</field>
+	    <field name="model_id" ref="model_prakruti_production_transfer_note_qc"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+         <record model="ir.rule" id="prakruti_standard_product_comp_rule">
+	    <field name="name">Standard Product multi-company</field>
+	    <field name="model_id" ref="model_prakruti_standard_product"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        <record model="ir.rule" id="prakruti_syrup_comp_rule">
+	    <field name="name">Syrup multi-company</field>
+	    <field name="model_id" ref="model_prakruti_syrup"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+         <record model="ir.rule" id="prakruti_syrup_production_comp_rule">
+	    <field name="name">Syrup Production multi-company</field>
+	    <field name="model_id" ref="model_prakruti_syrup_production"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+         <record model="ir.rule" id="prakruti_tablet_comp_rule">
+	    <field name="name">Tablet multi-company</field>
+	    <field name="model_id" ref="model_prakruti_tablet"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+         <record model="ir.rule" id="prakruti_tablet_production_comp_rule">
+	    <field name="name">Tablet multi-company</field>
+	    <field name="model_id" ref="model_prakruti_tablet_production"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+        <record model="ir.rule" id="prakruti_credit_note_comp_rule">
+	    <field name="name"> Credit Note multi-company</field>
+	    <field name="model_id" ref="model_prakruti_credit_note"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+        <record model="ir.rule" id="prakruti_debit_note_comp_rule">
+	    <field name="name"> Debit Note multi-company</field>
+	    <field name="model_id" ref="model_prakruti_debit_note"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_address','=',False),('company_address','child_of',[user.company_id.id])]</field>
+	</record>
+        
+        
+        <record model="ir.rule" id="prakruti_debit_note_ha_comp_rule">
+	    <field name="name">Debit Note HA multi-company</field>
+	    <field name="model_id" ref="model_prakruti_debit_note_ha"/>
+	    <field name="global" eval="True"/>
+	    <field name="domain_force">['|',('company_address','=',False),('company_address','child_of',[user.company_id.id])]</field>
+	</record>
+        
+    
+    </data>
+
+
+
+</openerp>

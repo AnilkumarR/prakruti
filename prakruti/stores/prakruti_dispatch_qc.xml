@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--  Search View for Quality Check        -->
+        <record model="ir.ui.view" id="view_prakruti_quality_check_search">
+            <field name="name">prakruti.quality_check.search</field>
+            <field name="model">prakruti.quality_check</field>
+            <field name="arch" type="xml">
+                <search string="Product Wise Search">
+                    <field name="product_id"/>
+                    <field name="dispatch_no"/>
+                    <field name='checked_by'/>
+                    <field name='quality_incharge'/>
+                    <field name='state'/>
+                </search>
+            </field>
+        </record>
+        
+    <!--  Tree view for Quality Check       -->
+        <record model="ir.ui.view" id="view_prakruti_quality_check_tree">
+            <field name="name">Quality Check</field>
+            <field name="model">prakruti.quality_check</field>
+            <field name="arch" type="xml">
+                <tree string="Quality Check" create= "false">
+                    <field name="qc_date" />
+                    <field name="dispatch_no"/>
+                    <field name="dispatch_date"/>
+                    <field name='checked_by'/>
+                    <field name='quality_incharge'/>
+                    <field name='state'/>
+                </tree>
+            </field>
+        </record>  
+        
+    <!--Form view for Quality Check          -->
+        <record model="ir.ui.view" id="view_prakruti_quality_check_form">
+            <field name="name">Quality Check</field>
+            <field name="model">prakruti.quality_check</field>
+            <field name="arch" type="xml">
+                <form string="Quality Check" create= "false">
+                    <header position="inside">
+                        <button name="validate" string="Validate" type="object" attrs="{'invisible':[('flag_rejected_count','in',(2,3,4))]}"/>
+                        <button name="quality_to_ha" string="To HA" type="object" attrs="{'invisible':[('flag_rejected_count','in',(1,3,4))]}"/>
+                        <button name="update_to_dispatch" string="To Dispatch" type="object" attrs="{'invisible':['|',('flag_rejected_count','in',(2,3,1)),('state','in',('qc_done'))]}"/>
+                        <field name='state' widget='statusbar'/>
+                    </header>
+                    <group colspan="4" col="4">
+                        <field name='qc_date' attrs="{'readonly':[('state','in',('qc_done'))]}"/>
+                        <field name='dispatch_no' />
+                        <field name='dispatch_date' />
+                        <field name="company_id" readonly="True"/>
+                        <field name='checked_by' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" attrs="{'readonly':[('state','in',('qc_done'))]}"/>
+                        <field name='order_no'/>
+                        <field name="order_date"/>
+                        <field name="dispatch_to" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>       
+                        <field name='dispatch_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" readonly="True"/>  
+                        <field name='order_id'  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" invisible="True"/>
+                        <field name='requested_id'  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" invisible="True"/>
+                        <field name='quotation_id'  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" invisible="True"/>
+                        <field name= "flag_rejected_count" invisible="True"/>
+                        <field name= "coming_from" invisible="True"/>
+                    </group>
+                    <notebook>
+                        <page string='Product Details'>
+                            <field name='check_line' attrs="{'readonly':[('state','in',('qc_done'))]}"/>
+                        </page> 
+                        <page  string="Product Wise Batch List">
+                            <field name='batch_line'>
+                                <tree string="Product Wise Batch List" editable='bottom' create="false">
+                                    <field name="product_id" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                                    <field name="uom_id" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" />
+                                    <field name="batch_no" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"/>
+                                    <field name='specification_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" domain="['&amp;',('product_id','=',product_id),'|',('specification_sale_status','=',True),('common_specification','=',True)]"/>
+                                    <field name='ar_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"  domain="[('specification_id','=',specification_id)]"/> 
+                                    <field name="dispatched_qty" />
+                                    <field name='batch_size'/>
+                                    <field name='batch_qty'/>
+                                    <field name='packing_details'/>
+                                    <field name="remarks" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string='Other details'>
+                            <group string = 'QC Information'/>
+                            <group colspan= "4" col= "4">
+                                <field name='reference_no' attrs="{'readonly':[('state','in',('qc_done'))]}"/>
+                                <field name= "store_incharge" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" attrs="{'readonly':[('state','in',('qc_done'))]}"/>
+                                <field name= 'quality_incharge' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" attrs="{'readonly':[('state','in',('qc_done'))]}"/>
+                                <field name='terms' attrs="{'readonly':[('state','in',('qc_done'))]}"/> 
+                                <field name='reference_date' attrs="{'readonly':[('state','in',('qc_done'))]}"/>
+                                <field name='revision_no' attrs="{'readonly':[('state','in',('qc_done'))]}"/>
+                                <field name="remarks" attrs="{'readonly':[('state','in',('qc_done'))]}"/>
+                                </group>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        
+    <!--  Tree view for QC Line     -->
+     <record model="ir.ui.view" id="view_prakruti_quality_check_line_tree">
+         <field name="name">prakruti.quality_check_line.tree</field>
+         <field name="model">prakruti.quality_check_line</field>
+         <field name="arch" type="xml">
+             <tree editable='bottom' create= "false" delete= "false">
+                    <field name='product_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" attrs="{'readonly':[('state','in',('draft'))]}"/>
+                    <field name='uom_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" attrs="{'readonly':[('state','in',('draft'))]}"/>
+                    <field name='description' attrs="{'readonly':[('state','in',('draft'))]}"/>
+                    <field name='specification_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" domain="['&amp;',('product_id','=',product_id),'|',('specification_sale_status','=',True),('common_specification','=',True)]" invisible="True"/>
+                    <field name='ar_no' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"  domain="[('specification_id','=',specification_id)]" invisible="True"/>
+                    <field name='ordered_qty' attrs="{'readonly':[('state','in',('draft'))]}"/>
+                    <field name='dispatched_qty' attrs="{'readonly':[('state','in',('draft'))]}"/>
+                    <field name="accepted_qty" />
+                    <field name="rejected_qty" />
+                    <field name="status" />
+                    <field name="test_result"/>
+                    <field name='remarks'/>
+                    <field name='state' invisible="True"/>
+                    <field name='dispatch_line_grid_id' invisible="True"/> 
+                    <field name="batch_list"/> 
+                    <field name="batch_no" invisible = "True"/>
+                    <field name="total" invisible="True"/>
+                    <field name="quantity" invisible="True"/>
+                    <field name="unit_price" invisible="True"/>
+                    <field name="scheduled_qty" invisible="True"/>
+                    <field name="qc_flag" invisible="True"/>
+                </tree>
+         </field>
+     </record>
+     
+    <!-- Pivot for Quality Check      -->
+     <record model="ir.ui.view" id="view_prakruti_quality_check_pivot">
+            <field name="name">prakruti.quality_check.pivot</field>
+            <field name="model">prakruti.quality_check</field>
+            <field name="arch" type="xml">
+                <pivot string="Quality Check" display_quantity="True">
+                    <field name="checked_by" type="row"/>
+                    <field name="state"/>
+                </pivot>
+            </field>
+        </record>
+
+        <!-- Action for Quality Check         -->
+        <record model="ir.actions.act_window" id="prakruti_quality_check_action">
+            <field name="name">Quality Check</field>
+            <field name="res_model">prakruti.quality_check</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,pivot</field>
+        </record>
+        
+        <menuitem name="Outward" 
+                  id="prakruti_quality_control_parent_menu_for_stores_qc" 
+                  parent="prakruti_quality_control_main_menu" 
+                  sequence="2" />
+         <menuitem sequence="1" 
+                  name="Process Dispatch" 
+                  id="prakruti_qc_menu" 
+                  parent="prakruti_quality_control_parent_menu_for_stores_qc"/>
+        
+        <menuitem sequence="1" 
+                  name="Outward Quality Control" 
+                  id="prakruti_qc_menu1" 
+                  action="prakruti_quality_check_action" 
+                  parent="prakruti_qc_menu" groups="group_prakruti_quality_check_read_only,group_prakruti_quality_check_edit,group_prakruti_quality_check_create,group_prakruti_quality_check_delete"/>
+        
+    </data>
+</openerp>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+ <data>
+        <!--Search view for Sales Invoice Tracking          -->
+        <record model="ir.ui.view" id="view_prakruti_logistics_invoice_tracking_search">
+            <field name="name">prakruti.logistics.invoice.tracking.search</field>
+            <field name="model">prakruti.logistics_invoice_tracking</field>
+            <field name="arch" type="xml">
+                <search string="Product Wise Search">
+                    <field name="product_id"/>
+                    <field name="customer_id" />
+                    <field name="invoice_no"/>
+                    <field name="tracking_number" />
+                    <field name="status" />
+                </search>
+            </field>
+        </record>
+        
+        <!-- Tree view for Sales Invoice Tracking         -->
+        <record model="ir.ui.view" id="view_prakruti_logistics_invoice_tracking_tree">
+            <field name="name">prakruti.logistics.invoice.tracking.tree</field>
+            <field name="model">prakruti.logistics_invoice_tracking</field>
+            <field name="arch" type="xml">
+                <tree string="Sales Invoice Tracking Details" create="false">
+                    <field name="customer_id" />
+                    <field name="invoice_no"/>
+                    <field name="tracking_number" />
+                    <field name="expected_date" />
+                    <field name="actual_date" />
+                    <field name="status" />
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Form view for Sales Invoice Tracking          -->
+        <record model="ir.ui.view" id="view_prakruti_logistics_invoice_tracking_form">
+            <field name="name">prakruti.logistics.invoice.tracking.form</field>
+            <field name="model">prakruti.logistics_invoice_tracking</field>
+            <field name="arch" type="xml">
+                <form string="Sales Invoice Tracking Details" create="false">                    
+                    <sheet>
+                         <header position="inside">
+                            <button name="invoice_in_transit" string="Proceed" type="object" attrs="{'invisible':[('status', 'in', ('proceed','in_transit','deliver'))]}"/>
+                            <button name="transit_to_deliver" string="Set To Done" type="object" attrs="{'invisible':[('status', 'in', ('open','deliver'))]}"/>
+                            <field name="status" widget="statusbar"/>                              
+                        </header>
+                        <group>
+                            <field name="dispatch_no" invisible="True"/>
+                            <field name="dispatch_date" invisible="True"/>
+                            <field name="coming_from" invisible="True"/>
+                            <field name ="is_invoice_generated" invisible="True"/>
+                        </group>
+                        <group name="prakruti_logistics_invoice_tracking">
+                            <group colspan="4" col="4" string="SO Details">
+                                    <field name="invoice_no" />
+                                    <field name="invoice_date" />
+                                    <field name="order_no" readonly="True"/>
+                                    <field name="order_date" readonly="True"/>
+                                    <field name="company_address" readonly="True"/>
+                                    <field name="customer_id" readonly="True"/>
+                                    <field name='reference_no' readonly="True"/>        
+                                    <field name='dispatch_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}"  invisible="True"/>
+                                    <field name='order_id'  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" invisible="True"/>
+                                    <field name='requested_id'  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" invisible="True"/>
+                                    <field name='quotation_id'  options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" invisible="True"/>
+                                    <field name="tracking_date" invisible="True"/>
+                            </group>                           
+                            <group colspan="4" col="4" string="Tracking Details">
+                                <field name="tracking_number" attrs="{'readonly':[('status', 'in', ('in_transit','deliver'))]}"/>
+                                <field name="vehicle_no"  attrs="{'readonly':[('status', 'in', ('in_transit','deliver'))]}"/>
+                                <field name="transport_name" attrs="{'readonly':[('status', 'in', ('in_transit','deliver'))]}"/>
+                                <field name="expected_date" attrs="{'readonly':[('status', 'in', ('in_transit','deliver'))]}"/>
+                                <field name="actual_date" attrs="{'readonly':[('status', 'in', ('open','deliver'))]}"/>  <field name='terms' readonly="True"/> 
+                                <field name='reference_date' readonly="True"/>
+                                <field name='revision_no' readonly="True"/>
+                                <field name="remarks" readonly="True"/>
+                            </group>
+                            <group>
+                                <field name ='order_line' string="Product Details"/>
+                            </group>
+                            <group colspan="4" col="4" string= "CheckList">
+                                <field name='dc_no_outward_check' widget='radio' options="{'horizontal': true}" attrs="{'readonly':[('status', 'in', 'deliver')]}"/>
+                                <field name='e_way_bill_check' widget='radio' options="{'horizontal': true}" attrs="{'readonly':[('status', 'in', 'deliver')]}"/>
+                                <field name='customer_road_permit' widget='radio' options="{'horizontal': true}"  attrs="{'readonly':[('status', 'in', 'deliver')]}"/>
+                                <field name='coa' invisible="1" />
+                                <field name='job_work_documents' widget='radio' options="{'horizontal': true}" attrs="{'readonly':[('status', 'in', 'deliver')]}"/>
+                                <field name='job_work_documents_remarks' attrs="{'invisible':[('job_work_documents','in','not_applicable')]}"/>
+                            </group>  
+                        </group>                        
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        
+    <!--  Tree view for Sales Invoice Tracking      -->
+     <record model="ir.ui.view" id="view_prakruti_sales_line_in_logistics_tree">
+         <field name="name">prakruti.sales_line_in_logistics.tree</field>
+         <field name="model">prakruti.sales_line_in_logistics</field>
+         <field name="arch" type="xml">
+            <tree create= "false">
+                <field name='product_id' readonly="True"/>
+                <field name='quantity' readonly="True"/>
+                <field name="packing_details" readonly="True"/>
+                <field name='remarks' />
+                <field name='unit_price' readonly="True"/>
+                <field name='uom_id' invisible= "True"/>
+            </tree>
+         </field>
+     </record>
+     
+        <!--Pivot for Sales Invoice Tracking        -->
+     <record model="ir.ui.view" id="view_prakruti_logistics_invoice_tracking_pivot">
+            <field name="name">prakruti.logistics_invoice_tracking.pivot</field>
+            <field name="model">prakruti.logistics_invoice_tracking</field>
+            <field name="arch" type="xml">
+                <pivot string=" Sales Invoice Tracking " display_quantity="True">
+                    <field name="tracking_number" type="row"/>
+                    <field name="customer_id"/>
+                </pivot>
+            </field>
+        </record>
+        
+        <!--  Action for Sales Invoice Tracking         -->
+        <record model="ir.actions.act_window" id="prakruti_logistics_invoice_tracking_action">
+            <field name="name">Sales Invoice Tracking Details</field>
+            <field name="res_model">prakruti.logistics_invoice_tracking</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,pivot</field>
+        </record> 
+    
+        
+        <menuitem name="Invoice Tracking" 
+                  id="prakruti_logistics_invoice_tracking_sub_menu"
+                  action="prakruti_logistics_invoice_tracking_action" 
+                  parent="prakruti_logistics_po_tracking_main_sub_menu" 
+                  groups="group_module_prakruti_logistics_invoice_tracking_edit,group_module_prakruti_logistics_invoice_tracking_create,group_module_prakruti_logistics_invoice_tracking_delete,group_module_prakruti_logistics_invoice_tracking_read_only"
+                  />
+        
+</data>
+</openerp>

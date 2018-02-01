@@ -1,0 +1,990 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <template id="report_bmr_tablet_document">
+            <t t-name="report.external_layout_header">
+                <div class="header" style="width: 235mm;">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <img src='/prakruti/static/src/img/logo.png' style="margin-left:3px;"/>
+                        </div>
+                        <div class="col-xs-10 text-right" style="margin-top:0px;margin-right:0px;">
+                            <span t-field="o.company_id.rml_header1"/><br/>
+                            <address>
+                                <strong>
+                                    <span style="font-size: 20px" class="inline" t-field="o.company_id.name"/>
+                                </strong><br/>
+                                    <span class="inline" t-field="o.company_id.street"/>,<span class="inline" t-field="o.company_id.street2"/><br/>
+                                    <span class="inline" t-field="o.company_id.city"/>,<span class="inline" t-field="o.company_id.state_id"/>,<span class="inline" t-field="o.company_id.zip"/><br/>
+                                <strong>Phone No:</strong><span class="inline" t-field="o.company_id.phone"/><br/>
+                            </address>
+                        </div>
+                    </div>
+                </div>
+            </t>
+            
+            <t t-name="prakruti.report_bmr_tablet_document">
+                <div class="page" style="width: 235mm;">
+                    <h2 align="center"><b><u>BMR TABLET</u></b></h2>
+                    <br/>
+                    <h4 align="left"><b>Subplant :</b><i><span t-field="o.subplant_id"/></i></h4>
+                    <h4 align="left"><b>Batch No :</b><i><span t-field="o.batch_id"/></i></h4>
+                    <h4 align="left"><b>Batch Size :</b><i><span t-field="o.batch_size"/></i></h4>
+                    <h4 align="left"><b>Batch Allocation Date :</b><i><span t-field="o.batch_allocation_date"/></i></h4>
+                    <h4 align="left"><b>Batch End Date :</b><i><span t-field="o.batch_end_date"/></i></h4>
+                    <br/>
+                    <h2 align="left"><b>Total Yield :</b><i><span t-field="o.total_output_yeild"/></i></h2>
+                    <br/>
+                    
+                    <div t-if="o.tablet_sieving_id">
+                        <h2 align="center">SIEVING</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Ingredient</th>
+                                    <th class="text-center">Sieve Size</th>
+                                    <th class="text-center">Weight Before</th>
+                                    <th class="text-center">Weight After</th>
+                                    <th class="text-center">Rejection</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.tablet_sieving_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.standard_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.equipment_code"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.ingredient_name"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.sieve_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.weight_before"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.weight_after"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.rejection"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.tablet_binder_id">    
+                        <h2 align="center">PREPERATION OF BINDER</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Solvent 1</th>
+                                    <th class="text-center">Solvent 2</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Binding Agent</th>
+                                    <th class="text-center">Qty of solvent 1(KG)</th>
+                                    <th class="text-center">Qty of solvent 2(KG)</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Qty of Binder Solution</th>
+                                    <th class="text-center">Temp/Pressure/PH/RH</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.tablet_binder_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.standard_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.solvent"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.solvent1"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.equipment_code"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.binding_agent"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.qty_solvent_1kg"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.qty_solvent_2kg"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.qty_binder_solution"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.temperature"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.tablet_granulation_id"> 
+                        <h2 align="center">GRANULATION</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Stage</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Qty Used</th>
+                                    <th class="text-center">Impeller</th>
+                                    <th class="text-center">Chopper</th>
+                                    <th class="text-center">Temp/Pressure/PH/RH</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.tablet_granulation_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.standard_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.stage_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.equipment_code"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.qty_used"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.impellar"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.chopper"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.temperature"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.tablet_semi_drying_id"> 
+                        <h2 align="center">SEMI DRYING</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Temp Inlet</th>
+                                    <th class="text-center">Temp Exhaust</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.tablet_semi_drying_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.standard_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.equipment_code"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.inlet"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.exhaust"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.tablet_final_drying_id"> 
+                        <h2 align="center">FINAL DRYING</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Inlet Air Flow</th>
+                                    <th class="text-center">Duration of Time</th>
+                                    <th class="text-center">LOD of granules</th>
+                                    <th class="text-center">Temp Inlet</th>
+                                    <th class="text-center">Temp Exhaust</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.tablet_final_drying_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.standard_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.equipment_code"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.inlet_air_flow"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.duration"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.lod_of_granules"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.inlet"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.exhaust"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.tablet_milling_id"> 
+                        <h2 align="center">MILLING</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Ingredient</th>
+                                    <th class="text-center">Mesh Size</th>
+                                    <th class="text-center">Weight Before</th>
+                                    <th class="text-center">Weight After</th>
+                                    <th class="text-center">Rejection</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.tablet_milling_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.standard_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.equipment_code"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.ingredient_name"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.mesh_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.weight_before"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.weight_after"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.rejection"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.tablet_api_addition_id">
+                        <h2 align="center">OTHER INGREDIENT/API ADDITION</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Ingredient</th>
+                                    <th class="text-center">Quantity</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Temp/Pressure/PH/RH</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.tablet_api_addition_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.standard_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.equipment_code"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.ingredient_name"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.quantity"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.temperature"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.tablet_blending_id">
+                        <h2 align="center">BLENDING</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Input Qty</th>
+                                    <th class="text-center">Output Qty</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.tablet_blending_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.standard_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.equipment_code"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.input_qty"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.output_qty"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.tablet_compression_id">
+                        <h2 align="center">COMPRESSION\CAPSULE FILLING</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Qty Before</th>
+                                    <th class="text-center">Qty After</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.tablet_compression_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.standard_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.equipment_code"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.qty_for_compression"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.qty_after_compression"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.tablet_coating_preparation_id">
+                        <h2 align="center">PREPARATION OF COATING SOLUTION</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Coating Material Name</th>
+                                    <th class="text-center">Solvent Name 1</th>
+                                    <th class="text-center">Solvent Name 2</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Quantity Of Coating Material</th>
+                                    <th class="text-center">Quantity Of Solvent 1</th>
+                                    <th class="text-center">Quantity Of Solvent 2</th>
+                                    <th class="text-center">Temp/Pressure/PH/RH</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Input Qty</th>
+                                    <th class="text-center">Output Qty</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.tablet_coating_preparation_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.standard_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.coating_material_name"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.solvent_name"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.name_solvent"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.equipment_code"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.qty_coating_material"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.qty_solvent"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.solvent_qty"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.temperature"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.input_qty"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.output_qty"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.tablet_coating_id">
+                        <h2 align="center">COATING</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Input Qty</th>
+                                    <th class="text-center">Output Qty</th>
+                                    <th class="text-center">Pan Speed</th>
+                                    <th class="text-center">Spray Rate</th>
+                                    <th class="text-center">Tablet BED Temp</th>
+                                    <th class="text-center">Automization Pressure</th>
+                                    <th class="text-center">Temp Inlet</th>
+                                    <th class="text-center">Temp Exhaust</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.tablet_coating_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.standard_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.equipment_code"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.input_qty"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.output_qty"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.pan_speed"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.spray_rate"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.tablet_bed_temp"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.automization_pressure"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.inlet"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.exhaust"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.tablet_inspection_id">
+                        <h2 align="center">TABLET INSPECTION</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Total Coated Tablets(Kg)</th>
+                                    <th class="text-center">Rejected Tablets</th>
+                                    <th class="text-center">Rejection(%)</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.tablet_inspection_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.standard_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.equipment_code"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.total_coated"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.rejected_tablets"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.rejected_percentage"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.tablet_metal_inspection_id">
+                        <h2 align="center">METAL DETECTION</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Total Coated Tablets(Kg)</th>
+                                    <th class="text-center">Rejected Tablets</th>
+                                    <th class="text-center">Rejection(%)</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.tablet_metal_inspection_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.standard_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.equipment_code"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.total_coated"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.rejected_tablets"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.rejected_percentage"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.tablet_packing_id">
+                        <h2 align="center">PACKING</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Standard Time</th>
+                                    <th class="text-center">Packing Style</th>
+                                    <th class="text-center">Packing Qty</th>
+                                    <th class="text-center">Equipment</th>
+                                    <th class="text-center">Start Time</th>
+                                    <th class="text-center">End Time</th>
+                                    <th class="text-center">Done By</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.tablet_packing_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.standard_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.packing_style"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.packing_qty"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.equipment_code"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.start_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.end_time"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.done_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>
+                    <div t-if="o.breakdown_production_id">
+                        <h2 align="center">BREAKDOWN</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Process Order</th>
+                                    <th class="text-center">Machine</th>
+                                    <th class="text-center">BreakDown Item</th>
+                                    <th class="text-center">Running Hours</th>
+                                    <th class="text-center">BreakDown Hours</th>
+                                    <th class="text-center">Checked By</th>
+                                    <th class="text-center">Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody">
+                                <tr t-foreach="o.breakdown_production_id" t-as="l">
+                                    <td class="text-center">
+                                        <span t-field="l.process_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.machine_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.breakdown_id"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.running_hours"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.breakdown_hours"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.checked_by"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.remarks"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br/>                    
+                    
+                    
+                    <br/>
+                    <h4 align="left"><b>Created By :</b><i><span t-field="o.created_by"/></i></h4>
+                    
+                </div>
+            </t>
+            
+        </template>
+        
+               
+        <template id="report_bmr_tablet">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="prakruti.report_bmr_tablet_document" />
+                </t>
+            </t>
+        </template>
+
+    </data>
+</openerp>

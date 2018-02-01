@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_sales_invoice12_document">
+            <t t-name="prakruti.report_sales_invoice12_document">
+                
+            <t t-name="report.external_layout_header">
+                <div class="header" style="width: 235mm; border:1px solid black; ">
+                    <div class="row">
+                        <div align="center"> <strong>COMMERCIAL INVOICE SALES</strong> </div>
+                        <div class="col-xs-3">
+                            <img src='/prakruti/static/src/img/logo.png' />
+                        </div>
+                        <div class="col-xs-9 text-right" style="margin-top:0px;">
+                            <span t-field="o.company_address.rml_header1" /><br />
+                            <address>
+                                <strong>Address: </strong><span class="inline" t-field="o.company_address.name"/><br/>
+                                        <span class="inline" t-field="o.company_address.street"/> <br/>
+                                        <span class="inline" t-field="o.company_address.street2"/> <br/>
+                                        <span class="inline" t-field="o.company_address.city"/>,
+                                        <span class="inline" t-field="o.company_address.zip"/><br/>
+                                        <span class="inline" t-field="o.company_address.state_id"/><br/>
+                                        <strong> Phone No:</strong><span class="inline" t-field="o.company_address.phone"/>
+                            </address>
+                        </div>
+                    </div>
+                
+                </div>
+             </t>
+            
+                
+                
+                
+                
+                
+                
+                <div class="page" style="width: 235mm; border:1px solid black;">
+                   <!--<table style="width:229mm;border:1px solid black;">
+                        <tr>
+                            <td style="font-size:14px" align="center"><b> COMMERCIAL INVOICE SALES</b></td>
+                        </tr>
+                    </table>-->
+                   <!-- <table style=" width:229mm;border:1px solid black;">
+                         <td  align="center"><strong><font style="text-transform:uppercase;"><span class="inline" t-field="o.company_address.name"/></font></strong><br/>
+                            <span class="inline" t-field="o.company_address.street"/> ,
+                            <span class="inline" t-field="o.company_address.street2"/> ,
+                            <span class="inline" t-field="o.company_address.city"/>,
+                            <span class="inline" t-field="o.company_address.state_id"/><br/>
+                            <strong> Phone No:</strong><span class="inline" t-field="o.company_address.phone"/>
+                        </td>
+                        
+                    </table>-->
+                    
+                    
+                    <TABLE  style="width: 235mm; border-right:1px solid black; border-bottom:1px solid black; border-collapse: collapse;">
+                    <TR>
+                        <td style="width:100mm;border: 1px solid #000000;" align="left" ROWSPAN="3" >
+                            <strong>
+                                <font style="text-transform:uppercase;">Customer :<span class="inline" t-field="o.customer_id.name"/></font></strong><br/> 
+                            <span class="inline" t-field="o.customer_id.street"/> ,
+                            <span class="inline" t-field="o.customer_id.street2"/> <br/>
+                            <span class="inline" t-field="o.customer_id.city"/>,
+                            <span class="inline" t-field="o.customer_id.state_id"/><br/>
+                        </td> 
+                                
+                        <td style="width:67.5mm;border: 1px solid #000000;" ><strong> VAT TIN :</strong><br/><span t-field="o.customer_id.tin_no"/></td>
+                        <td style="border: 1px solid #000000;" ><strong> CST NO  : </strong><br/><span t-field="o.customer_id.cst_no"/></td>
+                    </TR> 
+                    <TR>
+                            <td style="width:67.5mm;border: 1px solid #000000;" ><strong>Drug lisc No:</strong><br/><span t-field="o.dispatch_no"/></td>
+                            <td style="border: 1px solid #000000;" ><strong>Invoice No:</strong><br/><span t-field="o.invoice_no"/></td>
+                    </TR>
+                    <TR>
+                            <td style="width:67.5mm;border: 1px solid #000000;" ><strong>Invoice Date :</strong><br/><span t-field="o.invoice_date"/></td>
+                            <td style="border: 1px solid #000000;" ><strong>Customer Order No : </strong><br/><span t-field="o.reference_no"/></td>
+                    </TR>
+            </TABLE>   
+                    
+            <TABLE  style="width: 235mm; border-right:1px solid black; border-bottom:1px solid black; border-collapse: collapse;">
+                    <TR>
+                        <td style="width:100mm;border: 1px solid #000000;" align="left" ROWSPAN="1" ><strong>Dispatch to:</strong><br/>
+                                        <span class="inline" t-field="o.billing_id.name"/><br/>
+                                        <span class="inline" t-field="o.billing_id.street"/> <br/>
+                                        <span class="inline" t-field="o.billing_id.street2"/> <br/>
+                                        <span class="inline" t-field="o.billing_id.city"/>,
+                                        <span class="inline" t-field="o.billing_id.state_id"/>
+                                    </td>
+                                
+                        <td style="border: 1px solid #000000;" ><strong> Terms of delivery :</strong><br/><span t-field="o.terms_delivery"/></td>
+                    </TR>
+            </TABLE>   
+                    
+                    
+                    <!--
+                        <table align="left" style="width: 113.5mm; border:1px solid black;height:30mm">
+                            <tr>
+                                <td style="width: 62mm; border:1px solid black" ><strong>Customer :</strong><br/>
+                                    <span class="inline" t-field="o.customer_id.name"/><br/>
+                            <span class="inline" t-field="o.customer_id.street"/> ,
+                            <span class="inline" t-field="o.customer_id.street2"/> <br/>
+                            <span class="inline" t-field="o.customer_id.city"/>,
+                            <span class="inline" t-field="o.customer_id.state_id"/><br/>
+                            
+                        </td>
+                                
+                                <table align="right" style="width:115.2mm; border:1px solid black;height:30mm"> 
+                                        <tr>
+                                            <td style="width: 62mm; border:1px solid white" ><strong>VAT TIN :</strong><span t-field="o.customer_id.tin_no"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 62mm; border:1px solid white" ><strong>CST NO  :</strong><span t-field="o.customer_id.cst_no"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 62mm; border:1px solid white" ><strong>Drug lisc No:</strong></td>
+                                        </tr>
+                                   
+                                    <table align="right" style="width:115.2mm; border:1px solid black;height:30mm">
+                                
+                                        <tr>
+                                            <td style="width: 62mm; border:1px solid white" ><strong>Invoice No:</strong><span class="inline" t-field="o.invoice_no"/></td>
+                                        </tr>
+                                            <tr>
+                                            <td style="width: 62mm; border:1px solid white" ><strong>Invoice Date :</strong><span class="inline" t-field="o.invoice_date"/></td>
+                                        </tr>
+                                            <tr>
+                                            <td style="width: 62mm; border:1px solid white" ><strong>Customer Order No :</strong><span class="inline" t-field="o.reference_no"/></td>
+                                        </tr>
+                                    <table align="left" style="width: 113.5mm; border:1px solid black;height:30mm">
+                                        <tr>
+                                            <td style=" border:1px solid black" ><strong>Dispatch to:</strong><span class="inline" t-field="o.billing_id.name"/><br/>
+                                            <span class="inline" t-field="o.billing_id.street"/> <br/>
+                                            <span class="inline" t-field="o.billing_id.street2"/> <br/>
+                                            <span class="inline" t-field="o.billing_id.city"/>,
+
+                                            <span class="inline" t-field="o.billing_id.tin_no"/>
+                                        </td>
+                                        </tr>
+                                            </table>
+                                        </table>
+                                    </table>
+                                </tr>
+                            </table>
+        -->
+        
+        <table  class="table table-condensed" style="width: 235mm;border:1px solid black;">
+            <thead>
+                  <tr>
+                     <th class="text-center" style="border: 1px solid #000000;"> <strong>S.NO</strong></th>  
+                     <th class="text-center" style="border: 1px solid #000000;"> <strong>Product</strong></th>
+                     <th class="text-center" style="border: 1px solid #000000;"> <strong>UOM</strong></th>  
+                     <th class="text-center" style="border: 1px solid #000000;"> <strong>Batch No</strong></th>
+                     <th class="text-center" style="border: 1px solid #000000;"> <strong>MFG Date</strong></th>  
+                     <th class="text-center" style="border: 1px solid #000000;"> <strong>Expiry Date</strong></th>
+                     <th class="text-center" style="border: 1px solid #000000;"> <strong>MRP </strong></th>  
+                     <th class="text-center" style="border: 1px solid #000000;"> <strong>Qty</strong></th>  
+                     <th class="text-center" style="border: 1px solid #000000;"> <strong> Price</strong></th>
+                     <th class="text-center" style="border: 1px solid #000000;"> <strong>Total</strong></th> 
+                 </tr>
+            </thead>
+            <tr t-foreach="o.grid_id" t-as="line" >
+                <td class="col-xs-1;text-center" style="border: 1px solid #000000;">
+                    <span t-esc="line_index+1"/>
+                </td>
+                <td style="border:1px solid #000000">
+                    <span t-field="line.product_id"/>
+                </td>
+                <td style="border:1px solid #000000">
+                    <span t-field="line.uom_id"/>
+                </td>
+                <td style="border:1px solid #000000">
+                    <span t-field="line.batch_no"/>
+                </td>
+                <td style="border:1px solid #000000">
+                    <span t-field="line.mfg_date"/>
+                </td>
+               <td style="border:1px solid #000000">
+                    <span t-field="line.exp_date"/>
+                </td>
+                <td style="border:1px solid #000000">
+                    <span t-field="line.mrp" t-esc="'%.3f'% line.mrp"/>
+                </td>
+                <td  class="text-right"  style="border:1px solid #000000">
+                    <span t-field="line.quantity" t-esc="'%.3f'% line.quantity"/>
+                </td>
+                
+                <td class="text-right"  style="border:1px solid #000000">
+                    <span t-field="line.unit_price" t-esc="'%.3f'% line.unit_price"/>
+                </td>
+                <td style="border:1px solid #000000">
+                    <span t-field="line.total"/>
+                </td>
+            </tr>
+       </table>
+
+        <table style="width: 235mm;border:1px solid black;">   
+        <tr style="border: 1px solid white;">
+            <td align="left"><strong> Bank Details:</strong></td>
+            <td align="left" ><span t-field="o.bank_details" /></td>  
+        </tr>
+         <tr style="border: 1px solid white;">
+            <td style="width: 62mm; border:1px solid white" ><strong> Dispatch Through:</strong><span t-field="o.dispatch_through"/></td>
+            <td align="right"><b>BED Amt Paid:</b><span t-field="o.new_bed_amt" t-esc="'%.3f'% o.new_bed_amt"/></td>
+        </tr>
+        <tr style="border: 1px solid white;">
+            <td align="left" ><strong>From :</strong><span class="inline" t-field="o.company_address.name"/>,<span class="inline" t-field="o.company_address.city"/></td>
+            <td align="right"><strong>CST @<span t-field="o.new_cst_percent"/>(%):</strong><span t-field="o.new_cst_value" t-esc="'%.3f'% o.new_cst_value"/></td>
+           <!-- <td align="right"><font style="padding-right:5cm;"><span t-field="o.new_cst_value" t-esc="'%.3f'% o.new_cst_value"/></font></td>-->
+        </tr>
+         
+        
+        <tr>
+            <td style="width: 62mm; border:1px solid white" ><strong>Tax Invoice No  :</strong><span t-field="o.invoice_no"/></td>
+            <td align="right"><b>Total CST: </b><span t-field="o.new_total_cst" t-esc="'%.3f'% o.new_total_cst"/></td>
+        </tr>
+            
+        
+        <tr>
+            <td align="left" ><strong>L.R/R.R NO and Date:</strong></td>
+        </tr>  
+             <tr >
+                <td align="left" ><strong>No of Cases:</strong></td>
+                </tr><br/>
+            <tr>
+                <td align="left" ><strong>Payment Terms:</strong><span t-field="o.terms_payment"/></td>
+            </tr><br/>
+            <tr >
+                <td align="left" ><strong>G.S.T No :</strong><span t-field="o.customer_id.gst"/></td>
+            </tr><br/>
+            <tr >
+                <td align="left" ><strong>C.S.T No:</strong><span t-field="o.customer_id.cst_no"/></td>
+            </tr><br/>
+            <tr >
+                <td align="left" ><strong>D.I No:</strong></td>
+            </tr> 
+            <tr >
+                <td align="left" ><strong>PAN NO:</strong><span t-field="o.customer_id.pan_no"/></td>
+            </tr> 
+        </table>
+            
+             <table style="width: 235mm;border: 1px solid white;">
+            <tr>
+                <td ><b>Final Grand Total:</b><span t-field="o.final_grand_total"  t-esc="'%.3f'% o.final_grand_total"/></td> 
+            </tr>
+            </table>
+            
+            <table style="width: 235mm;border: 1px solid white;">
+            <tr>
+             <td><b>Words:</b><font style="padding-right:8cm;"><span t-field="o.fomulation_commercial_final_grand_total_in_words"/></font></td>
+             </tr>
+            </table>
+            <!--<table style="width: 229mm;">        
+                <tr style="border: 1px solid white;">    
+                    <td align="left"><strong>Words:</strong></td>
+                    <td align="left"><font style="padding-right:10cm;"><span t-field="o.commercial_sales_invoice_amount_in_words"/></font></td>
+                </tr>
+        </table>-->
+           
+           
+    
+        
+       <table style="width: 235mm; border:1px solid white; border-collapse: collapse;">
+                        <tr>
+                           <td align="center" style="color:white;">.</td>                            
+                        </tr>
+                          <tr>
+                                <td align="right"><strong>For PRAKRUTI PRODUCT PVT LTD</strong></td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="color:white;">.</td>                            
+                        </tr>
+                         <tr>
+                                <td align="right">Authorized Signatory</td>
+                            </tr>
+            </table>
+         <!-- <table align="center" >
+            <tr>
+                <td align ="center" style="padding-left:6cm;"> Subject to Karwar Jurisdiction</td> 
+            </tr>
+    </table>-->
+    </div>
+</t>
+
+
+
+ <t t-name="report.external_layout_footer">
+                <div class="footer">
+                    <div class="text-center" style=" width: 235mm;">
+                        <ul class="list-inline">
+                            <li><strong>This is a Computer Generated Invoice</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </t>
+
+</template>
+                
+               
+<template id="report_sales_invoice12">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="prakruti.report_sales_invoice12_document" />
+            </t>
+        </t>
+        
+</template>
+
+</data>
+</openerp>
+
+                      

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+ <data> 
+        <!-- Search View for Stock Adjustments -->
+        <record model="ir.ui.view" id="view_prakruti_stock_adjustments_search">
+            <field name="name">Stock Adjustments</field>
+            <field name="model">prakruti.stock_adjustments</field>
+            <field name="arch" type="xml">
+                <search string="Search">
+                    <field name="adjustment_name"/>
+                    <field name="company_id"/>
+                    <field name='product_id'/>
+                    <field name="status"/>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Tree View for Stock Adjustments -->
+        <record model="ir.ui.view" id="view_prakruti_stock_adjustments_tree">
+            <field name="name">Stock Adjustments</field>
+            <field name="model">prakruti.stock_adjustments</field>
+            <field name="arch" type="xml">
+                <tree string="Stock Adjustments">
+                    <field name="adjustment_name"/>
+                    <field name="entered_date"/>
+                    <field name="company_id"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Form View for Stock Adjustments -->
+        <record model="ir.ui.view" id="view_prakruti_stock_adjustments_form">
+            <field name="name">Stock Adjustments</field>
+            <field name="model">prakruti.stock_adjustments</field>
+            <field name="arch" type="xml">
+                <form string="Stock Adjustments">
+                    <sheet>
+                        <header position ='inside'>
+                            <button name="action_done" string="Done" type="object" attrs="{'invisible':[('status', 'in', ('done'))]}"/>
+                            <button name="%(report_all_product_details)d" string="Print All Products" type="action" icon="gtk-print"/>
+                            <field name='status' widget='statusbar'/>
+                        </header>
+                        <group colspan="4" col="4">
+                            <field name="adjustment_name" attrs="{'readonly':[('status', 'in', ('done'))]}"/>
+                            <field name="company_id" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" attrs="{'readonly':[('status', 'in', ('done'))]}"/>
+                            <field name="location_id" attrs="{'readonly':[('status', 'in', ('done'))]}"/>
+                            <field name="entered_date" attrs="{'readonly':[('status', 'in', ('done'))]}"/>
+                            <button name="list_all_products" string="List My Products" type="object" attrs="{'invisible':[('list_flag', '=', 1)]}"/>
+                            <button name="delete_all_products" string="Refresh" type="object" attrs="{'invisible':[('list_flag', '=', 0)]}"/>
+                            <field name="list_flag" invisible= '1'/>
+                        </group>
+                        <notebook>
+                            <page string='Product Details'>
+                                <field name='adjustment_line' attrs="{'readonly':[('status', 'in', ('done'))]}">
+                                    <tree editable='bottom' >
+                                        <field name='product_id' on_change="onchange_product(product_id)" options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" />
+                                        <field name='description'/>
+                                        <field name='uom_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" />
+                                        <field name='stock_qty'/>
+                                        <field name="real_qty"/>
+                                        <field name="actual_qty"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string='All Product Details' attrs="{'invisible':[('list_flag', '=', 0)]}">
+                                <field name='product_line' readonly='1'>
+                                    <tree>
+                                        <field name='item_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" />
+                                        <field name='name_template' invisible= '1'/>
+                                        <field name='item_uom_id' options="{'no_create': True, 'no_open': True, 'no_create_edit' : True}" />
+                                        <field name="item_uom" invisible= '1'/>
+                                        <field name='item_quantity'/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>  
+        
+        <!-- Action for Stock Adjustments -->
+        <record model="ir.actions.act_window" id="prakruti_stock_adjustments_action">
+            <field name="name">Stock Adjustments</field>
+            <field name="res_model">prakruti.stock_adjustments</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+      
+        <!-- Menu for Stock Adjustments -->
+        <menuitem
+            id="prakruti_stock_adjustments_main_menu" 
+            name="Stock Adjustments" 
+            parent="prakruti_stores_main_menu" 
+            sequence="1"
+            />
+        
+	<menuitem
+            action="prakruti_stock_adjustments_action" 
+            id="prakruti_stock_adjustments_sub_menu" 
+            name="Stock Adjustments" 
+            parent="prakruti_stock_adjustments_main_menu" 
+            sequence="1"  
+            groups="group_prakruti_stock_adjustments_read_only,group_prakruti_stock_adjustments_edit,group_prakruti_stock_adjustments_create,group_prakruti_stock_adjustments_delete" 
+             />
+        
+        
+    </data>
+</openerp>
